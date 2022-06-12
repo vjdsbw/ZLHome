@@ -2,7 +2,8 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "优选Home"
+			"navigationBarTitleText": "优选Home",
+			"enablePullDownRefresh": false
 		}
 	}, {
 		"path": "pages/sort/sort",
@@ -33,6 +34,9 @@
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {
 			"background": "#efeff4"
+		},
+		"usingComponents": {
+			"van-button": "/wxcomponents/vant/dist/button/index"
 		}
 	},
 	"tabBar": {
@@ -41,27 +45,28 @@
 		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "首页",
-				"iconPath": "static/icon/home.png",
-				"selectedIconPath": "static/icon/home-active.png"
+				"iconPath": "static/icon/index.png",
+				"selectedIconPath": "static/icon/index-active.png"
 			},
 			{
 				"pagePath": "pages/sort/sort",
 				"text": "分类",
-				"iconPath": "static/icon/news.png",
-				"selectedIconPath": "static/icon/news-active.png"
+				"iconPath": "static/icon/sort.png",
+				"selectedIconPath": "static/icon/sort-active.png"
 			},
 			{
 				"pagePath": "pages/brand/brand",
 				"text": "品牌馆",
-				"iconPath": "static/icon/cart.png",
-				"selectedIconPath": "static/icon/cart-active.png"
+				"iconPath": "static/icon/brand.png",
+				"selectedIconPath": "static/icon/brand-active.png"
 			},
 			{
 				"pagePath": "pages/me/me",
 				"text": "我的",
-				"iconPath": "static/icon/member.png",
-				"selectedIconPath": "static/icon/member-active.png"
+				"iconPath": "static/icon/me.png",
+				"selectedIconPath": "static/icon/me-active.png"
 			}
 		]
 	}
+	
 }
