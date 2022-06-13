@@ -1,6 +1,196 @@
-
-.container {
-		padding: 20px;
-		font-size: 14px;
-		line-height: 24px;
+.active.data-v-57280228 {
+  border-bottom: 2px solid red;
+}
+.container.data-v-57280228 {
+  background-color: white;
+}
+.container .header.data-v-57280228 {
+  height: 500rpx;
+  width: 100%;
+  position: relative;
+  background-color: #e62a29;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+.container .header .title.data-v-57280228 {
+  padding-left: 20rpx;
+  padding-top: 50rpx;
+  color: white;
+}
+.container .header .uni-form-item.data-v-57280228 {
+  margin-top: 50rpx;
+  display: flex;
+}
+.container .header .uni-form-item .uni-input.data-v-57280228 {
+  flex: 3;
+  border-radius: 10px;
+  background-color: white;
+  margin-left: 10rpx;
+  color: lightgray;
+}
+.container .header .swiper-box.data-v-57280228 {
+  margin-top: 50rpx;
+  margin-left: 40rpx;
+}
+.container .header .swiper-box image.data-v-57280228 {
+  box-shadow: 10px 10px 10px #888;
+}
+.container .body.data-v-57280228 {
+  display: flex;
+  margin-top: 70rpx;
+}
+.container .body .bed.data-v-57280228 {
+  flex: 1;
+  text-align: center;
+}
+.container .body .bed image.data-v-57280228 {
+  width: 100rpx;
+  height: 100rpx;
+}
+.container .transition.data-v-57280228 {
+  width: 100%;
+  height: 20rpx;
+  background-color: lightgray;
+  margin-top: 70rpx;
+  margin-bottom: 30rpx;
+}
+.container .goodChoice .goodsheader.data-v-57280228 {
+  text-align: center;
+}
+.container .goodChoice .goodsheader .t1.data-v-57280228 {
+  margin-left: 30rpx;
+  float: left;
+  font-size: 40rpx;
+}
+.container .goodChoice .goodsheader .a.data-v-57280228 {
+  margin-right: 10rpx;
+  color: gray;
+  float: right;
+}
+.container .goodChoice .newimage.data-v-57280228 {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: gray;
+  height: 300rpx;
+}
+.container .goodChoice .newimage .addition.data-v-57280228 {
+  display: flex;
+  align-items: center;
+}
+.container .goodChoice .newimage .addition image.data-v-57280228 {
+  flex: 1;
+  width: 400rpx;
+  height: 300rpx;
+  margin-left: 30rpx;
+}
+.container .goodChoice .newimage .addition .brand.data-v-57280228 {
+  width: 200rpx;
+  height: 40rpx;
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 24rpx;
+  border-bottom-right-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  position: relative;
+  left: 30rpx;
+  bottom: 70rpx;
+}
+.container .goodChoice .newimage .addition .goodsdesc.data-v-57280228 {
+  margin-left: 30rpx;
+}
+.container .goodChoice .newimage .addition .goodsdesc .as1.data-v-57280228 {
+  margin-top: 10rpx;
+  color: black;
+  font-weight: bold;
+}
+.container .modernbrands.data-v-57280228 {
+  margin-top: 120rpx;
+  margin-left: 30rpx;
+}
+.container .modernbrands .m1.data-v-57280228 {
+  font-size: 48rpx;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+}
+.container .modernbrands .m2.data-v-57280228 {
+  font-size: 20rpx;
+  color: gray;
+  margin-bottom: 20rpx;
+}
+.container .modernbrands .showbrandfar.data-v-57280228 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.container .modernbrands .showbrandfar :first-child image.data-v-57280228 {
+  width: 700rpx;
+}
+.container .modernbrands .showbrandfar.data-v-57280228 :nth-child(2n+1) {
+  margin-right: 10rpx;
+}
+.container .modernbrands .showbrandfar :not(:first-child) image.data-v-57280228 {
+  width: 330rpx;
+  height: 300rpx;
+}
+.container .modernbrands .showbrand.data-v-57280228 {
+  background-image: url("https://img001.tianyingmeijia.com/upload/page/20200924/1600932293EAc4bq7mNy/cmVzaXplLHdfNzUw/2fe316c24c098de31903f4cccc8129bf.jpg");
+}
+.container .modernbrands .showbrand .showtext.data-v-57280228 {
+  width: 12em;
+  overflow: hidden;
+  /* 显示省略符号来代表被修剪的文本。 */
+  text-overflow: ellipsis;
+  /* 文本不换行 */
+  white-space: nowrap;
+  font-size: 28rpx;
+  color: gray;
+  margin-bottom: 20rpx;
+}
+.container .modernbrands .newimage.data-v-57280228 {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: gray;
+  height: 320rpx;
+}
+.container .modernbrands .newimage .i1.data-v-57280228 {
+  width: 200rpx;
+  height: 150rpx;
+  margin-left: 20rpx;
+}
+.container .modernbrands .newimage .i2.data-v-57280228 {
+  width: 200rpx;
+  height: 80rpx;
+  margin-left: 20rpx;
+}
+.container .modernbrands .newimage .tips.data-v-57280228 {
+  margin-left: 20rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.container .cate.data-v-57280228 {
+  display: flex;
+  text-align: center;
+}
+.container .newbrands.data-v-57280228 {
+  height: 350rpx;
+  background-color: white;
+  margin-top: 30rpx;
+}
+.container .newbrands .newimage.data-v-57280228 {
+  display: flex;
+  align-items: center;
+}
+.container .newbrands .newimage image.data-v-57280228 {
+  flex: 1;
+  width: 400rpx;
+  height: 300rpx;
+  margin-left: 30rpx;
+}
+.container .newbrands .newimage .tips.data-v-57280228 {
+  font-size: 28rpx;
+  color: gray;
+  text-align: center;
 }
