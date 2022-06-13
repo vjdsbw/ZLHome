@@ -82,7 +82,6 @@
 				<view class="m1">
 					{{item.desc.split("|").join("")}}
 				</view>
-
 				<view class="m2">
 					{{item.desc_t}}
 				</view>
@@ -119,12 +118,19 @@
 
 		<!-- 分类 -->
 		<view class="cate">
-			<van-tabs v-model:active="active">
-			  <van-tab title="标签 1">内容 1</van-tab>
-			  <van-tab title="标签 2">内容 2</van-tab>
-			  <van-tab title="标签 3">内容 3</van-tab>
-			  <van-tab title="标签 4">内容 4</van-tab>
-			</van-tabs>
+			<view v-for="(item,idx) in catelist" :key="item.id">
+				<view class="title" :class="{cateactive:currentIndex2===idx}" @click="choosecate(idx)">
+					<view class="t1">
+						{{item.desc}}
+					</view>
+					<view class="t2">
+						{{item.desc_t}}
+					</view>
+				  <view class="dot">
+				  	
+				  </view>
+				</view>
+			</view>
 		</view>
 
 	</view>
@@ -135,7 +141,7 @@
 		requestGet,
 		requestPost
 	} from '@/common/js/http.js'
-	
+
 	export default {
 		data() {
 			return {
@@ -150,18 +156,19 @@
 				newbrands: [],
 				viewto: "",
 				currentIndex: 0,
+				currentIndex2: 0,
 				brandlists: [],
 				catelist: [],
-				active: "keting"
 			}
 		},
 		created() {
 			this.getSwipers();
 		},
 		methods: {
-changeactive(name){
-	console.log(name);
-},
+			choosecate(id) {
+				console.log(id);
+				this.currentIndex2 = id
+			},
 			jumpTo(id) {
 
 				this.viewto = "s" + id
@@ -213,7 +220,7 @@ changeactive(name){
 			onKeyInput: function(event) {
 				this.keywords = event.detail.value
 			},
-		
+
 			//搜索框功能的实现
 			async search() {
 				let result = await requestGet(`/api/api/search?keywords=` + this.keywords);
@@ -452,18 +459,48 @@ changeactive(name){
 				.tips {
 					margin-left: 20rpx;
 					white-space: nowrap;
-
 					overflow: hidden;
-
 					text-overflow: ellipsis;
 				}
 
 			}
 		}
-           .cate{
-			   display: flex;
-			   text-align: center;
-		   }
+
+		.cate {
+			display: flex;
+			text-align: center;
+            .title{
+			
+				margin: 10rpx 30rpx;
+				.t1{
+						font-size: 30rpx;
+				}
+				.t2{
+					font-size: 20rpx;
+					color: #888;
+				}
+			
+			}
+			.cateactive{
+			.t1{
+					font-size: 40rpx;
+					color: red;
+			}
+			.t2{
+				color: red;
+			}
+			.dot{
+				width: 10rpx;
+				height: 10rpx;
+				background-color: red;
+				border-radius: 10rpx;
+				position: relative;
+				left: 50%;
+			}
+			}
+			
+		}
+
 		.newbrands {
 			height: 350rpx;
 			background-color: white;

@@ -15,17 +15,18 @@ const _sfc_main = {
       newbrands: [],
       viewto: "",
       currentIndex: 0,
+      currentIndex2: 0,
       brandlists: [],
-      catelist: [],
-      active: "keting"
+      catelist: []
     };
   },
   created() {
     this.getSwipers();
   },
   methods: {
-    changeactive(name) {
-      console.log(name);
+    choosecate(id) {
+      console.log(id);
+      this.currentIndex2 = id;
     },
     jumpTo(id) {
       this.viewto = "s" + id;
@@ -97,9 +98,7 @@ if (!Array) {
   const _easycom_uni_swiper_dot2 = common_vendor.resolveComponent("uni-swiper-dot");
   const _easycom_uni_list_item2 = common_vendor.resolveComponent("uni-list-item");
   const _easycom_uni_list2 = common_vendor.resolveComponent("uni-list");
-  const _component_van_tab = common_vendor.resolveComponent("van-tab");
-  const _component_van_tabs = common_vendor.resolveComponent("van-tabs");
-  (_easycom_uni_icons2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2 + _component_van_tab + _component_van_tabs)();
+  (_easycom_uni_icons2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2)();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 const _easycom_uni_swiper_dot = () => "../../uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.js";
@@ -200,21 +199,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: index
       };
     }),
-    w: common_vendor.p({
-      title: "\u6807\u7B7E 1"
-    }),
-    x: common_vendor.p({
-      title: "\u6807\u7B7E 2"
-    }),
-    y: common_vendor.p({
-      title: "\u6807\u7B7E 3"
-    }),
-    z: common_vendor.p({
-      title: "\u6807\u7B7E 4"
-    }),
-    A: common_vendor.o(($event) => $data.active = $event),
-    B: common_vendor.p({
-      active: $data.active
+    w: common_vendor.f($data.catelist, (item, idx, i0) => {
+      return {
+        a: common_vendor.t(item.desc),
+        b: common_vendor.t(item.desc_t),
+        c: $data.currentIndex2 === idx ? 1 : "",
+        d: common_vendor.o(($event) => $options.choosecate(idx)),
+        e: item.id
+      };
     })
   };
 }

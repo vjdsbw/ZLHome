@@ -174,6 +174,31 @@
   display: flex;
   text-align: center;
 }
+.container .cate .title.data-v-57280228 {
+  margin: 10rpx 30rpx;
+}
+.container .cate .title .t1.data-v-57280228 {
+  font-size: 30rpx;
+}
+.container .cate .title .t2.data-v-57280228 {
+  font-size: 20rpx;
+  color: #888;
+}
+.container .cate .cateactive .t1.data-v-57280228 {
+  font-size: 40rpx;
+  color: red;
+}
+.container .cate .cateactive .t2.data-v-57280228 {
+  color: red;
+}
+.container .cate .cateactive .dot.data-v-57280228 {
+  width: 10rpx;
+  height: 10rpx;
+  background-color: red;
+  border-radius: 10rpx;
+  position: relative;
+  left: 50%;
+}
 .container .newbrands.data-v-57280228 {
   height: 350rpx;
   background-color: white;
