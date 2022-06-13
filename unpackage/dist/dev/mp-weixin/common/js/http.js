@@ -3,7 +3,12 @@ var common_vendor = require("../vendor.js");
 const baseUrl = "https://m.meijiavip.com";
 function requestGet(url, params) {
   return new Promise((resolve, reject) => {
-    url = baseUrl + `/api` + url.split("/api")[2];
+    if (url.split("/api").length == 2) {
+      url = baseUrl + url.split("/api")[url.split("/api").length - 1];
+    } else {
+      url = baseUrl + `/api` + url.split("/api")[url.split("/api").length - 1];
+    }
+    console.log(url);
     common_vendor.index.request({
       url,
       method: "GET",

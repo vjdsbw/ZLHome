@@ -26,7 +26,25 @@
 			"enablePullDownRefresh": false
 		}
 
-	}],
+	}    ,{
+            "path" : "pages/brand_goods/brand_goods",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/gooddetail/gooddetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "佐罗优选",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
