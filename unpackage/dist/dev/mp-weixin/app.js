@@ -8,6 +8,9 @@ if (!Math) {
   "./pages/sort/sort.js";
   "./pages/brand/brand.js";
   "./pages/me/me.js";
+  "./pages/login/login.js";
+  "./pages/set/set.js";
+  "./pages/search/search.js";
 }
 const _sfc_main = {
   onLaunch: function() {

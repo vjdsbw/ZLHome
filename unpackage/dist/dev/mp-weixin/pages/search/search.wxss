@@ -1,0 +1,75 @@
+.search .header.data-v-4cedc0c6 {
+  height: 50px;
+  border-bottom: 1px solid lightgrey;
+  background-color: white;
+  position: relative;
+}
+.search .header .text-search.data-v-4cedc0c6 {
+  height: 30px;
+  line-height: 30px;
+  width: 300px;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+}
+.search .header .text-search .iconfont.data-v-4cedc0c6 {
+  float: left;
+  margin-left: 10px;
+}
+.search .header .text-search .search-input.data-v-4cedc0c6 {
+  margin-top: 3px;
+}
+.search .header .header-right.data-v-4cedc0c6 {
+  position: absolute;
+  font-weight: 500;
+  left: 330px;
+  top: 13px;
+}
+.search .hot.data-v-4cedc0c6 {
+  height: 200px;
+  border-bottom: 1px solid lightgrey;
+  background-color: white;
+  margin-top: 3px;
+  position: relative;
+}
+.search .hot .hot-search.data-v-4cedc0c6 {
+  font-weight: 600;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 35px;
+  line-height: 35px;
+}
+.search .hot .hot-list.data-v-4cedc0c6 {
+  margin-left: 10px;
+}
+.search .hot .hot-list .text.data-v-4cedc0c6 {
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  margin: 5px 10px ;
+  padding: 0 auto;
+  background-color: #f0f0f0;
+  float: left;
+}
+.search .history.data-v-4cedc0c6 {
+  margin-top: 10px;
+  background-color: white;
+}
+.search .history .history-search.data-v-4cedc0c6 {
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 35px;
+  line-height: 35px;
+}
+.search .history .history-search .trash.data-v-4cedc0c6 {
+  float: right;
+}
+.search .history .item.data-v-4cedc0c6 {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 15px;
+  border-top: 1px solid lightgray;
+}
