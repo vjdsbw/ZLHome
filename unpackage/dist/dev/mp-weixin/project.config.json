@@ -30,6 +30,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+<<<<<<< mengna
     "disableUseStrict": false,
     "useCompilerPlugins": false
   },
@@ -53,6 +54,45 @@
     "miniprogram": {
       "current": -1,
       "list": []
+=======
+    "setting": {
+        "urlCheck": false,
+        "es6": true,
+        "coverView": true,
+        "postcss": true,
+        "lazyloadPlaceholderEnable": false,
+        "preloadBackgroundData": false,
+        "minified": true,
+        "autoAudits": false,
+        "uglifyFileName": false,
+        "uploadWithSourceMap": true,
+        "enhance": true,
+        "useMultiFrameRuntime": true,
+        "showShadowRootInWxmlPanel": true,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "useStaticServer": true,
+        "showES6CompileOption": false,
+        "checkInvalidKey": true,
+        "compileHotReLoad": false,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "disableUseStrict": false,
+        "useCompilerPlugins": false
+    },
+    "compileType": "miniprogram",
+    "libVersion": "2.24.5",
+    "appid": "wx73d3630f41d47a4b",
+    "projectname": "ZLHome",
+    "condition": {},
+    "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 4
+>>>>>>> master
     }
   },
   "editorSetting": {

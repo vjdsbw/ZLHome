@@ -8,7 +8,7 @@ function requestGet(url, params) {
     } else {
       url = baseUrl + `/api` + url.split("/api")[url.split("/api").length - 1];
     }
-    console.log(url);
+
     common_vendor.index.request({
       url,
       method: "GET",
@@ -24,7 +24,11 @@ function requestGet(url, params) {
 }
 function requestPost(url, params) {
   return new Promise((resolve, reject) => {
-    url = baseUrl + url.split("/api")[1];
+    if (url.split("/api").length == 2) {
+      url = baseUrl + url.split("/api")[url.split("/api").length - 1];
+    } else {
+      url = baseUrl + `/api` + url.split("/api")[url.split("/api").length - 1];
+    }
     common_vendor.index.request({
       url,
       header: {
