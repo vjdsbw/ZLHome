@@ -1,4 +1,5 @@
 <template>
+
 	<view class="container">
 		<!--如果isFixed为true的话，就添加class is_fixed 设置固定定位-->
 		<view id="boxFixed" v-if="is_fixed == true" class="topfixed">
@@ -163,6 +164,7 @@
 
 		</view>
 
+
 	</view>
 </template>
 
@@ -174,6 +176,7 @@
 
 	export default {
 		data() {
+
 			return {
 				keywords: '',
 				category_list: [],
@@ -206,6 +209,7 @@
 			this.getSwipers();
 			this.getgoodList()
 		},
+
 		methods: {
 			async getgoodList() {
 				var temp = this.choosebrandlist[this.currentIndex2]
@@ -285,9 +289,6 @@
 
 				this.catelist = brandlist.data.cat_tab
 			},
-			onKeyInput: function(event) {
-				this.keywords = event.detail.value
-			},
 		},
 		onPageScroll(res) {
 			if (res.scrollTop >= 100) {
@@ -307,6 +308,7 @@
 
 	}
 </script>
+
 
 <style lang="less" scoped>
 	/deep/ .is-input-border {
@@ -712,4 +714,5 @@
 
 		}
 	}
+
 </style>
