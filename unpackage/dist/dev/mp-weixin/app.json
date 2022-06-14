@@ -3,10 +3,20 @@
     "pages/index/index",
     "pages/sort/sort",
     "pages/brand/brand",
-    "pages/me/me"
-  ],
+
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index"
+
+    "pages/me/me",
+    "pages/search/search",
+    "pages/good/good"
+  ],
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
+
+
   },
   "window": {
     "navigationBarTextStyle": "black",
@@ -43,6 +53,8 @@
         "selectedIconPath": "static/icon/me-active.png"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json"
+
+
+  }
+
 }

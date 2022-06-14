@@ -8,6 +8,11 @@ if (!Math) {
   "./pages/sort/sort.js";
   "./pages/brand/brand.js";
   "./pages/me/me.js";
+
+  "./pages/good/good.js";
+
+  "./pages/search/search.js";
+
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -21,7 +26,12 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
-var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/App.vue"]]);
+
+
+
+var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "F:/zuolo/App.vue"]]);
+
+
 function createApp() {
   const app = common_vendor.createSSRApp(App);
   app.use(store_index.store);
