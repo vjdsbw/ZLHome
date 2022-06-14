@@ -51,6 +51,7 @@
 		},
 		updated() {
 			let result = uni.getStorageSync('user');
+			console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			if(result){
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
