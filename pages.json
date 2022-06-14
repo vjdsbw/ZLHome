@@ -27,7 +27,6 @@
 			}
 
 		}, {
-
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
@@ -58,6 +57,7 @@
 
 		},
 		{
+
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -92,6 +92,15 @@
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
+
+				"enablePullDownRefresh": false
+
+			}
+
+		}, {
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 
@@ -112,8 +121,9 @@
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
 			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
-
+			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
+			"van-area": "/wxcomponents/vant/dist/area/index",
+			"van-picker": "/wxcomponents/vant/dist/picker/index"
 		}
 	},
 	"tabBar": {
@@ -145,4 +155,5 @@
 			}
 		]
 	}
-},
+
+}

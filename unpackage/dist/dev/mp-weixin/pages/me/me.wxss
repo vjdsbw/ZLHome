@@ -1,0 +1,90 @@
+.file-picker__box-content.data-v-259fb574 {
+  width: 200px;
+  height: 200px;
+}
+.me.data-v-259fb574 .herder {
+  width: 100vh;
+  height: 300rpx;
+  background-color: red;
+  position: relative;
+}
+.me.data-v-259fb574 .herder .portrait {
+  width: 200rpx;
+  height: 200rpx;
+  position: absolute;
+  left: 50rpx;
+  top: 50rpx;
+  background-color: gainsboro;
+  box-sizing: border-box;
+  border-radius: 50% 50%;
+}
+.me.data-v-259fb574 .herder .portrait image {
+  width: 100%;
+  border-radius: 50% 50%;
+  height: 100%;
+  position: absolute;
+  left: -50rpx;
+  top: -50rpx;
+  object-fit: cover;
+}
+.me.data-v-259fb574 .herder image {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 25px 25px;
+  background-size: 100% 100%;
+}
+.me .login.data-v-259fb574 {
+  font-size: 20px;
+  color: white;
+  text-decoration: underline;
+  position: absolute;
+  top: 60px;
+  left: 130px;
+}
+.me .set.data-v-259fb574 {
+  position: absolute;
+  top: 10px;
+  left: 330px;
+}
+.body.data-v-259fb574 {
+  margin-top: 10px;
+  background-color: white;
+}
+.body .order.data-v-259fb574 {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid lightgray;
+  position: relative;
+}
+.body .order .icon.data-v-259fb574 {
+  padding: 6px;
+}
+.body .order .right.data-v-259fb574 {
+  position: absolute;
+  left: 350px;
+}
+.body .shoucang.data-v-259fb574 {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid lightgray;
+  position: relative;
+}
+.body .shoucang .icon.data-v-259fb574 {
+  padding: 6px;
+}
+.body .shoucang .right.data-v-259fb574 {
+  position: absolute;
+  left: 350px;
+}
+.body .pingjia.data-v-259fb574 {
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+}
+.body .pingjia .icon.data-v-259fb574 {
+  padding: 6px;
+}
+.body .pingjia .right.data-v-259fb574 {
+  position: absolute;
+  left: 350px;
+}

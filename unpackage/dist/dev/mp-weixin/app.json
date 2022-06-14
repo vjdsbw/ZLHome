@@ -12,7 +12,8 @@
     "pages/search/search",
     "pages/useredit/useredit",
     "pages/setnickname/setnickname",
-    "pages/order/order"
+    "pages/order/order",
+    "pages/address/address"
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
@@ -21,7 +22,9 @@
     "van-cell": "/wxcomponents/vant/dist/cell/index",
     "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
     "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
+    "van-area": "/wxcomponents/vant/dist/area/index",
+    "van-picker": "/wxcomponents/vant/dist/picker/index"
   },
   "window": {
     "navigationBarTextStyle": "black",
@@ -58,5 +61,6 @@
         "selectedIconPath": "static/icon/me-active.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

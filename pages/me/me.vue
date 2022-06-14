@@ -1,4 +1,5 @@
 <template>
+
 	<view class="me">
 		<view class="herder">
 
@@ -25,9 +26,11 @@
 				评价晒单
 				<uni-icons class="right" type="right" size="20"></uni-icons>
 			</view>
+
 		</view>
 	</view>
 </template>
+
 
 <script>
 	import {
@@ -146,6 +149,7 @@
 						})
 					},2000)					
 				}
+
 			}
 		}
 	}
@@ -259,5 +263,6 @@
 				left: 350px
 			}
 		}
+
 	}
 </style>
