@@ -8,6 +8,7 @@ function requestGet(url, params) {
     } else {
       url = baseUrl + `/api` + url.split("/api")[url.split("/api").length - 1];
     }
+
     common_vendor.index.request({
       url,
       method: "GET",
