@@ -33,7 +33,6 @@ function makeMap(str, expectsLowerCase) {
   }
   return expectsLowerCase ? (val) => !!map[val.toLowerCase()] : (val) => !!map[val];
 }
-
 function normalizeStyle(value) {
   if (isArray$1(value)) {
     const res = {};
@@ -87,7 +86,6 @@ function normalizeClass(value) {
 }
 const toDisplayString = (val) => {
   return isString(val) ? val : val == null ? "" : isArray$1(val) || isObject$2(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
-
 };
 const replacer = (_key, val) => {
   if (val && val.__v_isRef) {
@@ -103,9 +101,7 @@ const replacer = (_key, val) => {
     return {
       [`Set(${val.size})`]: [...val.values()]
     };
-
   } else if (isObject$2(val) && !isArray$1(val) && !isPlainObject(val)) {
-
     return String(val);
   }
   return val;
@@ -3419,9 +3415,7 @@ function isSameType(a2, b2) {
   return getType(a2) === getType(b2);
 }
 function getTypeIndex(type, expectedTypes) {
-
   if (isArray$1(expectedTypes)) {
-
     return expectedTypes.findIndex((t2) => isSameType(t2, type));
   } else if (isFunction(expectedTypes)) {
     return isSameType(expectedTypes, type) ? 0 : -1;
@@ -4375,11 +4369,9 @@ function findComponentPublicInstance(mpComponents, id) {
   }
   return null;
 }
-
 function setTemplateRef({ r: r2, f: f2 }, refValue, setupState) {
   if (isFunction(r2)) {
     r2(refValue, {});
-
   } else {
     const _isString = isString(r2);
     const _isRef = isRef(r2);
@@ -4797,7 +4789,6 @@ function getCreateApp() {
     return my[method];
   }
 }
-
 function vOn(value, key) {
   const instance = getCurrentInstance();
   const ctx = instance.ctx;
@@ -4888,7 +4879,6 @@ function vFor(source, renderItem) {
     ret = new Array(source.length);
     for (let i2 = 0, l2 = source.length; i2 < l2; i2++) {
       ret[i2] = renderItem(source[i2], i2, i2);
-
     }
   } else if (typeof source === "number") {
     if (!Number.isInteger(source)) {
@@ -4896,7 +4886,6 @@ function vFor(source, renderItem) {
       return [];
     }
     ret = new Array(source);
-
     for (let i2 = 0; i2 < source; i2++) {
       ret[i2] = renderItem(i2 + 1, i2, i2);
     }
@@ -4909,7 +4898,6 @@ function vFor(source, renderItem) {
       for (let i2 = 0, l2 = keys.length; i2 < l2; i2++) {
         const key = keys[i2];
         ret[i2] = renderItem(source[key], key, i2);
-
       }
     }
   } else {
@@ -4917,7 +4905,6 @@ function vFor(source, renderItem) {
   }
   return ret;
 }
-
 function stringifyStyle(value) {
   if (isString(value)) {
     return value;
@@ -4934,10 +4921,6 @@ function stringify(styles) {
   }
   return ret;
 }
-function setRef(ref2, id, opts = {}) {
-  const { $templateRefs } = getCurrentInstance();
-  $templateRefs.push({ i: id, r: ref2, k: opts.k, f: opts.f });
-}
 const o$1 = (value, key) => vOn(value, key);
 const f$1 = (source, renderItem) => vFor(source, renderItem);
 const s$1 = (value) => stringifyStyle(value);
@@ -4945,8 +4928,6 @@ const e = (target, ...sources) => extend(target, ...sources);
 const n$1 = (value) => normalizeClass(value);
 const t$1 = (val) => toDisplayString(val);
 const p$1 = (props) => renderProps(props);
-const sr = (ref2, id, opts) => setRef(ref2, id, opts);
-
 function createApp$1(rootComponent, rootProps = null) {
   rootComponent && (rootComponent.mpType = "app");
   return createVueApp(rootComponent, rootProps).use(plugin);
@@ -8576,18 +8557,12 @@ exports.St = St;
 exports._export_sfc = _export_sfc;
 exports.createSSRApp = createSSRApp;
 exports.createStore = createStore;
-
 exports.e = e;
 exports.f = f$1;
-
 exports.index = index;
-exports.initVueI18n = initVueI18n;
 exports.n = n$1;
 exports.o = o$1;
 exports.p = p$1;
 exports.resolveComponent = resolveComponent;
-
 exports.s = s$1;
-exports.sr = sr;
 exports.t = t$1;
-
