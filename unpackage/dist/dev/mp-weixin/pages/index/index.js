@@ -4,7 +4,8 @@ var common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   data() {
     return {
-      href: "https://uniapp.dcloud.io/component/README?id=uniui"
+      href: "https://uniapp.dcloud.io/component/README?id=uniui",
+      goods_ids: ""
     };
   },
   created() {
@@ -12,12 +13,18 @@ const _sfc_main = {
   },
   methods: {
     async getSwipers() {
-      let result = await common_js_http.requestPost("/api/m/index/cate", {
-        "biao": "keting"
-      });
-      let result2 = await common_js_http.requestPost("/api/x/index/index");
-      let result3 = await common_js_http.requestGet("/api/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194");
-      console.log(result, result2, result3);
+      await common_js_http.requestPost("/api/x/index/index");
+      let result3 = await common_js_http.requestGet("/api/api/category-xidingdeng/");
+      console.log(result3.data.goods_list);
+      for (let i = 0; i < result3.data.goods_list.length; i++) {
+        if (i == 0) {
+          this.goods_ids = result3.data.goods_list[i].goods_id;
+        }
+        this.goods_ids = this.goods_ids + `,` + result3.data.goods_list[i].goods_id;
+      }
+      console.log(this.goods_ids);
+      let result4 = await common_js_http.requestGet("/api/api/goods/get_price", { "goods_ids": this.goods_ids });
+      console.log(result4);
     }
   }
 };
@@ -44,5 +51,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/pages/index/index.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/index/index.vue"]]);
 wx.createPage(MiniProgramPage);

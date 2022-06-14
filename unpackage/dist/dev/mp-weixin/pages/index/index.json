@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "优选Home",
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }
