@@ -1,5 +1,11 @@
 <template>
 	<view class="container">
+		<!--如果isFixed为true的话，就添加class is_fixed 设置固定定位-->
+		<view id="boxFixed" v-if="is_fixed == true" class="topfixed">
+			<view class="" @click="tosearch()">
+				<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号"></uni-easyinput>
+			</view>
+		</view>
 		<view class="header">
 			<h2 class="title">优选Home</h2>
 			<view class="uni-common-mt">
@@ -118,19 +124,24 @@
 
 		<!-- 分类 -->
 		<view class="cate">
-			<view v-for="(item,idx) in catelist" :key="item.id">
-				<view class="title" :class="{cateactive:currentIndex2===idx}" @click="choosecate(idx)">
-					<view class="t1">
-						{{item.desc}}
+			<scroll-view scroll-x="true">
+				<view class="catescroll">
+					<view v-for="(item,idx) in catelist" :key="item.id">
+						<view class="title" :class="{cateactive:currentIndex2===idx}" @click="choosecate(idx)">
+							<view class="t1">
+								{{item.desc}}
+							</view>
+							<view class="t2">
+								{{item.desc_t}}
+							</view>
+							<view class="dot">
+
+							</view>
+						</view>
 					</view>
-					<view class="t2">
-						{{item.desc_t}}
-					</view>
-				  <view class="dot">
-				  	
-				  </view>
 				</view>
-			</view>
+			</scroll-view>
+
 		</view>
 
 	</view>
@@ -159,6 +170,9 @@
 				currentIndex2: 0,
 				brandlists: [],
 				catelist: [],
+				is_fixed: false,
+				cate_fixed:false
+
 			}
 		},
 		created() {
@@ -178,6 +192,7 @@
 				this.current = e.detail.current;
 			},
 			tosearch() {
+				console.log("xxxx");
 				uni.navigateTo({
 					url: '/pages/search/search',
 					success: res => {},
@@ -214,7 +229,7 @@
 
 				this.brandlists = brandlist.data.style_manage;
 
-				this.catelist = brandlist.data.cat_tab.slice(0, 5);
+				this.catelist = brandlist.data.cat_tab
 				console.log(this.catelist);
 			},
 			onKeyInput: function(event) {
@@ -240,8 +255,23 @@
 				}
 				let result2 = await requestGet(`/api/api/category-` + this.type +
 					`v=1&XcxSessKey=%20&company_id=7194`);
+			},
+		},
+		onPageScroll(res) {
+			if (res.scrollTop >= 100) {
+				this.is_fixed = true;
+			} else {
+				this.is_fixed = false
 			}
-		}
+
+			if (res.scrollTop >= 6000) {
+				this.cate_fixed = true;
+			} else {
+				this.cate_fixed = false
+			}
+			console.log(this.cate_fixed);
+		},
+
 	}
 </script>
 
@@ -253,6 +283,25 @@
 	.container {
 		background-color: white;
 		;
+
+		.topfixed {
+			width: 100%;
+			height: 150rpx;
+			display: inline-block;
+			position: fixed;
+			display: flex;
+			align-items: center;
+			/*所有子元素都垂直居中了*/
+			z-index: 1000000000000000;
+			background-color: rgb(230, 42, 41);
+
+			/deep/ .uni-easyinput {
+				width: 500rpx;
+				height: 60rpx;
+
+				margin-left: 30rpx;
+			}
+		}
 
 		.header {
 			height: 500rpx;
@@ -305,6 +354,7 @@
 				image {
 					width: 100rpx;
 					height: 100rpx;
+
 				}
 			}
 		}
@@ -350,13 +400,14 @@
 						width: 400rpx;
 						height: 300rpx;
 						margin-left: 30rpx;
+						border-radius: 20rpx;
 					}
 
 					.brand {
 
 						width: 200rpx;
 						height: 40rpx;
-						background-color: green;
+						background-color: rgb(60, 120, 100);
 						color: white;
 						text-align: center;
 						font-size: 24rpx;
@@ -404,6 +455,7 @@
 				:first-child {
 					image {
 						width: 700rpx;
+						border-radius: 20rpx;
 					}
 				}
 
@@ -415,6 +467,7 @@
 					image {
 						width: 330rpx;
 						height: 300rpx;
+						border-radius: 20rpx;
 					}
 				}
 
@@ -469,36 +522,50 @@
 		.cate {
 			display: flex;
 			text-align: center;
-            .title{
-			
+
+			.catescroll {
+				white-space: nowrap;
+				display: flex;
+				align-items: center;
+				font-size: 28rpx;
+				height: 320rpx;
+			}
+
+			.title {
+
 				margin: 10rpx 30rpx;
-				.t1{
-						font-size: 30rpx;
+
+				.t1 {
+					font-size: 30rpx;
 				}
-				.t2{
+
+				.t2 {
 					font-size: 20rpx;
 					color: #888;
 				}
-			
+
 			}
-			.cateactive{
-			.t1{
+
+			.cateactive {
+				.t1 {
 					font-size: 40rpx;
 					color: red;
+				}
+
+				.t2 {
+					color: red;
+				}
+
+				.dot {
+					width: 10rpx;
+					height: 10rpx;
+					background-color: red;
+					border-radius: 10rpx;
+					position: relative;
+					left: 50%;
+				}
 			}
-			.t2{
-				color: red;
-			}
-			.dot{
-				width: 10rpx;
-				height: 10rpx;
-				background-color: red;
-				border-radius: 10rpx;
-				position: relative;
-				left: 50%;
-			}
-			}
-			
+
 		}
 
 		.newbrands {
@@ -515,6 +582,7 @@
 					width: 400rpx;
 					height: 300rpx;
 					margin-left: 30rpx;
+					border-radius: 20rpx;
 				}
 
 				.tips {

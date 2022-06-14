@@ -17,7 +17,9 @@ const _sfc_main = {
       currentIndex: 0,
       currentIndex2: 0,
       brandlists: [],
-      catelist: []
+      catelist: [],
+      is_fixed: false,
+      cate_fixed: false
     };
   },
   created() {
@@ -36,6 +38,7 @@ const _sfc_main = {
       this.current = e.detail.current;
     },
     tosearch() {
+      console.log("xxxx");
       common_vendor.index.navigateTo({
         url: "/pages/search/search",
         success: (res) => {
@@ -69,7 +72,7 @@ const _sfc_main = {
       this.goodsthing = result2.data.goodsthing;
       this.newbrands = result2.data.newbrands;
       this.brandlists = brandlist.data.style_manage;
-      this.catelist = brandlist.data.cat_tab.slice(0, 5);
+      this.catelist = brandlist.data.cat_tab;
       console.log(this.catelist);
     },
     onKeyInput: function(event) {
@@ -91,43 +94,67 @@ const _sfc_main = {
       }
       await common_js_http.requestGet(`/api/api/category-` + this.type + `v=1&XcxSessKey=%20&company_id=7194`);
     }
+  },
+  onPageScroll(res) {
+    if (res.scrollTop >= 100) {
+      this.is_fixed = true;
+    } else {
+      this.is_fixed = false;
+    }
+    if (res.scrollTop >= 6e3) {
+      this.cate_fixed = true;
+    } else {
+      this.cate_fixed = false;
+    }
+    console.log(this.cate_fixed);
   }
 };
 if (!Array) {
+  const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _easycom_uni_swiper_dot2 = common_vendor.resolveComponent("uni-swiper-dot");
   const _easycom_uni_list_item2 = common_vendor.resolveComponent("uni-list-item");
   const _easycom_uni_list2 = common_vendor.resolveComponent("uni-list");
-  (_easycom_uni_icons2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2)();
+  (_easycom_uni_easyinput2 + _easycom_uni_icons2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2)();
 }
+const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 const _easycom_uni_swiper_dot = () => "../../uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.js";
 const _easycom_uni_list_item = () => "../../uni_modules/uni-list/components/uni-list-item/uni-list-item.js";
 const _easycom_uni_list = () => "../../uni_modules/uni-list/components/uni-list/uni-list.js";
 if (!Math) {
-  (_easycom_uni_icons + _easycom_uni_swiper_dot + _easycom_uni_list_item + _easycom_uni_list)();
+  (_easycom_uni_easyinput + _easycom_uni_icons + _easycom_uni_swiper_dot + _easycom_uni_list_item + _easycom_uni_list)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
-    a: common_vendor.o((...args) => $options.tosearch && $options.tosearch(...args)),
+  return common_vendor.e({
+    a: $data.is_fixed == true
+  }, $data.is_fixed == true ? {
     b: common_vendor.p({
+      disabled: true,
+      prefixIcon: "search",
+      placeholder: "\u8F93\u5165\u54C1\u724C\u6216\u4EA7\u54C1\u578B\u53F7"
+    }),
+    c: common_vendor.o(($event) => $options.tosearch())
+  } : {}, {
+    d: common_vendor.o((...args) => $options.tosearch && $options.tosearch(...args)),
+    e: common_vendor.p({
       type: "cart",
       size: "30"
     }),
-    c: common_vendor.f($data.info, (item, k0, i0) => {
+    f: common_vendor.f($data.info, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: item.id
       };
     }),
-    d: common_vendor.o((...args) => $options.change && $options.change(...args)),
-    e: common_vendor.p({
+    g: common_vendor.o((...args) => $options.change && $options.change(...args)),
+    h: common_vendor.p({
       info: $data.info,
       current: $data.current,
       field: "content",
       mode: $data.mode
     }),
-    f: common_vendor.f($data.bed, (item, k0, i0) => {
+    i: common_vendor.f($data.bed, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -135,17 +162,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o((...args) => $options.toBed && $options.toBed(...args), item.id)
       };
     }),
-    g: $data.currentIndex === 4 ? 1 : "",
-    h: common_vendor.o(($event) => $options.jumpTo(4)),
-    i: $data.currentIndex === 3 ? 1 : "",
-    j: common_vendor.o(($event) => $options.jumpTo(3)),
-    k: $data.currentIndex === 2 ? 1 : "",
-    l: common_vendor.o(($event) => $options.jumpTo(2)),
-    m: $data.currentIndex === 1 ? 1 : "",
-    n: common_vendor.o(($event) => $options.jumpTo(1)),
-    o: $data.currentIndex === 0 ? 1 : "",
-    p: common_vendor.o(($event) => $options.jumpTo(0)),
-    q: common_vendor.f($data.goodsthing, (item, index, i0) => {
+    j: $data.currentIndex === 4 ? 1 : "",
+    k: common_vendor.o(($event) => $options.jumpTo(4)),
+    l: $data.currentIndex === 3 ? 1 : "",
+    m: common_vendor.o(($event) => $options.jumpTo(3)),
+    n: $data.currentIndex === 2 ? 1 : "",
+    o: common_vendor.o(($event) => $options.jumpTo(2)),
+    p: $data.currentIndex === 1 ? 1 : "",
+    q: common_vendor.o(($event) => $options.jumpTo(1)),
+    r: $data.currentIndex === 0 ? 1 : "",
+    s: common_vendor.o(($event) => $options.jumpTo(0)),
+    t: common_vendor.f($data.goodsthing, (item, index, i0) => {
       return {
         a: common_vendor.f(item.sub_list, (i, k1, i1) => {
           return {
@@ -160,14 +187,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: `s${index}`
       };
     }),
-    r: $data.viewto,
-    s: common_vendor.p({
+    v: $data.viewto,
+    w: common_vendor.p({
       title: "\u54C1\u724C\u4E0A\u65B0",
       link: "reLaunch",
       to: "/pages/brand/brand",
       rightText: "\u66F4\u591A"
     }),
-    t: common_vendor.f($data.newbrands, (item, k0, i0) => {
+    x: common_vendor.f($data.newbrands, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -175,7 +202,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: item.id
       };
     }),
-    v: common_vendor.f($data.brandlists, (item, index, i0) => {
+    y: common_vendor.f($data.brandlists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc.split("|").join("")),
         b: common_vendor.t(item.desc_t),
@@ -199,7 +226,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: index
       };
     }),
-    w: common_vendor.f($data.catelist, (item, idx, i0) => {
+    z: common_vendor.f($data.catelist, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.t(item.desc_t),
@@ -208,7 +235,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: item.id
       };
     })
-  };
+  });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "F:/zuolo/pages/index/index.vue"]]);
+_sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

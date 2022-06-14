@@ -4,6 +4,22 @@
 .container.data-v-57280228 {
   background-color: white;
 }
+.container .topfixed.data-v-57280228 {
+  width: 100%;
+  height: 150rpx;
+  display: inline-block;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  /*所有子元素都垂直居中了*/
+  z-index: 1000000000000000;
+  background-color: #e62a29;
+}
+.container .topfixed.data-v-57280228 .uni-easyinput {
+  width: 500rpx;
+  height: 60rpx;
+  margin-left: 30rpx;
+}
 .container .header.data-v-57280228 {
   height: 500rpx;
   width: 100%;
@@ -83,11 +99,12 @@
   width: 400rpx;
   height: 300rpx;
   margin-left: 30rpx;
+  border-radius: 20rpx;
 }
 .container .goodChoice .newimage .addition .brand.data-v-57280228 {
   width: 200rpx;
   height: 40rpx;
-  background-color: green;
+  background-color: #3c7864;
   color: white;
   text-align: center;
   font-size: 24rpx;
@@ -125,6 +142,7 @@
 }
 .container .modernbrands .showbrandfar :first-child image.data-v-57280228 {
   width: 700rpx;
+  border-radius: 20rpx;
 }
 .container .modernbrands .showbrandfar.data-v-57280228 :nth-child(2n+1) {
   margin-right: 10rpx;
@@ -132,6 +150,7 @@
 .container .modernbrands .showbrandfar :not(:first-child) image.data-v-57280228 {
   width: 330rpx;
   height: 300rpx;
+  border-radius: 20rpx;
 }
 .container .modernbrands .showbrand.data-v-57280228 {
   background-image: url("https://img001.tianyingmeijia.com/upload/page/20200924/1600932293EAc4bq7mNy/cmVzaXplLHdfNzUw/2fe316c24c098de31903f4cccc8129bf.jpg");
@@ -174,6 +193,13 @@
   display: flex;
   text-align: center;
 }
+.container .cate .catescroll.data-v-57280228 {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  height: 320rpx;
+}
 .container .cate .title.data-v-57280228 {
   margin: 10rpx 30rpx;
 }
@@ -213,6 +239,7 @@
   width: 400rpx;
   height: 300rpx;
   margin-left: 30rpx;
+  border-radius: 20rpx;
 }
 .container .newbrands .newimage .tips.data-v-57280228 {
   font-size: 28rpx;
