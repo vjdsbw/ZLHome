@@ -1,32 +1,48 @@
 {
 	"pages": [{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "优选Home",
-			"enablePullDownRefresh": false
-		}
-	}, {
-		"path": "pages/sort/sort",
-		"style": {
-			"navigationBarTitleText": "商品分类",
-			"enablePullDownRefresh": false
-		}
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "优选Home",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/sort/sort",
+			"style": {
+				"navigationBarTitleText": "商品分类",
+				"enablePullDownRefresh": false
+			}
 
-	}, {
-		"path": "pages/brand/brand",
-		"style": {
-			"navigationBarTitleText": "品牌馆",
-			"enablePullDownRefresh": false
-		}
+		}, {
+			"path": "pages/brand/brand",
+			"style": {
+				"navigationBarTitleText": "品牌馆",
+				"enablePullDownRefresh": false
+			}
 
-	}, {
-		"path": "pages/me/me",
-		"style": {
-			"navigationBarTitleText": "个人中心",
-			"enablePullDownRefresh": false
-		}
+		}, {
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false
+			}
 
-	}    ,{
+		}, {
+
+
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/set/set",
+			"style": {
+				"navigationBarTitleText": "设置",
+				"enablePullDownRefresh": false
+			}
+
+		},  {
             "path" : "pages/brand_goods/brand_goods",
             "style" :                                                                                    
             {
@@ -44,7 +60,39 @@
             }
             
         }
-    ],
+    ,
+			"path": "pages/good/good",
+			"style": {
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/useredit/useredit",
+			"style": {
+				"navigationBarTitleText": "编辑资料",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/setnickname/setnickname",
+			"style": {
+				"navigationBarTitleText": "修改昵称",
+				"enablePullDownRefresh": false
+
+			}
+
+		}
+	],
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -54,11 +102,20 @@
 			"background": "#efeff4"
 		},
 		"usingComponents": {
+<<<<<<< HEAD
 			"van-button": "/wxcomponents/vant/dist/button/index",
 			"van-tab": "/wxcomponents/vant/dist/tab/index",
 			"van-tabs": "/wxcomponents/vant/dist/tabs/index",
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
 			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index"
+=======
+
+			"van-button": "/wxcomponents/vant/dist/button/index",
+			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
+
+
+>>>>>>> 44678b697777be414800bd93c492d71aa5ea84a4
 		}
 	},
 	"tabBar": {
@@ -90,5 +147,5 @@
 			}
 		]
 	}
-	
+
 }
