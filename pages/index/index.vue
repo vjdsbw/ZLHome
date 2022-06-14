@@ -145,6 +145,7 @@
 	export default {
 		data() {
 			return {
+
 				keywords: '',
 				category_list: [],
 				type: '',
@@ -159,6 +160,7 @@
 				currentIndex2: 0,
 				brandlists: [],
 				catelist: [],
+
 			}
 		},
 		created() {
@@ -196,12 +198,13 @@
 			async getSwipers() {
 				//因为配置了api代理，所有路径前面需再加上一个/api,写法参考如下
 				//传参  Post  接口:/m/index/cate
-				let result = await requestPost("/api/m/index/cate", {
-					'biao': 'keting'
-				});
+				// let result = await requestPost("/api/m/index/cate", {
+				// 	'biao': 'keting'
+				// });
 
 				//无传参 Post 接口:/x/index/index
 				let result2 = await requestPost("/api/x/index/index");
+
 				//传参  Get  接口：/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194
 				let result3 = await requestGet("/api/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194");
 
@@ -219,6 +222,7 @@
 			},
 			onKeyInput: function(event) {
 				this.keywords = event.detail.value
+
 			},
 
 			//搜索框功能的实现

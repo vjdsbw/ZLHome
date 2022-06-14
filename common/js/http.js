@@ -3,11 +3,13 @@ const baseUrl = "https://m.meijiavip.com"
 export function requestGet(url, params) {
 	return new Promise((resolve, reject) => {
 		// #ifdef MP-WEIXIN || APP-PLUS
+
 	if(url.split("/api").length==2){
 	   url = baseUrl +url.split("/api")[url.split("/api").length-1]
 	  }else{
 	   url = baseUrl+`/api`+url.split("/api")[url.split("/api").length-1]
 	  }
+
 		// #endif
 		uni.request({
 			url: url,

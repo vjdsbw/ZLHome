@@ -4,6 +4,8 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+
+      goods_ids: "",
       keywords: "",
       category_list: [],
       type: "",
@@ -18,6 +20,7 @@ const _sfc_main = {
       currentIndex2: 0,
       brandlists: [],
       catelist: []
+
     };
   },
   created() {
@@ -58,6 +61,7 @@ const _sfc_main = {
       });
     },
     async getSwipers() {
+
       await common_js_http.requestPost("/api/m/index/cate", {
         "biao": "keting"
       });
@@ -210,5 +214,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
+
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "F:/zuolo/pages/index/index.vue"]]);
+
 wx.createPage(MiniProgramPage);
