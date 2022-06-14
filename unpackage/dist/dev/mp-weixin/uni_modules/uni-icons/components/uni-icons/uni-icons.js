@@ -59,9 +59,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     f: common_vendor.o((...args) => $options._onClick && $options._onClick(...args))
   };
 }
-<<<<<<< HEAD
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
-=======
 var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "F:/zuolo/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
->>>>>>> ceb95f416a53c0bbdf210a5bbcc9abe3db454bb9
 wx.createComponent(Component);

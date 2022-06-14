@@ -14,10 +14,8 @@ function makeMap(str, expectsLowerCase) {
   }
   return expectsLowerCase ? (val) => !!map[val.toLowerCase()] : (val) => !!map[val];
 }
-
-
 function normalizeStyle(value) {
-  if (isArray(value)) {
+  if (isArray$1(value)) {
     const res = {};
     for (let i = 0; i < value.length; i++) {
       const item = value[i];
@@ -31,7 +29,7 @@ function normalizeStyle(value) {
     return res;
   } else if (isString(value)) {
     return value;
-  } else if (isObject$1(value)) {
+  } else if (isObject$2(value)) {
     return value;
   }
 }
@@ -47,28 +45,18 @@ function parseStringStyle(cssText) {
   });
   return ret;
 }
-
-
 function normalizeClass(value) {
   let res = "";
   if (isString(value)) {
     res = value;
-
-
-  } else if (isArray(value)) {
-
-
+  } else if (isArray$1(value)) {
     for (let i = 0; i < value.length; i++) {
       const normalized = normalizeClass(value[i]);
       if (normalized) {
         res += normalized + " ";
       }
     }
-
-
-  } else if (isObject$1(value)) {
-
-
+  } else if (isObject$2(value)) {
     for (const name in value) {
       if (value[name]) {
         res += name + " ";
@@ -78,11 +66,7 @@ function normalizeClass(value) {
   return res.trim();
 }
 const toDisplayString = (val) => {
-
-
-  return isString(val) ? val : val == null ? "" : isArray(val) || isObject$1(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
-
-
+  return isString(val) ? val : val == null ? "" : isArray$1(val) || isObject$2(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
 };
 const replacer = (_key, val) => {
   if (val && val.__v_isRef) {
@@ -98,11 +82,7 @@ const replacer = (_key, val) => {
     return {
       [`Set(${val.size})`]: [...val.values()]
     };
-
-
-  } else if (isObject$1(val) && !isArray(val) && !isPlainObject(val)) {
-
-
+  } else if (isObject$2(val) && !isArray$1(val) && !isPlainObject(val)) {
     return String(val);
   }
   return val;
@@ -3416,11 +3396,7 @@ function isSameType(a, b) {
   return getType(a) === getType(b);
 }
 function getTypeIndex(type, expectedTypes) {
-
-  if (isArray(expectedTypes)) {
-
-
-
+  if (isArray$1(expectedTypes)) {
     return expectedTypes.findIndex((t2) => isSameType(t2, type));
   } else if (isFunction(expectedTypes)) {
     return isSameType(expectedTypes, type) ? 0 : -1;
@@ -4813,7 +4789,6 @@ function vOn(value, key) {
   return name;
 }
 function createInvoker(initialValue, instance) {
-
   const invoker = (e2) => {
     patchMPEvent(e2);
     let args = [e2];
@@ -4829,7 +4804,6 @@ function createInvoker(initialValue, instance) {
     } else {
       const res = invoke();
       if (e2.type === "input" && isPromise$1(res)) {
-
         return;
       }
       return res;
@@ -4853,19 +4827,14 @@ function patchMPEvent(event) {
     event.preventDefault = NOOP;
     event.stopPropagation = NOOP;
     event.stopImmediatePropagation = NOOP;
-
-
-    if (!hasOwn(event, "detail")) {
+    if (!hasOwn$1(event, "detail")) {
       event.detail = {};
     }
-    if (hasOwn(event, "markerId")) {
+    if (hasOwn$1(event, "markerId")) {
       event.detail = typeof event.detail === "object" ? event.detail : {};
       event.detail.markerId = event.markerId;
     }
-    if (isPlainObject(event.detail) && hasOwn(event.detail, "checked") && !hasOwn(event.detail, "value")) {
-
-
-
+    if (isPlainObject(event.detail) && hasOwn$1(event.detail, "checked") && !hasOwn$1(event.detail, "value")) {
       event.detail.value = event.detail.checked;
     }
     if (isPlainObject(event.detail)) {
@@ -4873,29 +4842,21 @@ function patchMPEvent(event) {
     }
   }
 }
-
 function patchStopImmediatePropagation(e2, value) {
-
-  if (isArray(value)) {
-
+  if (isArray$1(value)) {
     const originalStop = e2.stopImmediatePropagation;
     e2.stopImmediatePropagation = () => {
       originalStop && originalStop.call(e2);
       e2._stopped = true;
     };
     return value.map((fn) => (e3) => !e3._stopped && fn(e3));
-
   } else {
     return value;
   }
 }
 function vFor(source, renderItem) {
   let ret;
-
-
-  if (isArray(source) || isString(source)) {
-
-
+  if (isArray$1(source) || isString(source)) {
     ret = new Array(source.length);
     for (let i = 0, l = source.length; i < l; i++) {
       ret[i] = renderItem(source[i], i, i);
@@ -4909,10 +4870,7 @@ function vFor(source, renderItem) {
     for (let i = 0; i < source; i++) {
       ret[i] = renderItem(i + 1, i, i);
     }
-
-
-  } else if (isObject$1(source)) {
-
+  } else if (isObject$2(source)) {
     if (source[Symbol.iterator]) {
       ret = Array.from(source, (item, i) => renderItem(item, i, i));
     } else {
@@ -4928,8 +4886,6 @@ function vFor(source, renderItem) {
   }
   return ret;
 }
-
-
 function stringifyStyle(value) {
   if (isString(value)) {
     return value;
@@ -4946,12 +4902,14 @@ function stringify(styles) {
   }
   return ret;
 }
+function setRef(ref2, id, opts = {}) {
+  const { $templateRefs } = getCurrentInstance();
+  $templateRefs.push({ i: id, r: ref2, k: opts.k, f: opts.f });
+}
 const o = (value, key) => vOn(value, key);
 const f = (source, renderItem) => vFor(source, renderItem);
 const s = (value) => stringifyStyle(value);
-
 const e = (target, ...sources) => extend(target, ...sources);
-
 const n = (value) => normalizeClass(value);
 const t = (val) => toDisplayString(val);
 const p = (props) => renderProps(props);
@@ -6680,20 +6638,14 @@ function initVueI18n(locale, messages = {}, fallbackLocale, watcher) {
 exports._export_sfc = _export_sfc;
 exports.createSSRApp = createSSRApp;
 exports.createStore = createStore;
-
 exports.e = e;
 exports.f = f;
 exports.index = index;
-
-
-
+exports.initVueI18n = initVueI18n;
 exports.n = n;
 exports.o = o;
 exports.p = p;
 exports.resolveComponent = resolveComponent;
-
-
 exports.s = s;
-
-
+exports.sr = sr;
 exports.t = t;

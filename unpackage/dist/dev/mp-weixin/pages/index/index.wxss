@@ -1,8 +1,28 @@
+
+.data-v-57280228 .is-input-border {
+  border-radius: 50rpx;
+}
 .active.data-v-57280228 {
   border-bottom: 2px solid red;
 }
 .container.data-v-57280228 {
   background-color: white;
+}
+.container .topfixed.data-v-57280228 {
+  width: 100%;
+  height: 150rpx;
+  display: inline-block;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  /*所有子元素都垂直居中了*/
+  z-index: 1000000000000000;
+  background-color: #e62a29;
+}
+.container .topfixed.data-v-57280228 .uni-easyinput {
+  width: 500rpx;
+  height: 60rpx;
+  margin-left: 30rpx;
 }
 .container .header.data-v-57280228 {
   height: 500rpx;
@@ -11,6 +31,12 @@
   background-color: #e62a29;
   border-bottom-left-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
+}
+.container .header.data-v-57280228 .uni-easyinput {
+  width: 620rpx;
+  height: 40rpx;
+  margin-left: 30rpx;
+  margin-right: 20rpx;
 }
 .container .header .title.data-v-57280228 {
   padding-left: 20rpx;
@@ -54,6 +80,12 @@
   margin-top: 70rpx;
   margin-bottom: 30rpx;
 }
+.container .goodChoice scroll-view.data-v-57280228 ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+}
 .container .goodChoice .goodsheader.data-v-57280228 {
   text-align: center;
 }
@@ -83,11 +115,12 @@
   width: 400rpx;
   height: 300rpx;
   margin-left: 30rpx;
+  border-radius: 20rpx;
 }
 .container .goodChoice .newimage .addition .brand.data-v-57280228 {
   width: 200rpx;
   height: 40rpx;
-  background-color: green;
+  background-color: #3c7864;
   color: white;
   text-align: center;
   font-size: 24rpx;
@@ -109,6 +142,9 @@
   margin-top: 120rpx;
   margin-left: 30rpx;
 }
+.container .modernbrands .bgview.data-v-57280228 {
+  background-image: url("https://img003.tianyingmeijia.com/upload/page/20200924/1600932320VEKxteLfdq/cmVzaXplLHdfNzUw/93fdf5880fc9a7c0439524186198454e.jpg");
+}
 .container .modernbrands .m1.data-v-57280228 {
   font-size: 48rpx;
   margin-top: 40rpx;
@@ -125,18 +161,33 @@
 }
 .container .modernbrands .showbrandfar :first-child image.data-v-57280228 {
   width: 700rpx;
+  border-radius: 20rpx;
+}
+.container .modernbrands .showbrandfar :first-child .showtext.data-v-57280228 {
+  position: absolute;
+  left: 0;
+  color: white;
+  bottom: 80rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+}
+.container .modernbrands .showbrandfar :first-child .showprice.data-v-57280228 {
+  position: absolute;
+  left: 0;
+  color: white;
+  bottom: 40rpx;
 }
 .container .modernbrands .showbrandfar.data-v-57280228 :nth-child(2n+1) {
   margin-right: 10rpx;
 }
 .container .modernbrands .showbrandfar :not(:first-child) image.data-v-57280228 {
-  width: 330rpx;
+  width: 340rpx;
   height: 300rpx;
+  border-radius: 20rpx;
 }
-.container .modernbrands .showbrand.data-v-57280228 {
-  background-image: url("https://img001.tianyingmeijia.com/upload/page/20200924/1600932293EAc4bq7mNy/cmVzaXplLHdfNzUw/2fe316c24c098de31903f4cccc8129bf.jpg");
-}
-.container .modernbrands .showbrand .showtext.data-v-57280228 {
+.container .modernbrands .showbrandfar :not(:first-child) .showtext.data-v-57280228 {
   width: 12em;
   overflow: hidden;
   /* 显示省略符号来代表被修剪的文本。 */
@@ -146,6 +197,25 @@
   font-size: 28rpx;
   color: gray;
   margin-bottom: 20rpx;
+}
+.container .modernbrands .showbrand.data-v-57280228 {
+  position: relative;
+}
+.container .modernbrands .showbrand .brand.data-v-57280228 {
+  color: gray;
+  background-color: green;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  bottom: 150rpx;
+  width: 150rpx;
+  height: 40rpx;
+  background-color: #3c7864;
+  text-align: center;
+  font-size: 24rpx;
+  color: white;
+  border-bottom-right-radius: 30rpx;
+  border-top-right-radius: 30rpx;
 }
 .container .modernbrands .newimage.data-v-57280228 {
   display: flex;
@@ -174,7 +244,33 @@
   display: flex;
   text-align: center;
 }
+.container .cate scroll-view.data-v-57280228 ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+}
+.container .cate .catescroll.data-v-57280228 {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  height: 300rpx;
+}
+.container .cate .catescroll.fiexdtop.data-v-57280228 {
+  width: 100%;
+  overflow-x: auto;
+  position: fixed;
+  top: 80rpx;
+  background-color: white;
+  height: 200rpx;
+}
+.container .cate .catescroll.fiexdtop .title .t2.data-v-57280228 {
+  display: none;
+}
 .container .cate .title.data-v-57280228 {
+  text-align: center;
+  vertical-align: middle;
   margin: 10rpx 30rpx;
 }
 .container .cate .title .t1.data-v-57280228 {
@@ -213,6 +309,7 @@
   width: 400rpx;
   height: 300rpx;
   margin-left: 30rpx;
+  border-radius: 20rpx;
 }
 .container .newbrands .newimage .tips.data-v-57280228 {
   font-size: 28rpx;
