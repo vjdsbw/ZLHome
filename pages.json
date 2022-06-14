@@ -26,7 +26,27 @@
 			"enablePullDownRefresh": false
 		}
 
-	}],
+	}    ,{
+
+            "path" : "pages/good/good",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品列表",
+                "enablePullDownRefresh": false,
+				        "onReachBottomDistance": 50
+            }
+            }，
+{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -36,7 +56,10 @@
 			"background": "#efeff4"
 		},
 		"usingComponents": {
-			"van-button": "/wxcomponents/vant/dist/button/index"
+			"van-button": "/wxcomponents/vant/dist/button/index",
+			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
+
 		}
 	},
 	"tabBar": {
