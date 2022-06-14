@@ -28,7 +28,6 @@
 
 		}, {
 
-
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
@@ -43,7 +42,21 @@
 			}
 
 		}, {
+			"path": "pages/brand_goods/brand_goods",
+			"style": {
+				"navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
+				"enablePullDownRefresh": false
+			}
 
+		}, {
+			"path": "pages/gooddetail/gooddetail",
+			"style": {
+				"navigationBarTitleText": "佐罗优选",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -76,22 +89,21 @@
 		}
 
 	],
-
-"globalStyle": {
-	"navigationBarTextStyle": "black",
-	"navigationBarTitleText": "uni-app",
-	"navigationBarBackgroundColor": "#F8F8F8",
-	"backgroundColor": "#F8F8F8",
-	"app-plus": {
-		"background": "#efeff4"
-	},
-	"usingComponents": {
-
-		"van-button": "/wxcomponents/vant/dist/button/index",
-		"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-		"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
-
-
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		},
+		"usingComponents": {
+			"van-button": "/wxcomponents/vant/dist/button/index",
+			"van-tab": "/wxcomponents/vant/dist/tab/index",
+			"van-tabs": "/wxcomponents/vant/dist/tabs/index",
+			"van-cell": "/wxcomponents/vant/dist/cell/index",
+			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index"
+		
 	}
 },
 "tabBar": {
