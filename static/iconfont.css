@@ -1,5 +1,6 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 3461115 */
+
+  font-family: "iconfont"; /* Project id 3215642 */
   src: url('/static/iconfont.ttf') format('woff2'),
        url('/static/iconfont.ttf') format('woff'),
        url('/static/iconfont.ttf') format('truetype');
@@ -12,6 +13,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 .icon-sousuo:before {
   content: "\e601";
@@ -51,5 +53,25 @@
 
 .icon-shouye1:before {
   content: "\e60d";
+}
+.icon-shangjiantou:before {
+  content: "\e601";
+}
+
+.icon-xiajiantou:before {
+  content: "\e602";
+}
+
+.icon-shaixuan:before {
+  content: "\e74a";
+}
+
+.icon-shangxia:before {
+  content: "\e60b";
+}
+
+.icon-shangxia1:before {
+  content: "\e656";
+
 }
 

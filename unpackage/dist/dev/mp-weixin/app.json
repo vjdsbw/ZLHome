@@ -61,6 +61,5 @@
         "selectedIconPath": "static/icon/me-active.png"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }
