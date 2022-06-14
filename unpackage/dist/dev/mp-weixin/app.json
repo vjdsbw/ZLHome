@@ -6,12 +6,11 @@
     "pages/me/me",
     "pages/login/login",
     "pages/set/set",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/useredit/useredit",
+    "pages/setnickname/setnickname"
   ],
-  "usingComponents": {
-    "van-button": "/wxcomponents/vant/dist/button/index",
-    "van-field": "/wxcomponents/vant/dist/field/index"
-  },
+  "usingComponents": {},
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

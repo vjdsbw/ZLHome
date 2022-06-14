@@ -4,16 +4,18 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
-      username: ""
+      username: "",
+      username2: ""
     };
   },
   onShow() {
     this.info();
   },
   methods: {
-    info() {
-      let result = common_vendor.index.getStorageSync("user");
-      this.username = result.user_name;
+    async info() {
+      let reult = common_vendor.index.getStorageSync("user");
+      this.username = reult.user_name;
+      this.username2 = reult.user_id;
     },
     async Out() {
       let result = await common_js_http.requestPost("/api/api/logout");
@@ -44,7 +46,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.t($data.username),
-    b: common_vendor.t($data.username),
+    b: common_vendor.t($data.username2),
     c: common_vendor.p({
       type: "right",
       size: "20"

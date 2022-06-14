@@ -1,9 +1,16 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var _imports_0 = "/static/icon/me-active.png";
 const _sfc_main = {
   data() {
     return {
-      username: ""
+      username: "",
+      imageValue: [],
+      imageStyles: {
+        border: {
+          radius: "50%"
+        }
+      }
     };
   },
   created() {
@@ -14,9 +21,16 @@ const _sfc_main = {
   },
   methods: {
     gologin() {
-      common_vendor.index.navigateTo({
-        url: "/pages/login/login"
-      });
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        common_vendor.index.navigateTo({
+          url: "/pages/useredit/useredit"
+        });
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/login/login"
+        });
+      }
     },
     show() {
       let result = common_vendor.index.getStorageSync("user");
@@ -41,35 +55,34 @@ const _sfc_main = {
   }
 };
 if (!Array) {
+  const _easycom_uni_file_picker2 = common_vendor.resolveComponent("uni-file-picker");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  _easycom_uni_icons2();
+  (_easycom_uni_file_picker2 + _easycom_uni_icons2)();
 }
+const _easycom_uni_file_picker = () => "../../uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker.js";
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
-  _easycom_uni_icons();
+  (_easycom_uni_file_picker + _easycom_uni_icons)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.t($data.username),
-    b: common_vendor.o((...args) => $options.gologin && $options.gologin(...args)),
-    c: common_vendor.o($options.goSet),
-    d: common_vendor.p({
+    a: _imports_0,
+    b: common_vendor.p({
+      ["disable-preview"]: true,
+      ["del-icon"]: false,
+      ["return-type"]: "object"
+    }),
+    c: common_vendor.t($data.username),
+    d: common_vendor.o((...args) => $options.gologin && $options.gologin(...args)),
+    e: common_vendor.o($options.goSet),
+    f: common_vendor.p({
       type: "gear-filled",
       size: "30",
       color: "white"
     }),
-    e: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-ziwopingjia",
-      size: "20"
-    }),
-    f: common_vendor.p({
-      type: "right",
-      size: "20"
-    }),
     g: common_vendor.p({
       ["custom-prefix"]: "iconfont",
-      type: "icon-shoucang",
+      type: "icon-ziwopingjia",
       size: "20"
     }),
     h: common_vendor.p({
@@ -78,10 +91,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     i: common_vendor.p({
       ["custom-prefix"]: "iconfont",
-      type: "icon-ziwopingjia",
+      type: "icon-shoucang",
       size: "20"
     }),
     j: common_vendor.p({
+      type: "right",
+      size: "20"
+    }),
+    k: common_vendor.p({
+      ["custom-prefix"]: "iconfont",
+      type: "icon-ziwopingjia",
+      size: "20"
+    }),
+    l: common_vendor.p({
       type: "right",
       size: "20"
     })

@@ -4,7 +4,14 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "pages/search/search",
+                    "pathName": "pages/setnickname/setnickname",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/index/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

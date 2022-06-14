@@ -1,4 +1,5 @@
 <template>
+
 	<view class="search">
 		<view class="header">
 			<view class="text-search">
@@ -26,6 +27,7 @@
 			</view>
 			<view class="item" v-for="(item,indx) in searchlist" :key="item.idx">
 				{{item}}
+
 			</view>
 		</view>
 	</view>
@@ -43,12 +45,14 @@
 				keywords: '',
 				category_list: [],
 				type: '',
+
 			}
 		},
 		methods: {
 			onKeyInput: function(event) {
 				this.keywords = event.detail.value
 			},
+
 			clean() {
 				this.searchlist = [];
 				this.keywords = '';
@@ -57,6 +61,7 @@
 			async search() {
 				let result = await requestGet(`/api/api/search?keywords=` + this.keywords);
 				this.category_list = result.data.category_list;
+
 				for (let i = 0; i < this.category_list.length; i++) {
 					if (this.category_list[i].keywords.match(this.keywords)) {
 						this.type = this.category_list[i].pinyin;
@@ -68,6 +73,7 @@
 						}
 					}
 				}
+
 				if (this.type == '') {
 					uni.showToast({
 						title: `抱歉，没有找到相关商品`
@@ -119,7 +125,7 @@
 			}
 		}
 		.hot{
-			height: 200px;
+			height: 150px;
 			border-bottom: 1px solid lightgrey;
 			background-color: white;
 			margin-top: 3px;
@@ -170,4 +176,7 @@
 			}
 		}
 	}
+
 </style>
+
+

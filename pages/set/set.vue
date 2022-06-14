@@ -5,7 +5,7 @@
 				{{username}}
 			</view>
 			<view class="username2">
-				用户名：{{username}}
+				用户名：{{username2}}
 			</view>
 		</view>
 		<view class="address" @click="goAddress">
@@ -26,16 +26,18 @@
 	export default {
 		data() {
 			return {
-				username: ""
+				username: "",
+				username2:'',
 			}
 		},
 		onShow() {
 			this.info()
 		},
 		methods: {
-			info() {
-				let result = uni.getStorageSync('user')
-				this.username = result.user_name;
+			async info() {
+				let reult= uni.getStorageSync('user');
+				this.username =reult.user_name;
+				this.username2 =reult.user_id;
 			},
 			async Out() {
 				let result = await requestPost("/api/api/logout");

@@ -11,6 +11,8 @@ if (!Math) {
   "./pages/login/login.js";
   "./pages/set/set.js";
   "./pages/search/search.js";
+  "./pages/useredit/useredit.js";
+  "./pages/setnickname/setnickname.js";
 }
 const _sfc_main = {
   onLaunch: function() {

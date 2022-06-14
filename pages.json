@@ -27,6 +27,7 @@
 		}
 
 	}    ,{
+
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
@@ -50,6 +51,23 @@
             {
                 "navigationBarTitleText": "搜索",
                 "enablePullDownRefresh": false
+            }            
+        }
+        ,{
+            "path" : "pages/useredit/useredit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/setnickname/setnickname",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改昵称",
+                "enablePullDownRefresh": false
             }
             
         }
@@ -63,8 +81,8 @@
 			"background": "#efeff4"
 		},
 		"usingComponents": {
-			"van-button": "/wxcomponents/vant/dist/button/index",
-			"van-field": "/wxcomponents/vant/dist/field/index"
+			
+
 		}
 	},
 	"tabBar": {

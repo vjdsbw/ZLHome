@@ -2,8 +2,10 @@
 	<view class="me">
 		<view class="herder">
 			<view class="portrait">
-				<image src="/static/icon/me.png"></image>
-			</view>
+				<uni-file-picker disable-preview :del-icon="false" return-type="object">
+					<image src="@/static/icon/me-active.png"></image>
+				</uni-file-picker>		
+			</view>			
 			<view class="login" @click="gologin">{{username}}</view>
 			<uni-icons @click="goSet" class="set" type="gear-filled" size="30" color="white"></uni-icons>
 		</view>
@@ -35,6 +37,12 @@
 		data() {
 			return {
 				username: "",
+				imageValue: [],
+				imageStyles: {
+					border: {
+						radius: '50%'
+					}
+				},
 			}
 		},
 		created() {
@@ -45,11 +53,16 @@
 		},
 		methods: {
 			gologin() {
-				uni.navigateTo({
-					url: '/pages/login/login',
-				});
-				// let result2 = await requestGet('/api/api/category-woshi/')
-				// console.log(result2);
+				let result = uni.getStorageSync('user')
+				if (result) {
+					uni.navigateTo({
+						url: '/pages/useredit/useredit',
+					});
+				} else {
+					uni.navigateTo({
+						url: '/pages/login/login',
+					});
+				}
 			},
 			show() {
 				let result = uni.getStorageSync('user')
@@ -59,25 +72,28 @@
 					this.username = '点击登录'
 				}
 			},
-			goSet(){
+			goSet() {
 				let result = uni.getStorageSync('user')
-				if(result){
+				if (result) {
 					uni.navigateTo({
 						url: '/pages/set/set',
 					});
-				}
-				else{
+				} else {
 					uni.navigateTo({
 						url: '/pages/login/login',
 					});
 				}
-				
+
 			}
 		}
 	}
 </script>
 
 <style scoped lang="less">
+	.file-picker__box-content{
+		width: 200px;
+		height: 200px;
+	}
 	.me {
 		/deep/.herder {
 			width: 100vh;
@@ -128,34 +144,42 @@
 				line-height: 50px;
 				border-bottom: 1px solid lightgray;
 				position: relative;
+
 				.icon {
 					padding: 6px;
 				}
+
 				.right {
 					position: absolute;
 					left: 350px
 				}
 			}
+
 			.shoucang {
 				height: 50px;
 				line-height: 50px;
 				border-bottom: 1px solid lightgray;
 				position: relative;
+
 				.icon {
 					padding: 6px;
 				}
+
 				.right {
 					position: absolute;
 					left: 350px
 				}
 			}
+
 			.pingjia {
 				height: 50px;
 				line-height: 50px;
 				position: relative;
+
 				.icon {
 					padding: 6px;
 				}
+
 				.right {
 					position: absolute;
 					left: 350px

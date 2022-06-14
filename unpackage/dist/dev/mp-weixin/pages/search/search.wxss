@@ -28,7 +28,7 @@
   top: 13px;
 }
 .search .hot.data-v-4cedc0c6 {
-  height: 200px;
+  height: 150px;
   border-bottom: 1px solid lightgrey;
   background-color: white;
   margin-top: 3px;
