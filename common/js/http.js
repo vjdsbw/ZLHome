@@ -8,7 +8,6 @@ export function requestGet(url, params) {
 		}else{
 			url = baseUrl+`/api`+url.split("/api")[url.split("/api").length-1]
 		}	
-		console.log(url);
 		// #endif
 		uni.request({
 			url: url,
