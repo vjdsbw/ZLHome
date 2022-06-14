@@ -1,1 +1,0 @@
-<view><view class="uni-common-mt"><view class="uni-form-item uni-column"><input class="uni-input" bindinput="{{a}}" placeholder="输入品牌或产品型号"/><button class="searchbar" bindtap="{{b}}">搜索</button></view></view></view>
