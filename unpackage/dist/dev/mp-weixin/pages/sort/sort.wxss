@@ -1,0 +1,48 @@
+.container.data-v-a1ddb074 {
+  display: flex;
+  background-color: #fff;
+}
+.container .left-scroll.data-v-a1ddb074 {
+  width: 230rpx;
+  height: 100vh;
+  text-align: center;
+  background-color: #eee;
+}
+.container .left-scroll .left-scroll-item.data-v-a1ddb074 {
+  height: 120rpx;
+  line-height: 120rpx;
+  border-bottom: 1px solid #fff;
+}
+.container .left-scroll .left-scroll-item.active.data-v-a1ddb074 {
+  border-left: 2px solid red;
+  background-color: #fff;
+}
+.container .right-scroll.data-v-a1ddb074 {
+  flex: 1;
+  overflow: hidden;
+  height: 100vh;
+}
+.container .right-scroll .right-scroll-item.data-v-a1ddb074 {
+  margin-bottom: 20px;
+}
+.container .right-scroll .right-scroll-item .title-lists.data-v-a1ddb074 {
+  text-align: center;
+}
+.container .right-scroll .right-scroll-item .lists.data-v-a1ddb074 {
+  display: flex;
+  width: 244px;
+  flex-wrap: wrap;
+}
+.container .right-scroll .right-scroll-item .lists .content.data-v-a1ddb074 {
+  width: 170rpx;
+  margin-left: 5px;
+}
+.container .right-scroll .right-scroll-item .lists .content .img.data-v-a1ddb074 {
+  width: 170rpx;
+  height: 170rpx;
+}
+.container .right-scroll .right-scroll-item .lists .content .list-title.data-v-a1ddb074 {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
