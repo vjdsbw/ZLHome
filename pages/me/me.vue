@@ -1,11 +1,11 @@
 <template>
 	<view class="me">
 		<view class="herder">
-			<view class="portrait">
-				<!-- <uni-file-picker disable-preview :del-icon="false" return-type="object">
-					<image src="@/static/icon/me-active.png"></image>
-				</uni-file-picker>	 -->	
-			</view>			
+
+			<view class="portrait" @click="judget">
+				<image v-if="neverchange == true" src="@/static/icon/me.png" mode=""></image>
+				<image v-else :src="imgpath"></image>
+			</view>
 			<view class="login" @click="gologin">{{username}}</view>
 			<uni-icons @click="goSet" class="set" type="gear-filled" size="30" color="white"></uni-icons>
 		</view>
@@ -43,15 +43,58 @@
 						radius: '50%'
 					}
 				},
+				neverchange: true,
+				imgpath: ""
 			}
 		},
 		created() {
 			this.show()
 		},
+		updated() {
+			let result = uni.getStorageSync('user');
+			if(result){
+				let result1 = uni.getStorageSync(`img${result.user_id}`);
+				if (result1) {
+					this.imgpath = result1
+						this.neverchange = false
+					console.log(this.imgpath,"xxxx");
+				}
+			}
+		      else{
+				  this.imgpath = ""
+				  	this.neverchange = true
+			  }
+			
+		},
 		onShow() {
 			this.show()
 		},
 		methods: {
+			judget() {
+				let result = uni.getStorageSync('user');
+				if (result) {
+					this.changeImage()
+				} else {
+					uni.navigateTo({
+						url: '/pages/login/login',
+					});
+				}
+			},
+			changeImage() {
+				// 调用下面的函数时会丢失this，这里保存当前的this
+				var _this = this;
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['original'],
+					sourceType: ['album'],
+					success: function(res) {
+						let result = uni.getStorageSync('user');
+						_this.neverchange = "false";
+						_this.imgpath = res.tempFilePaths[0];
+						uni.setStorageSync(`img${result.user_id}`, _this.imgpath)
+					}
+				})
+			},
 			gologin() {
 				let result = uni.getStorageSync('user')
 				if (result) {
@@ -59,6 +102,8 @@
 						url: '/pages/useredit/useredit',
 					});
 				} else {
+					this.imgpath = "";
+					this.neverchange = true
 					uni.navigateTo({
 						url: '/pages/login/login',
 					});
@@ -107,10 +152,11 @@
 </script>
 
 <style scoped lang="less">
-	.file-picker__box-content{
+	.file-picker__box-content {
 		width: 200px;
 		height: 200px;
 	}
+
 	.me {
 		/deep/.herder {
 			width: 100vh;
@@ -129,80 +175,89 @@
 				border-radius: 50% 50%;
 
 				image {
-					width: 100rpx;
-					height: 100rpx;
-					margin: 25px 25px;
-					background-size: 100% 100%;
+					width: 100%;
+					border-radius: 50% 50%;
+					height: 100%;
+					position: absolute;
+					left: -50rpx;
+					top: -50rpx;
+					object-fit: cover;
 				}
 			}
 
-			.login {
-				font-size: 20px;
-				color: white;
-				text-decoration: underline;
-				position: absolute;
-				top: 60px;
-				left: 130px;
-			}
-
-			.set {
-				position: absolute;
-				top: 10px;
-				left: 330px;
+			image {
+				width: 100rpx;
+				height: 100rpx;
+				margin: 25px 25px;
+				background-size: 100% 100%;
 			}
 		}
 
-		.body {
-			margin-top: 10px;
-			background-color: white;
+		.login {
+			font-size: 20px;
+			color: white;
+			text-decoration: underline;
+			position: absolute;
+			top: 60px;
+			left: 130px;
+		}
 
-			.order {
-				height: 50px;
-				line-height: 50px;
-				border-bottom: 1px solid lightgray;
-				position: relative;
+		.set {
+			position: absolute;
+			top: 10px;
+			left: 330px;
+		}
+	}
 
-				.icon {
-					padding: 6px;
-				}
+	.body {
+		margin-top: 10px;
+		background-color: white;
 
-				.right {
-					position: absolute;
-					left: 350px
-				}
+		.order {
+			height: 50px;
+			line-height: 50px;
+			border-bottom: 1px solid lightgray;
+			position: relative;
+
+			.icon {
+				padding: 6px;
 			}
 
-			.shoucang {
-				height: 50px;
-				line-height: 50px;
-				border-bottom: 1px solid lightgray;
-				position: relative;
-
-				.icon {
-					padding: 6px;
-				}
-
-				.right {
-					position: absolute;
-					left: 350px
-				}
-			}
-
-			.pingjia {
-				height: 50px;
-				line-height: 50px;
-				position: relative;
-
-				.icon {
-					padding: 6px;
-				}
-
-				.right {
-					position: absolute;
-					left: 350px
-				}
+			.right {
+				position: absolute;
+				left: 350px
 			}
 		}
 
+		.shoucang {
+			height: 50px;
+			line-height: 50px;
+			border-bottom: 1px solid lightgray;
+			position: relative;
+
+			.icon {
+				padding: 6px;
+			}
+
+			.right {
+				position: absolute;
+				left: 350px
+			}
+		}
+
+		.pingjia {
+			height: 50px;
+			line-height: 50px;
+			position: relative;
+
+			.icon {
+				padding: 6px;
+			}
+
+			.right {
+				position: absolute;
+				left: 350px
+			}
+		}
 	}
 </style>
