@@ -72,7 +72,7 @@
 				<text>售后服务</text><text>极速发货</text><text>贵就赔</text>
 			</view>
 		</view>
-		<goodsdetail_tabs></goodsdetail_tabs>
+		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
 	</view>
 </template>
 
@@ -90,22 +90,31 @@
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
-				duration: 1000
+				duration: 1000,
+				goods_id: 0,
+				result:{}
 			}
 		},
 		created() {
+
+		},
+		onLoad(options) {
+			this.goods_id = options.id
+	
 			this.getGoodDetail()
 		},
 		methods: {
 			async getGoodDetail() {
+				
 				let result = await requestGet(
-					"/api/api_goods?category_pinyin=undefined&goods_id=90846&XcxSessKey=%20&company_id=7194")
+					`/api/api_goods?goods_id=${this.goods_id}`)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
-				console.log(result.data.goods_info.goods_name)
+				this.result = result
+			  console.log(this.result,"far");
 			},
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
@@ -125,10 +134,10 @@
 				wx.showToast({
 					title: `切换到标签 ${event.detail.name}`,
 					icon: 'none',
-			 });
+				});
 			},
 		},
-		
+
 	}
 </script>
 
