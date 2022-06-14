@@ -4,13 +4,13 @@
     "pages/sort/sort",
     "pages/brand/brand",
     "pages/me/me",
+    "pages/good/good",
     "pages/search/search"
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
-    "van-tag": "/wxcomponents/vant/dist/tag/index",
-    "van-tab": "/wxcomponents/vant/dist/tab/index",
-    "van-tabs": "/wxcomponents/vant/dist/tabs/index"
+    "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
   },
   "window": {
     "navigationBarTextStyle": "black",
