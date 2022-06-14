@@ -6,33 +6,20 @@ const _sfc_main = {
     return {
       title: [],
       lists: [],
-      currentIndex: 0
+      currentIndex: 0,
+      doms: "",
+      topList: []
     };
   },
   created() {
     this.getList();
-    this.getListContent();
-    this.getData();
+    this.getListContent().then(() => {
+      this.getNodesInfo();
+    });
+  },
+  onLoad() {
   },
   onReady() {
-    const query = common_vendor.index.createSelectorQuery().in(this);
-    query.selectAll(".left-scroll-item").boundingClientRect((data) => {
-      this.leftDomsTop = data.map((v) => v.top);
-      console.log("\u5DE6\u8FB9top\uFF1A", this.leftDomsTop);
-    }).exec();
-    query.selectAll(".right-scroll-item").boundingClientRect((data) => {
-      this.rightDomsTop = data.map((v) => v.top);
-      console.log("\u53F3\u8FB9top\uFF1A", this.rightDomsTop);
-    }).exec();
-    query.selectAll(".left-scroll-item").fields({
-      size: true,
-      rect: true
-    }, (data) => {
-      this.cateItemHeight = data.map((v) => {
-        this.cateItemHeight = v.height;
-        return v.top;
-      });
-    }).exec();
   },
   methods: {
     async getList() {
@@ -45,50 +32,33 @@ const _sfc_main = {
     },
     leftClick(idx, item) {
       this.currentIndex = idx;
-      this.rightScrollTop = this.rightDomsTop[idx];
+      this.doms = "po" + idx;
     },
-    getData() {
-      for (let i = 0; i < 12; i++) {
-        this.title.push({
-          name: "\u5206\u7C7B" + i
-        });
-        this.lists.push({
-          name: `\u2014\u2014 \u4EA7\u54C1\u5206\u7C7B${i} \u2014\u2014`,
-          lists: []
-        });
-      }
-      for (let i = 0; i < this.lists.length; i++) {
-        for (let j = 0; j < 24; j++) {
-          this.lists[i].lists.push({
-            name: `\u5206\u7C7B${i}-\u5546\u54C1${j}`
-          });
+    scrolltolower() {
+      setTimeout(() => {
+        this.currentIndex = 11;
+      }, 500);
+    },
+    scrolls(e) {
+      let scrollTop = e.target.scrollTop;
+      for (let i = 0; i < this.topList.length; i++) {
+        let h1 = this.topList[i];
+        let h2 = this.topList[i + 1];
+        if (scrollTop >= h1 && scrollTop < h2) {
+          this.currentIndex = i;
         }
       }
     },
-    async onRightScroll(e) {
-      this.rightDomsTop.forEach((v, k) => {
-        if (v < e.detail.scrollTop + 3) {
-          this.currentIndex = k;
-          return false;
-        }
-      });
-    }
-  },
-  wacth: {
-    currentIndex(newValue, oldValue) {
+    getNodesInfo() {
       const query = common_vendor.index.createSelectorQuery().in(this);
-      query.selectAll("#leftScroll").fields({
-        size: true,
-        scrollOffset: true
-      }, (data) => {
-        let H = data.height;
-        let ST = data.scrollTop;
-        if (this.leftDomsTop[newValue] + this.cateItemHeight > H + ST) {
-          return this.leftScrollTop = this.leftDomsTop[newValue] + this.cateItemHeight - H;
-        }
-        if (ST > this.cateItemHeight) {
-          this.leftScrollTop = this.leftDomsTop[newValue];
-        }
+      query.selectAll(".right-scroll-item").boundingClientRect().exec((res) => {
+        let nodes = res[0];
+        let rel = [];
+        nodes.map((item) => {
+          rel.push(item.top);
+        });
+        this.topList = rel;
+        console.log(rel, "9999999999999999999999999");
       });
     }
   }
@@ -105,8 +75,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.leftClick(idx, item), item.id)
       };
     }),
-    b: _ctx.leftScrollTop,
-    c: common_vendor.f($data.lists, (item, index, i0) => {
+    b: common_vendor.f($data.lists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.f(item.cat_list, (item1, index1, i1) => {
@@ -116,11 +85,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             c: item1.id
           };
         }),
-        c: item.id
+        c: index,
+        d: "po" + index
       };
     }),
-    d: _ctx.rightScrollTop,
-    e: common_vendor.o((...args) => $options.onRightScroll && $options.onRightScroll(...args))
+    c: $data.doms,
+    d: common_vendor.o((...args) => $options.scrolls && $options.scrolls(...args)),
+    e: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/pages/sort/sort.vue"]]);

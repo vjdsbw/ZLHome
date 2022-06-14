@@ -1,1 +1,1 @@
-<view></view>
+<view class="ld"><view class="left"><view wx:for="{{a}}" wx:for-item="item" wx:key="b" class="{{[item.c && 'active']}}" bindtap="{{item.d}}">{{item.a}}</view></view><view class="right"><scroll-view scroll-y="true" style="height:200px" scroll-into-view="{{c}}" scroll-with-animation bindscroll="{{d}}" bindscrolltolower="{{e}}"><view wx:for="{{b}}" wx:for-item="items" wx:key="c" id="{{items.d}}" class="title"><view class="titlecolor">{{items.a}}</view><view wx:for="{{items.b}}" wx:for-item="it" wx:key="b">{{it.a}}</view></view></scroll-view></view></view>

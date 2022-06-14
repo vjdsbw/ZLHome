@@ -1,0 +1,16 @@
+.ld {
+  display: flex;
+}
+.ld .left {
+  width: 100px;
+  border: 1px solid red;
+}
+.ld .right {
+  flex: 1;
+}
+.active {
+  background-color: #007aff;
+}
+.titlecolor {
+  background-color: red;
+}

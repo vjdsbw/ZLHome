@@ -1,16 +1,16 @@
 <template>
 	<view class="container d-flex h-100">
 		<!-- 左边列表 -->
-		<scroll-view class="left-scroll flex-1 border-right" scroll-y="true" :scroll-top="leftScrollTop">
+		<scroll-view class="left-scroll" scroll-y="true">
 			<view :class="['left-scroll-item',{active:currentIndex===idx}]" v-for="(item,idx) in title" :key="item.id"
 				@click="leftClick(idx,item)">
 				{{item.desc}}
 			</view>
 		</scroll-view>
 		<!-- 右边内容 -->
-		<scroll-view class="right-scroll flex-3" scroll-y="true" :scroll-top="rightScrollTop" scroll-with-animation
-			@scroll="onRightScroll">
-			<view class="right-scroll-item" v-for="(item,index) in lists" :key="item.id">
+		<scroll-view class="right-scroll" scroll-y="true" scroll-with-animation :scroll-into-view="doms"
+			@scroll="scrolls" @scrolltolower="scrolltolower">
+			<view class="right-scroll-item" v-for="(item,index) in lists" :key="index" :id="'po'+index">
 				<view class="title-lists">——{{item.desc}}——</view>
 				<view class="lists">
 					<view class="content" v-for="(item1,index1) in item.cat_list" :key="item1.id">
@@ -33,36 +33,21 @@
 				title: [],
 				lists: [],
 				currentIndex: 0,
+				doms: '',
+				topList: []
 			}
 		},
 		created() {
 			this.getList()
-			this.getListContent()
-			this.getData()
+			this.getListContent().then(()=>{
+				this.getNodesInfo()
+			})
+		},
+		onLoad() {
+		
 		},
 		onReady() {
-			const query = uni.createSelectorQuery().in(this);
-			// 点击左边菜单，右边滑动到相应区块
-			// 拿到左右节点的top值
-			query.selectAll('.left-scroll-item').boundingClientRect(data => {
-				this.leftDomsTop = data.map(v => v.top)
-				console.log('左边top：', this.leftDomsTop)
-			}).exec();
-			query.selectAll('.right-scroll-item').boundingClientRect(data => {
-				this.rightDomsTop = data.map(v => v.top)
-				console.log('右边top：', this.rightDomsTop)
-			}).exec();
-
-			// 当右边滚动超过左边相应范围时，左边内容跟着滑动
-			query.selectAll('.left-scroll-item').fields({
-				size: true, // 尺寸
-				rect: true // 布局信息
-			}, data => {
-				this.cateItemHeight = data.map(v => {
-					this.cateItemHeight = v.height
-					return v.top
-				})
-			}).exec();
+			
 		},
 		methods: {
 			async getList() {
@@ -76,61 +61,36 @@
 			// 点击左边导航栏
 			leftClick(idx, item) {
 				this.currentIndex = idx;
-				// 右边scroll-view滚动到对应区块
-				this.rightScrollTop = this.rightDomsTop[idx]
-				// console.log(this.rightScrollTop)
+				this.doms = 'po' + idx
 			},
-			// 假数据
-			getData() {
-				for (let i = 0; i < 12; i++) {
-					this.title.push({
-						name: '分类' + i
-					})
-					this.lists.push({
-						name: `—— 产品分类${i} ——`,
-						lists: []
-					})
-				}
-				for (let i = 0; i < this.lists.length; i++) {
-					for (let j = 0; j < 24; j++) {
-						this.lists[i].lists.push({
-							name: `分类${i}-商品${j}`
-						})
+			scrolltolower() {
+				setTimeout(() => {
+					this.currentIndex = 11
+				}, 500)
+			},
+			scrolls(e) {
+				let scrollTop = e.target.scrollTop
+				for (let i = 0; i < this.topList.length; i++) {
+					// console.log(this.topList.length)
+					let h1 = this.topList[i]
+					let h2 = this.topList[i + 1]
+					if (scrollTop >= h1 && scrollTop < h2) {
+						this.currentIndex = i
 					}
 				}
 			},
-			// 滑动右边菜单，左边相应菜单项actived
-			// 监听右边滚动事件
-			async onRightScroll(e) {
-				// 匹配当前scrollTop所处的索引
-				this.rightDomsTop.forEach((v, k) => {
-					if (v < e.detail.scrollTop + 3) {
-						this.currentIndex = k
-						return false
-					}
-				})
-			},
-		},
-		wacth: {
-			currentIndex(newValue, oldValue) {
-				// 获取左边scroll-view的高度，top值
+			getNodesInfo() {
 				const query = uni.createSelectorQuery().in(this);
-				query.selectAll('#leftScroll').fields({
-					size: true,
-					scrollOffset: true, // 滚动状态
-				}, data => {
-					let H = data.height
-					let ST = data.scrollTop
-					// 下边
-					if ((this.leftDomsTop[newValue] + this.cateItemHeight) > (H + ST)) {
-						return this.leftScrollTop = this.leftDomsTop[newValue] + this.cateItemHeight - H
-					}
-					// 上边
-					if (ST > this.cateItemHeight) {
-						this.leftScrollTop = this.leftDomsTop[newValue]
-					}
+				query.selectAll('.right-scroll-item').boundingClientRect().exec((res) => {
+				let nodes = res[0]
+					let rel = [];
+					nodes.map(item => {
+						rel.push(item.top)
+					})
+					this.topList = rel
+					console.log(rel,"9999999999999999999999999")
 				})
-			}
+			},
 		},
 	}
 </script>

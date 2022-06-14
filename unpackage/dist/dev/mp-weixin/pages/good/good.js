@@ -59,16 +59,17 @@ if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _easycom_uni_card2 = common_vendor.resolveComponent("uni-card");
   const _easycom_uni_drawer2 = common_vendor.resolveComponent("uni-drawer");
-  const _component_goodList = common_vendor.resolveComponent("goodList");
+  const _easycom_goodList2 = common_vendor.resolveComponent("goodList");
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_icons2 + _easycom_uni_card2 + _easycom_uni_drawer2 + _component_goodList + _easycom_uni_load_more2)();
+  (_component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_icons2 + _easycom_uni_card2 + _easycom_uni_drawer2 + _easycom_goodList2 + _easycom_uni_load_more2)();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 const _easycom_uni_card = () => "../../uni_modules/uni-card/components/uni-card/uni-card.js";
 const _easycom_uni_drawer = () => "../../uni_modules/uni-drawer/components/uni-drawer/uni-drawer.js";
+const _easycom_goodList = () => "../../components/goodList/goodList.js";
 const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  (_easycom_uni_icons + _easycom_uni_card + _easycom_uni_drawer + _easycom_uni_load_more)();
+  (_easycom_uni_icons + _easycom_uni_card + _easycom_uni_drawer + _easycom_goodList + _easycom_uni_load_more)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
