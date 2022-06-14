@@ -6,11 +6,16 @@
     "pages/me/me",
     "pages/login/login",
     "pages/set/set",
+    "pages/good/good",
     "pages/search/search",
     "pages/useredit/useredit",
     "pages/setnickname/setnickname"
   ],
-  "usingComponents": {},
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
+  },
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

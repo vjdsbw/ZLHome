@@ -10,6 +10,7 @@ if (!Math) {
   "./pages/me/me.js";
   "./pages/login/login.js";
   "./pages/set/set.js";
+  "./pages/good/good.js";
   "./pages/search/search.js";
   "./pages/useredit/useredit.js";
   "./pages/setnickname/setnickname.js";

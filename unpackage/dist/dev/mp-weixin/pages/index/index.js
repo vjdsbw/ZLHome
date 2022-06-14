@@ -58,9 +58,6 @@ const _sfc_main = {
       });
     },
     async getSwipers() {
-      await common_js_http.requestPost("/api/m/index/cate", {
-        "biao": "keting"
-      });
       let result2 = await common_js_http.requestPost("/api/x/index/index");
       await common_js_http.requestGet("/api/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194");
       let brandlist = await common_js_http.requestPost("/api/x/index/index_two");
