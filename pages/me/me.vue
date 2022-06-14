@@ -2,15 +2,15 @@
 	<view class="me">
 		<view class="herder">
 			<view class="portrait">
-				<uni-file-picker disable-preview :del-icon="false" return-type="object">
+				<!-- <uni-file-picker disable-preview :del-icon="false" return-type="object">
 					<image src="@/static/icon/me-active.png"></image>
-				</uni-file-picker>		
+				</uni-file-picker>	 -->	
 			</view>			
 			<view class="login" @click="gologin">{{username}}</view>
 			<uni-icons @click="goSet" class="set" type="gear-filled" size="30" color="white"></uni-icons>
 		</view>
 		<view class="body">
-			<view class="order">
+			<view class="order" @click="goOrder">
 				<uni-icons class="icon" custom-prefix="iconfont" type="icon-ziwopingjia" size="20"></uni-icons>
 				客户订单
 				<uni-icons class="right" type="right" size="20"></uni-icons>
@@ -83,7 +83,24 @@
 						url: '/pages/login/login',
 					});
 				}
-
+			},
+			goOrder(){
+				let result = uni.getStorageSync('user')
+				if (result) {
+					uni.navigateTo({
+						url: '/pages/order/order',
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						duration: 2000
+					});
+					setTimeout(()=>{
+						uni.navigateTo({
+							url: '/pages/login/login',
+						})
+					},2000)					
+				}
 			}
 		}
 	}

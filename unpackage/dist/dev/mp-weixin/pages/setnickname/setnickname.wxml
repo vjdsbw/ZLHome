@@ -1,1 +1,0 @@
-<view class="setnickname data-v-79c2b328"><view class="set-name data-v-79c2b328"><input class="search-input data-v-79c2b328" bindinput="{{a}}" value="{{b}}"/></view><view class="button data-v-79c2b328" bindtap="{{c}}"> 保存 </view></view>

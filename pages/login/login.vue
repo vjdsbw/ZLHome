@@ -19,7 +19,7 @@
 					</uni-forms-item>
 				</uni-forms>
 				<view class="button">
-					<button type="primary" @click="submit('customForm')">提交</button>
+					<button type="primary" @click="submit('customForm')">登录</button>
 				</view>
 
 			</view>
@@ -43,7 +43,7 @@
 					username: {
 						rules: [{
 							pattern: '^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$',
-							message: '请输入正确的手机号'
+							errorMessage: '请输入正确的手机号'
 						}]
 					},
 					password: {
@@ -111,8 +111,6 @@
 			.home {
 				font-size: 40px;
 			}
-		}
-
-		
+		}		
 	}
 </style>
