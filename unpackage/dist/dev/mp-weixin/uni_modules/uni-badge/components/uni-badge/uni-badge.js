@@ -139,5 +139,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     h: common_vendor.o(($event) => $options.onClick())
   } : {});
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "F:/zuolo/uni_modules/uni-badge/components/uni-badge/uni-badge.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-badge/components/uni-badge/uni-badge.vue"]]);
 wx.createComponent(Component);

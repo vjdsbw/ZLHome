@@ -13,7 +13,7 @@
 			<view class="right-scroll-item" v-for="(item,index) in lists" :key="index" :id="'po'+index">
 				<view class="title-lists">——{{item.desc}}——</view>
 				<view class="lists">
-					<view class="content" v-for="(item1,index1) in item.cat_list" :key="item1.id">
+					<view class="content" v-for="(item1,index1) in item.cat_list" :key="item1.id" @click="goGood(item1.url_type,item1.name)" >
 						<image class="img" :src="item1.image_url"></image>
 						<view class="list-title">{{item1.desc_three}}</view>
 					</view>
@@ -57,6 +57,14 @@
 			async getListContent() {
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
 				this.lists = result.data
+				console.log(this.lists,"xxxxxxxxx");
+			},
+			//跳转商品
+			goGood(pinyin,chinese){
+				pinyin = pinyin.split("-")[1].split("/")[0];
+				uni.navigateTo({
+					url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`,
+				});
 			},
 			// 点击左边导航栏
 			leftClick(idx, item) {

@@ -29,6 +29,13 @@ const _sfc_main = {
     async getListContent() {
       let result = await common_js_http.requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194");
       this.lists = result.data;
+      console.log(this.lists, "xxxxxxxxx");
+    },
+    goGood(pinyin, chinese) {
+      pinyin = pinyin.split("-")[1].split("/")[0];
+      common_vendor.index.navigateTo({
+        url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`
+      });
     },
     leftClick(idx, item) {
       this.currentIndex = idx;
@@ -82,7 +89,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           return {
             a: item1.image_url,
             b: common_vendor.t(item1.desc_three),
-            c: item1.id
+            c: item1.id,
+            d: common_vendor.o(($event) => $options.goGood(item1.url_type, item1.name), item1.id)
           };
         }),
         c: index,
@@ -94,5 +102,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "F:/zuolo/pages/sort/sort.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "D:/HBuilderXProject/ZLHome/pages/sort/sort.vue"]]);
 wx.createPage(MiniProgramPage);

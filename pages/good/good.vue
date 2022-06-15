@@ -151,13 +151,12 @@
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
 					p: this.p
 				})
+
 				if(result.data){
 					//商品第一行分类
 					this.brand =  result.data.brand_list
 					//商品第二行分类
 					this.attr = result.data.attr
-					
-					
 					//通过第一页的数据比较
 					if (result.data.goods_list.length < 32) {
 						this.flag = false

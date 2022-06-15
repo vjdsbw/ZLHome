@@ -20,7 +20,6 @@ const _sfc_main = {
   },
   updated() {
     let result = common_vendor.index.getStorageSync("user");
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     if (result) {
       let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
       if (result1) {
@@ -104,6 +103,7 @@ const _sfc_main = {
       } else {
         common_vendor.index.showToast({
           title: "\u8BF7\u5148\u767B\u5F55",
+          image: "/static/icon/err.png",
           duration: 2e3
         });
         setTimeout(() => {
@@ -170,5 +170,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "F:/zuolo/pages/me/me.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "D:/HBuilderXProject/ZLHome/pages/me/me.vue"]]);
 wx.createPage(MiniProgramPage);
