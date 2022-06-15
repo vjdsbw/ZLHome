@@ -182,7 +182,13 @@
   text-align: center;
   font-size: 14px;
 }
+.goods .head_list .first_list .sales2 .scroll-view .scroll-view-box .attr_list .button-hover.data-v-cdccd9b4 {
+  border-color: 1px solid #af2e14;
+  color: #af2e14;
+}
 .goods .head_list .first_list .sales2 .scroll-view .scroll-view-box .attr_list .active.data-v-cdccd9b4 {
+  background-color: #af2e14;
+  color: #af2e14;
   height: auto;
   overflow: visible;
 }

@@ -252,5 +252,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     E: common_vendor.o((...args) => $options.onClick && $options.onClick(...args))
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/uni_modules/uni-list/components/uni-list-item/uni-list-item.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-list/components/uni-list-item/uni-list-item.vue"]]);
 wx.createComponent(Component);

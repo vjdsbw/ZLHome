@@ -1,4 +1,13 @@
 <template>
+	<!-- 搜索 -->
+	<view class="header">
+		<view class="search" @click="tosearch">
+			<uni-search-bar placeholder="输入商品分类、名称" :radius="100" @confirm="search" cancelButton="none"></uni-search-bar>
+		</view>
+		<view class="cart">
+			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
+		</view>
+	</view>
 	<view class="container d-flex h-100">
 		<!-- 左边列表 -->
 		<scroll-view class="left-scroll" scroll-y="true">
@@ -39,20 +48,21 @@
 		},
 		created() {
 			this.getList()
-			this.getListContent().then(()=>{
+			this.getListContent().then(() => {
 				this.getNodesInfo()
 			})
 		},
 		onLoad() {
-		
+
 		},
 		onReady() {
-			
+
 		},
 		methods: {
 			async getList() {
 				let result = await requestGet("/api/m/index/cate_list")
 				this.title = result.data
+				// console.log(this.title,"xxxxxxxxxxxxxxx");
 			},
 			async getListContent() {
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
@@ -65,6 +75,7 @@
 
 				uni.navigateTo({
 					url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`,
+
 				});
 			},
 			// 点击左边导航栏
@@ -90,12 +101,13 @@
 			getNodesInfo() {
 				const query = uni.createSelectorQuery().in(this);
 				query.selectAll('.right-scroll-item').boundingClientRect().exec((res) => {
-				let nodes = res[0]
+					let nodes = res[0]
 					let rel = [];
 					nodes.map(item => {
 						rel.push(item.top)
 					})
 					this.topList = rel
+
 				})
 			},
 		},
@@ -103,6 +115,35 @@
 </script>
 
 <style lang="less" scoped>
+	.header {
+		display: flex;
+		background-color: #fff;
+		.search {
+			/deep/.uni-searchbar {
+				width: 290px;
+
+				.uni-searchbar__box {
+					height: 30px;
+					justify-content: left;
+
+					.uni-searchbar__box-icon-search {
+						width: 10px;
+					}
+
+					.uni-searchbar__text-placeholder {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+		.cart{
+			position: relative;
+			top: 5px;
+			right: -10px;
+		}
+	}
+
+
 	.container {
 		display: flex;
 		background-color: #fff;
@@ -139,11 +180,11 @@
 
 				.lists {
 					display: flex;
-					width: 244px;
+					// width: 255px;
 					flex-wrap: wrap;
 
 					.content {
-						width: 170rpx;
+						width: 160rpx;
 						margin-left: 5px;
 
 						.img {

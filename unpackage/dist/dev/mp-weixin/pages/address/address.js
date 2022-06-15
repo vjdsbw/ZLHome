@@ -5,7 +5,11 @@ const _sfc_main = {
     return {
       customItem: "\u5168\u90E8",
       region: [],
-      single: ""
+      single: "",
+      type: "default",
+      inverted: false,
+      flag: false,
+      show: false
     };
   },
   onLoad() {
@@ -16,11 +20,25 @@ const _sfc_main = {
       this.region = event.detail.value;
       console.log(this.region);
     },
-    bindClick() {
+    changeAddress() {
     },
     change(e) {
       this.single = e;
       console.log("-change\u4E8B\u4EF6:", e);
+    },
+    setInverted() {
+      this.inverted = !this.inverted;
+      this.flag = false;
+    },
+    setInver() {
+      this.inverted = !this.inverted;
+      this.flag = true;
+    },
+    onClose(e) {
+      console.log(e);
+    },
+    open() {
+      this.$refs.popup.open("bottom");
     }
   }
 };
@@ -28,17 +46,21 @@ if (!Array) {
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
   const _easycom_uni_forms_item2 = common_vendor.resolveComponent("uni-forms-item");
   const _easycom_uni_forms2 = common_vendor.resolveComponent("uni-forms");
+  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _easycom_uni_tag2 = common_vendor.resolveComponent("uni-tag");
   const _easycom_uni_datetime_picker2 = common_vendor.resolveComponent("uni-datetime-picker");
-  (_easycom_uni_easyinput2 + _easycom_uni_forms_item2 + _easycom_uni_forms2 + _easycom_uni_tag2 + _easycom_uni_datetime_picker2)();
+  const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
+  (_easycom_uni_easyinput2 + _easycom_uni_forms_item2 + _easycom_uni_forms2 + _easycom_uni_icons2 + _easycom_uni_tag2 + _easycom_uni_datetime_picker2 + _easycom_uni_popup2)();
 }
 const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
 const _easycom_uni_forms_item = () => "../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.js";
 const _easycom_uni_forms = () => "../../uni_modules/uni-forms/components/uni-forms/uni-forms.js";
+const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 const _easycom_uni_tag = () => "../../uni_modules/uni-tag/components/uni-tag/uni-tag.js";
 const _easycom_uni_datetime_picker = () => "../../uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker.js";
+const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
-  (_easycom_uni_easyinput + _easycom_uni_forms_item + _easycom_uni_forms + _easycom_uni_tag + _easycom_uni_datetime_picker)();
+  (_easycom_uni_easyinput + _easycom_uni_forms_item + _easycom_uni_forms + _easycom_uni_icons + _easycom_uni_tag + _easycom_uni_datetime_picker + _easycom_uni_popup)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -80,28 +102,41 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     n: common_vendor.p({
       border: true
     }),
-    o: common_vendor.o($options.bindClick),
-    p: common_vendor.p({
+    o: common_vendor.p({
+      type: "location-filled",
+      size: "30"
+    }),
+    p: common_vendor.o((...args) => $options.changeAddress && $options.changeAddress(...args)),
+    q: common_vendor.o($options.setInverted),
+    r: common_vendor.p({
       text: "\u4F50\u7F57\u4F18\u9009\u6307\u5B9A\u7269\u6D41",
-      inverted: true,
+      inverted: $data.inverted,
       type: "error",
       circle: true
     }),
-    q: common_vendor.o($options.bindClick),
-    r: common_vendor.p({
+    s: common_vendor.o($options.setInver),
+    t: common_vendor.p({
       text: "\u672C\u5E97\u5408\u4F5C\u7269\u6D41",
-      inverted: true,
-      circle: "true"
+      inverted: !$data.inverted,
+      type: "error",
+      circle: true
     }),
-    s: common_vendor.o(_ctx.maskClick),
-    t: common_vendor.o(($event) => $data.single = $event),
-    v: common_vendor.p({
+    v: common_vendor.o(_ctx.maskClick),
+    w: common_vendor.o(($event) => $data.single = $event),
+    x: common_vendor.p({
       type: "date",
       ["clear-icon"]: false,
       border: false,
       modelValue: $data.single
+    }),
+    y: $data.flag ? 1 : "",
+    z: common_vendor.o((...args) => $options.open && $options.open(...args)),
+    A: common_vendor.sr("popup", "db675620-14"),
+    B: common_vendor.p({
+      type: "bottom",
+      ["background-color"]: "#fff"
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-db675620"], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/address/address.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-db675620"], ["__file", "D:/HBuilderXProject/ZLHome/pages/address/address.vue"]]);
 wx.createPage(MiniProgramPage);

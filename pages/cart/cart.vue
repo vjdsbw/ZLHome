@@ -1,7 +1,7 @@
 <template>
 	<view class="cart">
 		<view class="cart-goods">
-			<view v-if="flag" class="cart-icon">
+			<view v-show="flag" class="cart-icon">
 				<image src="/static/icon/cart.png" mode=""></image>
 				<view class="cart-text">
 					您未登录，登录后将同步购物车中的商品
@@ -9,6 +9,11 @@
 				<view class="denglu" @click="tologin">
 					登录
 				</view>
+			</view>
+			<view v-show="!flag" class="cartshow">				
+				<view class="cart-text">
+					XXXXXXXXXXXXXXX
+				</view>				
 			</view>
 		</view>
 		<view class="guess">
@@ -37,7 +42,8 @@
 
 <script>
 	import {
-		requestGet
+		requestGet,
+		requestPost
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -46,22 +52,21 @@
 				flag:true
 			}
 		},
-		created() {
+		onShow() {
 			this.guesslike()
+		},
+		onLoad() {
+		
 		},
 		methods: {
 			async guesslike() {
 				let result = await requestGet("/api/api/cart/guess_goods?company_id=7194");
 				this.likelist = result.data;
 				let user = uni.getStorageSync('user')
-				this.flag= !this.false;
-				console.log(this.flag);
 				if (user) {
-					this.flag= !this.false;
-				} else {
-					uni.navigateTo({
-						url: '/pages/login/login',
-					});
+					this.flag= !this.flag;
+					let result = await requestPost("/api/api/cart?XcxSessKey=%20&company_id=7194");
+					console.log(result);
 				}
 			},
 			tologin(){

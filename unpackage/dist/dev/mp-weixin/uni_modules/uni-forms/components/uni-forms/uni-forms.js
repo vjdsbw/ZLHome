@@ -325,5 +325,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: !$props.border ? 1 : ""
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/uni_modules/uni-forms/components/uni-forms/uni-forms.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-forms/components/uni-forms/uni-forms.vue"]]);
 wx.createComponent(Component);

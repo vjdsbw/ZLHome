@@ -116,10 +116,6 @@ const _sfc_main = {
     show1Tag() {
       this.flag1 = !this.flag1;
     },
-    currentClick(k) {
-      this.flage = !this.flage;
-<<<<<<< HEAD
-    },
     addA(m) {
       if (this.arr.includes(m)) {
         this.arr = this.arr.filter((item) => item !== m);
@@ -147,7 +143,9 @@ const _sfc_main = {
       this.brr.forEach((item) => this.b = item + "^" + this.b);
       this.Goods = [];
       this.getgoodList();
-=======
+    },
+    currentClick(k) {
+      this.flage = !this.flage;
       this.psort = 6;
       this.Goods = [];
       this.getgoodList();
@@ -176,7 +174,6 @@ const _sfc_main = {
     },
     thenClick(idx) {
       this.num = idx;
->>>>>>> 6b4816d6ea48b05950b4e7fa22260c95b893f670
     }
   },
   onReachBottom() {
@@ -286,54 +283,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.attr_id
       };
     }),
-<<<<<<< HEAD
-    t: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    v: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
-    w: !$data.flag1 ? 1 : "",
-    x: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
-    y: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
-=======
     w: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
     x: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
     y: !$data.flag1 ? 1 : "",
->>>>>>> 6b4816d6ea48b05950b4e7fa22260c95b893f670
-    z: common_vendor.sr("showRight", "cdccd9b4-7"),
-    A: common_vendor.p({
+    z: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    A: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    B: common_vendor.sr("showRight", "cdccd9b4-7"),
+    C: common_vendor.p({
       mode: "right",
       width: "320",
       ["mask-click"]: true
     }),
-<<<<<<< HEAD
-    B: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
-      size: "8"
-    }),
-    C: common_vendor.f($data.attr, (attrs, k0, i0) => {
-      return {
-        a: common_vendor.t(attrs.attr_name),
-        b: "cdccd9b4-9-" + i0,
-        c: attrs.attr_id
-      };
-    }),
-    D: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
-      size: "8"
-    }),
-    E: common_vendor.p({
-      Goods: $data.Goods,
-      price: $data.price
-    }),
-    F: !$data.flag
-  }, !$data.flag ? {
-    G: common_vendor.p({
-      status: "loading"
-    })
-  } : {
-    H: common_vendor.p({
-=======
-    B: common_vendor.f($data.brand, (item, index, i0) => {
+    D: common_vendor.f($data.brand, (item, index, i0) => {
       return {
         a: common_vendor.t(item.brand_name),
         b: "cdccd9b4-10-" + i0 + ",cdccd9b4-9",
@@ -342,19 +303,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: common_vendor.o(($event) => $options.iconClick(index), item.brand_id)
       };
     }),
-    C: common_vendor.p({
+    E: common_vendor.p({
       type: "checkmarkempty",
       color: "red",
       size: "20"
     }),
-    D: common_vendor.p({
+    F: common_vendor.p({
       type: "danger",
       block: true
     }),
-    E: common_vendor.p({
+    G: common_vendor.p({
       title: "\u54C1\u724C"
     }),
-    F: common_vendor.f($data.attr, (item, k0, i0) => {
+    H: common_vendor.f($data.attr, (item, k0, i0) => {
       return {
         a: common_vendor.f(item.attr_list, (att, idx, i1) => {
           return {
@@ -372,32 +333,31 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    G: common_vendor.p({
+    I: common_vendor.p({
       type: "checkmarkempty",
       color: "red",
       size: "20"
     }),
-    H: common_vendor.p({
+    J: common_vendor.p({
       type: "danger",
       block: true
     }),
-    I: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
-    J: common_vendor.p({
+    K: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
+    L: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    K: !$data.flag
+    M: !$data.flag
   }, !$data.flag ? {
-    L: common_vendor.p({
+    N: common_vendor.p({
       status: "loading"
     })
   } : {
-    M: common_vendor.p({
->>>>>>> 6b4816d6ea48b05950b4e7fa22260c95b893f670
+    O: common_vendor.p({
       status: "noMore"
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdccd9b4"], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/good/good.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdccd9b4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/good/good.vue"]]);
 _sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);
