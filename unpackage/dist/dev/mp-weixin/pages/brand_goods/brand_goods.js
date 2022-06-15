@@ -1,19 +1,37 @@
 "use strict";
-var common_js_http = require("../../common/js/http.js");
 var common_vendor = require("../../common/vendor.js");
+var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
-      goodsList: {}
+      goodsList: {},
+      brandName: ""
     };
   },
   created() {
+    this.goGoodsDetailById();
+  },
+  onLoad(options) {
+    this.brandName = options.keywords;
+  },
+  onReady() {
     this.getGoods();
   },
   methods: {
     async getGoods() {
-      let result = await common_js_http.requestGet(`/api/api/search/?v=1&keywords=\u559C\u4E34\u95E8&XcxSessKey=%20&company_id=7194`);
+      let result = await common_js_http.requestGet("/api/api/search/?v=1&keywords=" + this.brandName + "&XcxSessKey=%20&company_id=7194");
       this.goodsList = result.data.goods_list;
+    },
+    goGoodsDetailById(goodsId) {
+      common_vendor.index.navigateTo({
+        url: "/pages/gooddetail/gooddetail?goods_id=" + goodsId,
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
     }
   }
 };
@@ -24,7 +42,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: item.goods_img_url,
         b: common_vendor.t(item.goods_name),
         c: common_vendor.t(item.sale_total),
-        d: item.goods_id
+        d: item.goods_id,
+        e: common_vendor.o(($event) => $options.goGoodsDetailById(item.goods_id), item.goods_id)
       };
     }),
     b: common_vendor.t()

@@ -6,9 +6,9 @@
 		<view class="shaixuan">
 			筛选
 		</view>
-		<view class="goods">
-			<view v-for="item in goodsList" :key="item.goods_id" class="gooditem" mode="widthFix">
-				<image :src="item.goods_img_url"></image>
+		<view class="goods" >
+			<view v-for="item in goodsList" :key="item.goods_id" class="gooditem" mode="widthFix" @click="goGoodsDetailById(item.goods_id)">
+				<image :src="item.goods_img_url" ></image>
 				<view class="content">
 					<view class="text">
 						{{item.goods_name}}
@@ -17,9 +17,12 @@
 						<text class="price">￥{{}}</text>
 						<text class="sale">已售{{item.sale_total}}</text>
 					</view>
-				</view>
-				
+				</view>	
 			</view>	
+		</view>
+		<view class="">
+			  抱歉没有更多商品了~
+			
 		</view>			
 	</view>
 </template>
@@ -32,17 +35,36 @@
 		data() {
 			return {
 				goodsList:{},
+				brandName:"",
 			}
 		},
 		created(){
+			this.goGoodsDetailById()
+		},
+		onLoad(options){
+			this.brandName=options.keywords;
+		},
+		onReady(){
 			this.getGoods()
+			
 		},
 		methods: {
 			async getGoods(){
-				let result = await requestGet(`/api/api/search/?v=1&keywords=喜临门&XcxSessKey=%20&company_id=7194`)
+				// 用上一个页面传来的参数作为请求参数
+				let result = await requestGet("/api/api/search/?v=1&keywords="+this.brandName+"&XcxSessKey=%20&company_id=7194")
 				this.goodsList=result.data.goods_list
+			},
+			goGoodsDetailById(goodsId){
+				// 跳转下一页面并传参
+				uni.navigateTo({
+					url: "/pages/gooddetail/gooddetail?goods_id="+goodsId ,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
-		}
+		},
+		
 	}
 </script>
 

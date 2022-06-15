@@ -4,12 +4,10 @@
     "pages/sort/sort",
     "pages/brand/brand",
     "pages/me/me",
-
-    "pages/brand_goods/brand_goods",
-    "pages/gooddetail/gooddetail"
-
     "pages/login/login",
     "pages/set/set",
+    "pages/brand_goods/brand_goods",
+    "pages/gooddetail/gooddetail",
     "pages/good/good",
     "pages/search/search",
     "pages/useredit/useredit",
@@ -17,16 +15,12 @@
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
-<<<<<<< HEAD
     "van-tab": "/wxcomponents/vant/dist/tab/index",
     "van-tabs": "/wxcomponents/vant/dist/tabs/index",
     "van-cell": "/wxcomponents/vant/dist/cell/index",
-    "van-cell-group": "/wxcomponents/vant/dist/cell-group/index"
-=======
+    "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
     "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
     "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
-
->>>>>>> 44678b697777be414800bd93c492d71aa5ea84a4
   },
   "window": {
     "navigationBarTextStyle": "black",
@@ -63,5 +57,6 @@
         "selectedIconPath": "static/icon/me-active.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

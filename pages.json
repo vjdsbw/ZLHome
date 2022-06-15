@@ -27,8 +27,6 @@
 			}
 
 		}, {
-
-
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
@@ -50,17 +48,15 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
+        }  ,{
             "path" : "pages/gooddetail/gooddetail",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "佐罗优选",
                 "enablePullDownRefresh": false
-            }
-            
-        }
-    ,
+            }  
+			
+        },	{
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -102,20 +98,13 @@
 			"background": "#efeff4"
 		},
 		"usingComponents": {
-<<<<<<< HEAD
 			"van-button": "/wxcomponents/vant/dist/button/index",
 			"van-tab": "/wxcomponents/vant/dist/tab/index",
 			"van-tabs": "/wxcomponents/vant/dist/tabs/index",
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
-			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index"
-=======
-
-			"van-button": "/wxcomponents/vant/dist/button/index",
+			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
-
-
->>>>>>> 44678b697777be414800bd93c492d71aa5ea84a4
 		}
 	},
 	"tabBar": {

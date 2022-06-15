@@ -87,25 +87,32 @@
 				goodsInfo: {},
 				fromaddress: '',
 				toaddress: '',
+				goodsId:'',
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
-				duration: 1000
+				duration: 1000,
 			}
 		},
 		created() {
-			this.getGoodDetail()
+			
+		},
+		onLoad(options){
+			console.log(options.goods_id)
+			this.goodsId=options.goods_id
+		},
+		onReady(){
+			this.getGoodDetail()	
 		},
 		methods: {
 			async getGoodDetail() {
 				let result = await requestGet(
-					"/api/api_goods?category_pinyin=undefined&goods_id=90846&XcxSessKey=%20&company_id=7194")
+					"/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id="+this.goodsId)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
-				console.log(result.data.goods_info.goods_name)
 			},
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
