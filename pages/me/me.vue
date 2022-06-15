@@ -4,6 +4,7 @@
 	</view>
 </template>
 
+
 <script>
 	export default {
 		data() {
@@ -11,12 +12,19 @@
 				
 			}
 		},
-		methods: {
+		onLoad() {
+
+		},
+		onReady() {
 			
+		},
+		methods: {
+		
+		
 		}
 	}
 </script>
 
-<style>
-
+<style lang="less">
+	
 </style>

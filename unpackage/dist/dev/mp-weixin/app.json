@@ -3,10 +3,17 @@
     "pages/index/index",
     "pages/sort/sort",
     "pages/brand/brand",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/good/good",
+    "pages/search/search",
+    "pages/address/address"
   ],
   "usingComponents": {
-    "van-button": "/wxcomponents/vant/dist/button/index"
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
+    "van-area": "/wxcomponents/vant/dist/area/index",
+    "van-picker": "/wxcomponents/vant/dist/picker/index"
   },
   "window": {
     "navigationBarTextStyle": "black",

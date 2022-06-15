@@ -4,6 +4,10 @@ const _sfc_main = {
   data() {
     return {};
   },
+  onLoad() {
+  },
+  onReady() {
+  },
   methods: {}
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
