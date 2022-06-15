@@ -74,5 +74,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     i: common_vendor.o((...args) => $options.clear && $options.clear(...args))
   } : {});
 }
+<<<<<<< HEAD
 var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/uni_modules/uni-drawer/components/uni-drawer/uni-drawer.vue"]]);
+=======
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-drawer/components/uni-drawer/uni-drawer.vue"]]);
+>>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 wx.createComponent(Component);

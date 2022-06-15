@@ -137,5 +137,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     w: $data.dots.bottom + "px"
   } : {});
 }
+<<<<<<< HEAD
 var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue"]]);
+=======
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.vue"]]);
+>>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 wx.createComponent(Component);
