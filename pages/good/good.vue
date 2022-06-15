@@ -1,5 +1,12 @@
 <template>
 	<view>
+		<view class="search">
+			<view class="fixtransform" @click="tosearch()">
+				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
+				<input class="search-input" inputBorder="false" @input="onKeyInput" :placeholder="placeholder" />
+			</view>
+			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
+		</view>
 		<view class="goods">
 			<view class="head_list">
 				<view class="first_list">
@@ -94,9 +101,11 @@
 	export default {
 		data() {
 			return {
+				type:'',
+				placeholder: "",
 				flag: false,
 				flag1: false,
-				flage:false,
+				flage: false,
 				Goods: [],
 				brand: [],
 				attr: [],
@@ -117,18 +126,36 @@
 
 			}
 		},
-		created() {
+		created() {		
 			this.getgoodList()
 		},
 		methods: {
-			async getgoodList() {
+			tosearch() {
+				uni.navigateTo({
+					url: '/pages/search/search',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			tocart(){
+				uni.navigateTo({
+					url: '/pages/cart/cart',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			async getgoodList(options) {
+				this.type =options.pinyin;
+				this.placeholder = options.chinese;
+				console.log(this.type);
 				//拿到商品列表
-				let result = await requestGet("/api/api/category-chuang/", {
+				let result = await requestGet(`/api/api/category-`+this.type+`/`, {
 					p: this.p
 				})
 				//商品第一行分类
 				this.brand = result.data.brand_list
-
 				//商品第二行分类
 				this.attr = result.data.attr
 
@@ -168,7 +195,7 @@
 			show1Tag() {
 				this.flag1 = !this.flag1;
 			},
-			currentClick(){
+			currentClick() {
 				this.flage = !this.flage;
 			}
 
@@ -180,11 +207,46 @@
 				this.getgoodList();
 				this.goods_ids = '';
 			}
-		}
+		},
+		onLoad(options) {
+			console.log(options,"xxxxxxxxxxxx");
+			this.getgoodList(options);
+		},
 	}
 </script>
 
 <style lang="less" scoped>
+	.search {
+		height: 50px;
+		box-shadow: 0 2px 12px hsla(210, 1%, 40%, 0.12);
+		background-color: #fff;
+
+		.fixtransform {
+			height: 30px;
+			line-height: 30px;
+			width: 300px;
+			position: absolute;
+			left: 20px;
+			top: 10px;
+			border-radius: 30px;
+			background-color: #f0f0f0;
+
+			.iconfont {
+				float: left;
+				margin-left: 10px;
+			}
+
+			.search-input {
+				margin-top: 3px;
+			}			
+		}
+		.cart {
+			float: right;
+			margin-top: 10px;
+			margin-right: 10px;
+		}
+	}
+
 	.goods {
 		width: 100%;
 
@@ -216,9 +278,10 @@
 					width: 25%;
 					height: 50px;
 					line-height: 50px;
-					float: left;	
+					float: left;
 				}
-				.current{
+
+				.current {
 					color: red;
 				}
 

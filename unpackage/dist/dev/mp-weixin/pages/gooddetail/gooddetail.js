@@ -11,21 +11,27 @@ const _sfc_main = {
       indicatorDots: true,
       autoplay: true,
       interval: 2e3,
-      duration: 1e3
+      duration: 1e3,
+      goods_id: 0,
+      result: {}
     };
   },
   created() {
+  },
+  onLoad(options) {
+    this.goods_id = options.id;
     this.getGoodDetail();
   },
   methods: {
     async getGoodDetail() {
-      let result = await common_js_http.requestGet("/api/api_goods?category_pinyin=undefined&goods_id=90846&XcxSessKey=%20&company_id=7194");
+      let result = await common_js_http.requestGet(`/api/api_goods?goods_id=${this.goods_id}`);
       this.swiperImg = result.data.goods_main_image;
       this.goodsInfo = result.data.goods_info;
       this.fromaddress = result.data.address_name;
       this.toaddress = result.data.local_address;
       this.attrs = result.data.attr_list;
-      console.log(result.data.goods_info.goods_name);
+      this.result = result;
+      console.log(this.result, "far");
     },
     changeIndicatorDots(e) {
       this.indicatorDots = !this.indicatorDots;
@@ -78,7 +84,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: common_vendor.t($data.toaddress.province_name),
     n: common_vendor.t($data.toaddress.city_name),
     o: common_vendor.t($data.toaddress.area_name),
-    p: common_vendor.t($data.goodsInfo.delivery_time)
+    p: common_vendor.t($data.goodsInfo.delivery_time),
+    q: common_vendor.p({
+      result: $data.result
+    })
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/gooddetail/gooddetail.vue"]]);

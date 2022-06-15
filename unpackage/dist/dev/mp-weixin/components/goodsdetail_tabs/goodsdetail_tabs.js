@@ -1,11 +1,11 @@
 "use strict";
-var common_js_http = require("../../common/js/http.js");
 var common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   name: "goodsdetail_tabs",
+  props: ["result"],
   data() {
     return {
-      active: 2,
+      active: 0,
       activeKey: 0,
       goodsImg: [],
       goodsCanshu: [],
@@ -13,6 +13,8 @@ const _sfc_main = {
     };
   },
   created() {
+  },
+  updated() {
     this.getGoodImg();
   },
   methods: {
@@ -20,10 +22,9 @@ const _sfc_main = {
       console.log(event.detail);
     },
     async getGoodImg() {
-      let result = await common_js_http.requestGet("/api/api_goods?category_pinyin=undefined&goods_id=90846&XcxSessKey=%20&company_id=7194");
-      this.goodsImg = result.data.goods_gallery;
-      this.goodsCanshu = result.data.group_attr_list;
-      this.serviceInfo = result.data.config_detail_list;
+      this.goodsImg = this.result.data.goods_gallery;
+      this.goodsCanshu = this.result.data.group_attr_list;
+      this.serviceInfo = this.result.data.config_detail_list;
     }
   }
 };

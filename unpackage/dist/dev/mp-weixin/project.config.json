@@ -24,7 +24,7 @@
     "useStaticServer": true,
     "showES6CompileOption": false,
     "checkInvalidKey": true,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],

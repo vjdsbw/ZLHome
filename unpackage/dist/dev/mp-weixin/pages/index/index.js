@@ -44,6 +44,18 @@ const _sfc_main = {
     this.getgoodList();
   },
   methods: {
+    todetail(id) {
+      console.log(id);
+      common_vendor.index.navigateTo({
+        url: `/pages/gooddetail/gooddetail?id=${id}`,
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
     async getgoodList() {
       var temp = this.choosebrandlist[this.currentIndex2];
       let result = await common_js_http.requestGet(`/api/api/category-${temp}/`, {
@@ -113,7 +125,6 @@ const _sfc_main = {
       this.info = result2.data.banner;
       this.goodsthing = result2.data.goodsthing;
       this.newbrands = result2.data.newbrands;
-      console.log(brandlist);
       this.brandlists = brandlist.data.style_manage;
       this.catelist = brandlist.data.cat_tab;
     }
@@ -213,7 +224,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             b: common_vendor.t(i.brand),
             c: common_vendor.t(i.goods_desc),
             d: common_vendor.t(i.shop_price),
-            e: i.id
+            e: common_vendor.o(($event) => $options.todetail(i.goods_id), i.id),
+            f: i.id
           };
         }),
         b: index,
@@ -245,7 +257,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             b: common_vendor.t(j.brand),
             c: common_vendor.t(j.desc_t),
             d: common_vendor.t(j.shop_price),
-            e: j.id
+            e: common_vendor.o(($event) => $options.todetail(j.goods_id), j.id),
+            f: j.id
           };
         }),
         d: common_vendor.t(item.brand.tab_name),

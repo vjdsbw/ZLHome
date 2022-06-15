@@ -20,6 +20,7 @@ const _sfc_main = {
   },
   updated() {
     let result = common_vendor.index.getStorageSync("user");
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     if (result) {
       let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
       if (result1) {

@@ -1,9 +1,11 @@
 "use strict";
-var common_js_http = require("../../common/js/http.js");
 var common_vendor = require("../../common/vendor.js");
+var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      type: "",
+      placeholder: "",
       flag: false,
       flag1: false,
       flage: false,
@@ -31,8 +33,33 @@ const _sfc_main = {
     this.getgoodList();
   },
   methods: {
-    async getgoodList() {
-      let result = await common_js_http.requestGet("/api/api/category-chuang/", {
+    tosearch() {
+      common_vendor.index.navigateTo({
+        url: "/pages/search/search",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
+    tocart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
+    async getgoodList(options) {
+      this.type = options.pinyin;
+      this.placeholder = options.chinese;
+      console.log(this.type);
+      let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
         p: this.p
       });
       this.brand = result.data.brand_list;
@@ -74,16 +101,20 @@ const _sfc_main = {
       this.getgoodList();
       this.goods_ids = "";
     }
+  },
+  onLoad(options) {
+    console.log(options, "xxxxxxxxxxxx");
+    this.getgoodList(options);
   }
 };
 if (!Array) {
+  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _component_van_dropdown_item = common_vendor.resolveComponent("van-dropdown-item");
   const _component_van_dropdown_menu = common_vendor.resolveComponent("van-dropdown-menu");
-  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   const _easycom_uni_drawer2 = common_vendor.resolveComponent("uni-drawer");
   const _easycom_goodList2 = common_vendor.resolveComponent("goodList");
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_icons2 + _easycom_uni_drawer2 + _easycom_goodList2 + _easycom_uni_load_more2)();
+  (_easycom_uni_icons2 + _component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_drawer2 + _easycom_goodList2 + _easycom_uni_load_more2)();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 const _easycom_uni_drawer = () => "../../uni_modules/uni-drawer/components/uni-drawer/uni-drawer.js";
@@ -95,38 +126,51 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: common_vendor.p({
+      ["custom-prefix"]: "iconfont",
+      type: "icon-sousuo",
+      size: "20"
+    }),
+    b: common_vendor.o((...args) => _ctx.onKeyInput && _ctx.onKeyInput(...args)),
+    c: $data.placeholder,
+    d: common_vendor.o(($event) => $options.tosearch()),
+    e: common_vendor.o($options.tocart),
+    f: common_vendor.p({
+      type: "cart",
+      size: "30"
+    }),
+    g: common_vendor.p({
       value: $data.value1,
       options: $data.option1
     }),
-    b: common_vendor.o((...args) => $options.currentClick && $options.currentClick(...args)),
-    c: $data.flage ? 1 : "",
-    d: common_vendor.p({
+    h: common_vendor.o((...args) => $options.currentClick && $options.currentClick(...args)),
+    i: $data.flage ? 1 : "",
+    j: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-xiajiantou",
       size: "8"
     }),
-    e: common_vendor.p({
+    k: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-shangjiantou",
       size: "8"
     }),
-    f: common_vendor.p({
+    l: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-shaixuan",
       size: "14"
     }),
-    g: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
-    h: common_vendor.o((...args) => $options.closeDrawer && $options.closeDrawer(...args)),
-    i: common_vendor.t($data.flag ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    j: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
-    k: common_vendor.f($data.brand, (item, k0, i0) => {
+    m: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
+    n: common_vendor.o((...args) => $options.closeDrawer && $options.closeDrawer(...args)),
+    o: common_vendor.t($data.flag ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
+    p: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
+    q: common_vendor.f($data.brand, (item, k0, i0) => {
       return {
         a: item.brand_logo_url,
         b: item.brand_id
       };
     }),
-    l: !$data.flag ? 1 : "",
-    m: common_vendor.f($data.attr, (item, k0, i0) => {
+    r: !$data.flag ? 1 : "",
+    s: common_vendor.f($data.attr, (item, k0, i0) => {
       return {
         a: common_vendor.t(item.attr_name),
         b: common_vendor.f(item.attr_list, (list, k1, i1) => {
@@ -138,43 +182,43 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: item.attr_id
       };
     }),
-    n: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    o: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
-    p: !$data.flag1 ? 1 : "",
-    q: common_vendor.sr("showRight", "cdccd9b4-5"),
-    r: common_vendor.p({
+    t: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
+    v: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
+    w: !$data.flag1 ? 1 : "",
+    x: common_vendor.sr("showRight", "cdccd9b4-7"),
+    y: common_vendor.p({
       mode: "right",
       width: "320",
       ["mask-click"]: false
     }),
-    s: common_vendor.p({
+    z: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-xiajiantou",
       size: "8"
     }),
-    t: common_vendor.f($data.attr, (attrs, k0, i0) => {
+    A: common_vendor.f($data.attr, (attrs, k0, i0) => {
       return {
         a: common_vendor.t(attrs.attr_name),
-        b: "cdccd9b4-7-" + i0,
+        b: "cdccd9b4-9-" + i0,
         c: attrs.attr_id
       };
     }),
-    v: common_vendor.p({
+    B: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-xiajiantou",
       size: "8"
     }),
-    w: common_vendor.p({
+    C: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    x: !$data.flag
+    D: !$data.flag
   }, !$data.flag ? {
-    y: common_vendor.p({
+    E: common_vendor.p({
       status: "loading"
     })
   } : {
-    z: common_vendor.p({
+    F: common_vendor.p({
       status: "noMore"
     })
   });

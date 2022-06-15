@@ -13,7 +13,8 @@
     "pages/useredit/useredit",
     "pages/setnickname/setnickname",
     "pages/order/order",
-    "pages/address/address"
+    "pages/address/address",
+    "pages/cart/cart"
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",

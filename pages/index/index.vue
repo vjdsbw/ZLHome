@@ -3,6 +3,7 @@
 	<view class="container">
 		<!--如果isFixed为true的话，就添加class is_fixed 设置固定定位-->
 		<view id="boxFixed" v-if="is_fixed == true" class="topfixed">
+
 			<view class="fixtransform" @click="tosearch()">
 				<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
 				</uni-easyinput>
@@ -51,8 +52,8 @@
 
 			<scroll-view scroll-x="true" show-scrollbar="false" :scroll-into-view="viewto" scroll-with-animation="true">
 				<view class="newimage">
-					<view class="addition" v-for="(item,index) in goodsthing" :key="index" :id="`s${index}`">
-						<view v-for=" i  in  item.sub_list" :key="i.id">
+					<view class="addition" v-for="(item,index) in goodsthing" :key="index"  :id="`s${index}`">
+						<view v-for=" i  in  item.sub_list"  @click="todetail(i.goods_id)" :key="i.id">
 							<image :src="i.image_xcx"></image>
 							<view class="brand">
 								{{i.brand}}
@@ -99,7 +100,7 @@
 					</view>
 
 					<view class="showbrandfar">
-						<view class="showbrand" v-for="j in item.goods.goods_list" :key="j.id">
+						<view class="showbrand" v-for="j in item.goods.goods_list"  @click="todetail(j.goods_id)" :key="j.id">
 							<image :src="j.image_xcx_702" mode="">
 
 							</image>
@@ -154,11 +155,13 @@
 				</view>
 			</scroll-view>
 
+
 		</view>
 		<goodList :Goods="Goods"></goodList>
 		<view class="more">
 			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
+
 		</view>
 
 
@@ -199,6 +202,7 @@
 				choosebrandlist: ["keting", "woshi", "canting", "ertongfang", "shufang", "jiancai", "dengshi", "weiyu",
 					"jiafang", "jiashi"
 				]
+
 			}
 		},
 		created() {
@@ -207,6 +211,15 @@
 		},
 
 		methods: {
+			todetail(id){
+				console.log(id);
+				uni.navigateTo({
+					url: `/pages/gooddetail/gooddetail?id=${id}`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			async getgoodList() {
 				var temp = this.choosebrandlist[this.currentIndex2]
 				let result = await requestGet(`/api/api/category-${temp}/`, {
@@ -268,23 +281,17 @@
 				let result = await requestPost("/api/m/index/cate", {
 					'biao': 'keting'
 				});
-
 				//无传参 Post 接口:/x/index/index
 				let result2 = await requestPost("/api/x/index/index");
 				//传参  Get  接口：/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194
 				let result3 = await requestGet("/api/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194");
-
 				let brandlist = await requestPost("/api/x/index/index_two")
-
 				this.bed = result2.data.cate;
 				this.info = result2.data.banner;
 				this.goodsthing = result2.data.goodsthing;
 				this.newbrands = result2.data.newbrands;
-				console.log(brandlist);
 				this.brandlists = brandlist.data.style_manage;
-
 				this.catelist = brandlist.data.cat_tab
-
 			},
 		},
 		onPageScroll(res) {
@@ -294,7 +301,9 @@
 				this.is_fixed = false
 			}
 
+
 			if (res.scrollTop >= 7000) {
+
 				this.cate_fixed = true;
 			} else {
 				this.cate_fixed = false
@@ -328,12 +337,11 @@
 			/*所有子元素都垂直居中了*/
 			z-index: 1000000000000000;
 			background-color: rgb(230, 42, 41);
-
-
 			/deep/ .uni-easyinput {
 				width: 500rpx;
 				height: 60rpx;
 				margin-left: 30rpx;
+
 
 
 			}
@@ -531,6 +539,7 @@
 						left: 0;
 						color: white;
 						bottom: 40rpx;
+
 					}
 				}
 
@@ -555,6 +564,7 @@
 						font-size: 28rpx;
 						color: gray;
 						margin-bottom: 20rpx;
+
 
 					}
 				}
@@ -615,7 +625,6 @@
 		.cate {
 			display: flex;
 			text-align: center;
-
 			scroll-view ::-webkit-scrollbar {
 				width: 0;
 				height: 0;
@@ -629,7 +638,6 @@
 				align-items: center;
 				font-size: 28rpx;
 				height: 300rpx;
-
 				&.fiexdtop {
 					width: 100%;
 					overflow-x: auto;

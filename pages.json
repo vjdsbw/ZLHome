@@ -55,11 +55,8 @@
 				"navigationBarTitleText": "佐罗优选",
 				"enablePullDownRefresh": false
 			}
-
-
 		},
 		{
-
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -68,8 +65,6 @@
 			}
 		},
 		{
-
-
 			"path": "pages/search/search",
 			"style": {
 				"navigationBarTitleText": "搜索",
@@ -81,7 +76,6 @@
 				"navigationBarTitleText": "编辑资料",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/setnickname/setnickname",
 			"style": {
@@ -106,6 +100,13 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 
+			}
+
+		}, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"enablePullDownRefresh": false
 			}
 
 		}

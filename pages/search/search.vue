@@ -6,18 +6,18 @@
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
 				<input class="search-input" @input="onKeyInput" placeholder="输入商品分类、名称" />
 			</view>
-			<view class="header-right" @click="search">搜素</view>
+			<view class="header-right" @click="search">搜索</view>
 		</view>
 		<view class="hot">
 			<view class="hot-search">
 				热门搜索
 			</view>
 			<view class="hot-list">
-				<view class="text" @click="GoGoodList('chuang')">床</view>
-				<view class="text" @click="GoGoodList('chuangdian')">床垫</view>
-				<view class="text" @click="GoGoodList('canzhuo')">餐桌</view>
-				<view class="text" @click="GoGoodList('shafa')">沙发</view>
-				<view class="text" @click="GoGoodList('yigui')">衣柜</view>
+				<view class="text" @click="GoGoodList('chuang','床')">床</view>
+				<view class="text" @click="GoGoodList('chuangdian','床垫')">床垫</view>
+				<view class="text" @click="GoGoodList('canzhuo','餐桌')">餐桌</view>
+				<view class="text" @click="GoGoodList('shafa','沙发')">沙发</view>
+				<view class="text" @click="GoGoodList('yigui','衣柜')">衣柜</view>
 			</view>			
 		</view>
 		<view class="history">
@@ -45,7 +45,6 @@
 				keywords: '',
 				category_list: [],
 				type: '',
-
 			}
 		},
 		methods: {
@@ -56,12 +55,11 @@
 			clean() {
 				this.searchlist = [];
 				this.keywords = '';
-			},
+			},			
 			//搜索框功能的实现
 			async search() {
 				let result = await requestGet(`/api/api/search?keywords=` + this.keywords);
 				this.category_list = result.data.category_list;
-
 				for (let i = 0; i < this.category_list.length; i++) {
 					if (this.category_list[i].keywords.match(this.keywords)) {
 						this.type = this.category_list[i].pinyin;
@@ -73,17 +71,14 @@
 						}
 					}
 				}
-
-				if (this.type == '') {
-					uni.showToast({
-						title: `抱歉，没有找到相关商品`
-					})
-				} else {
-					let result2 = await requestGet(`/api/api/category-` + this.type +
-						`/?v=1&XcxSessKey=%20&company_id=7194`);
-					console.log(result2.data);
-				}
+				this.GoGoodList(this.type,this.keywords);
 				this.searchlist.push(this.keywords);
+			},
+			GoGoodList(pinyin,chinese){
+				console.log(pinyin,chinese);
+				uni.navigateTo({
+					url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`,
+				});
 			}
 		}
 	}

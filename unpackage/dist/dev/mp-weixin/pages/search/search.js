@@ -32,15 +32,14 @@ const _sfc_main = {
           }
         }
       }
-      if (this.type == "") {
-        common_vendor.index.showToast({
-          title: `\u62B1\u6B49\uFF0C\u6CA1\u6709\u627E\u5230\u76F8\u5173\u5546\u54C1`
-        });
-      } else {
-        let result2 = await common_js_http.requestGet(`/api/api/category-` + this.type + `/?v=1&XcxSessKey=%20&company_id=7194`);
-        console.log(result2.data);
-      }
+      this.GoGoodList(this.type, this.keywords);
       this.searchlist.push(this.keywords);
+    },
+    GoGoodList(pinyin, chinese) {
+      console.log(pinyin, chinese);
+      common_vendor.index.navigateTo({
+        url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`
+      });
     }
   }
 };
@@ -61,11 +60,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     b: common_vendor.o((...args) => $options.onKeyInput && $options.onKeyInput(...args)),
     c: common_vendor.o((...args) => $options.search && $options.search(...args)),
-    d: common_vendor.o(($event) => _ctx.GoGoodList("chuang")),
-    e: common_vendor.o(($event) => _ctx.GoGoodList("chuangdian")),
-    f: common_vendor.o(($event) => _ctx.GoGoodList("canzhuo")),
-    g: common_vendor.o(($event) => _ctx.GoGoodList("shafa")),
-    h: common_vendor.o(($event) => _ctx.GoGoodList("yigui")),
+    d: common_vendor.o(($event) => $options.GoGoodList("chuang", "\u5E8A")),
+    e: common_vendor.o(($event) => $options.GoGoodList("chuangdian", "\u5E8A\u57AB")),
+    f: common_vendor.o(($event) => $options.GoGoodList("canzhuo", "\u9910\u684C")),
+    g: common_vendor.o(($event) => $options.GoGoodList("shafa", "\u6C99\u53D1")),
+    h: common_vendor.o(($event) => $options.GoGoodList("yigui", "\u8863\u67DC")),
     i: common_vendor.o($options.clean),
     j: common_vendor.p({
       type: "trash",
