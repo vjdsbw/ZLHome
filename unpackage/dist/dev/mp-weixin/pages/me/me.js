@@ -18,103 +18,99 @@ const _sfc_main = {
   created() {
     this.show();
   },
-  onReady() {
+  updated() {
+    let result = common_vendor.index.getStorageSync("user");
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    if (result) {
+      let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
+      if (result1) {
+        this.imgpath = result1;
+        this.neverchange = false;
+        console.log(this.imgpath, "xxxx");
+      }
+    } else {
+      this.imgpath = "";
+      this.neverchange = true;
+    }
+  },
+  onShow() {
+    this.show();
   },
   methods: {
-    updated() {
+    judget() {
       let result = common_vendor.index.getStorageSync("user");
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       if (result) {
-        let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
-        if (result1) {
-          this.imgpath = result1;
-          this.neverchange = false;
-          console.log(this.imgpath, "xxxx");
+        this.changeImage();
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/login/login"
+        });
+      }
+    },
+    changeImage() {
+      var _this = this;
+      common_vendor.index.chooseImage({
+        count: 1,
+        sizeType: ["original"],
+        sourceType: ["album"],
+        success: function(res) {
+          let result = common_vendor.index.getStorageSync("user");
+          _this.neverchange = "false";
+          _this.imgpath = res.tempFilePaths[0];
+          common_vendor.index.setStorageSync(`img${result.user_id}`, _this.imgpath);
         }
+      });
+    },
+    gologin() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        common_vendor.index.navigateTo({
+          url: "/pages/useredit/useredit"
+        });
       } else {
         this.imgpath = "";
         this.neverchange = true;
+        common_vendor.index.navigateTo({
+          url: "/pages/login/login"
+        });
       }
     },
-    onShow() {
-      this.show();
+    show() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        this.username = result.user_name;
+      } else {
+        this.username = "\u70B9\u51FB\u767B\u5F55";
+      }
     },
-    methods: {
-      judget() {
-        let result = common_vendor.index.getStorageSync("user");
-        if (result) {
-          this.changeImage();
-        } else {
-          common_vendor.index.navigateTo({
-            url: "/pages/login/login"
-          });
-        }
-      },
-      changeImage() {
-        var _this = this;
-        common_vendor.index.chooseImage({
-          count: 1,
-          sizeType: ["original"],
-          sourceType: ["album"],
-          success: function(res) {
-            let result = common_vendor.index.getStorageSync("user");
-            _this.neverchange = "false";
-            _this.imgpath = res.tempFilePaths[0];
-            common_vendor.index.setStorageSync(`img${result.user_id}`, _this.imgpath);
-          }
+    goSet() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        common_vendor.index.navigateTo({
+          url: "/pages/set/set"
         });
-      },
-      gologin() {
-        let result = common_vendor.index.getStorageSync("user");
-        if (result) {
-          common_vendor.index.navigateTo({
-            url: "/pages/useredit/useredit"
-          });
-        } else {
-          this.imgpath = "";
-          this.neverchange = true;
-          common_vendor.index.navigateTo({
-            url: "/pages/login/login"
-          });
-        }
-      },
-      show() {
-        let result = common_vendor.index.getStorageSync("user");
-        if (result) {
-          this.username = result.user_name;
-        } else {
-          this.username = "\u70B9\u51FB\u767B\u5F55";
-        }
-      },
-      goSet() {
-        let result = common_vendor.index.getStorageSync("user");
-        if (result) {
-          common_vendor.index.navigateTo({
-            url: "/pages/set/set"
-          });
-        } else {
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/login/login"
+        });
+      }
+    },
+    goOrder() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        common_vendor.index.navigateTo({
+          url: "/pages/order/order"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          duration: 2e3
+        });
+        setTimeout(() => {
           common_vendor.index.navigateTo({
             url: "/pages/login/login"
           });
-        }
-      },
-      goOrder() {
-        let result = common_vendor.index.getStorageSync("user");
-        if (result) {
-          common_vendor.index.navigateTo({
-            url: "/pages/order/order"
-          });
-        } else {
-          common_vendor.index.showToast({
-            title: "\u8BF7\u5148\u767B\u5F55",
-            duration: 2e3
-          });
-          setTimeout(() => {
-            common_vendor.index.navigateTo({
-              url: "/pages/login/login"
-            });
-          }, 2e3);
-        }
+        }, 2e3);
       }
     }
   }
@@ -135,10 +131,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {
     c: $data.imgpath
   }, {
-    d: common_vendor.o((...args) => _ctx.judget && _ctx.judget(...args)),
+    d: common_vendor.o((...args) => $options.judget && $options.judget(...args)),
     e: common_vendor.t($data.username),
-    f: common_vendor.o((...args) => _ctx.gologin && _ctx.gologin(...args)),
-    g: common_vendor.o(_ctx.goSet),
+    f: common_vendor.o((...args) => $options.gologin && $options.gologin(...args)),
+    g: common_vendor.o($options.goSet),
     h: common_vendor.p({
       type: "gear-filled",
       size: "30",
@@ -153,7 +149,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right",
       size: "20"
     }),
-    k: common_vendor.o((...args) => _ctx.goOrder && _ctx.goOrder(...args)),
+    k: common_vendor.o((...args) => $options.goOrder && $options.goOrder(...args)),
     l: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-shoucang",

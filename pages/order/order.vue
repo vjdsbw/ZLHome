@@ -1,6 +1,6 @@
 <template>
 	<view class="order">
-
+	
 	</view>
 </template>
 
@@ -12,7 +12,7 @@
 	export default {
 		data() {
 			return {
-
+				
 			}
 		},
 		created() {
@@ -22,7 +22,7 @@
 			async order() {
 				let result = await requestGet("/api/api/order_list");
 				console.log(result);
-			}
+			},
 
 		}
 	}
