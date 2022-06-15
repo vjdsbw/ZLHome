@@ -1,9 +1,10 @@
 <template>
 	<view>
+
 		<view class="search">
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
-				<input class="search-input" inputBorder="false" @input="onKeyInput" :placeholder="placeholder" />
+				<input class="search-input" inputBorder="false" @input="onKeyInput" :value="value" />
 			</view>
 			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
 		</view>
@@ -12,44 +13,47 @@
 				<view class="first_list">
 					<view class="dropdown">
 						<van-dropdown-menu>
-							<van-dropdown-item :value="value1" :options="option1" />
+							<van-dropdown-item @change="menu(value1)" :value="value1" :options="option1" />
 						</van-dropdown-menu>
 					</view>
-					<view class="sales" @click="currentClick" :class="{current:flage}">销量</view>
+					<view class="sales" @click="currentClick(value6)" :class="{current:flage}">销量</view>
 					<view class="sales1">价格
-						<label class="icon_xia">
-							<uni-icons custom-prefix="iconfont" type="icon-xiajiantou" size="8"></uni-icons>
-						</label>
-						<label class="icon_shang">
-							<uni-icons custom-prefix="iconfont" type="icon-shangjiantou" size="8"></uni-icons>
-						</label>
+						<view class="icon_xia">
+							<!-- <uni-icons custom-prefix="iconfont" type="icon-xiajiantou" size="8"></uni-icons> -->
+							<uni-icons @click="bottomClick(1)" type="bottom" size="8"></uni-icons>
+						</view>
+						<view class="icon_shang">
+							<!-- <uni-icons custom-prefix="iconfont" type="icon-shangjiantou" size="8"></uni-icons> -->
+							<uni-icons @click="bottomClick(2)" type="top" size="8"></uni-icons>
+						</view>
 					</view>
 					<view class="sales2">
 						<view @click="showDrawer">筛选
 							<uni-icons custom-prefix="iconfont" type="icon-shaixuan" size="14"></uni-icons>
 						</view>
-						<uni-drawer ref="showRight" mode="right" width="320" :mask-click="false">
+						<uni-drawer ref="showRight" mode="right" width="320" :mask-click="true">
 							<view class="scroll-view">
 								<scroll-view class="scroll-view-box" scroll-y="true">
-									<view @click="closeDrawer" class="close">关闭</view>
 									<view class="screen">
 										<view class="brand">
 											<view class="brand_name">品牌</view>
 											<view class="choice" @click="showTag">{{flag?"可多选":"查看全部"}}</view>
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
-											<button v-for="item in brand" :key="item.brand_id">
-												<image :src="item.brand_logo_url"></image>
+											<button v-for="item in brand" :key="item.brand_id" @click="addB(item.brand_id)">
+												<image :src="item.brand_logo_url" ></image>
 											</button>
 										</view>
 									</view>
-									<view class="attr_list" v-for="item in attr" :key="item.attr_id">
+
+									<view class="attr_list" v-for="(item,idx) in attr" :key="item.attr_id">
 										<view class="brand">
+
 											<view class="brand_name">{{item.attr_name}}</view>
 											<view class="choice" @click="show1Tag">{{flag1?"可多选":"查看全部"}}</view>
 										</view>
 										<view class="attr_text" :class="{active:!flag1}">
-											<button v-for="list in item.attr_list"
+											<button v-for="list in item.attr_list" @click="addA(list.attr_value_id)"
 												:key="list.attr_value_id"><text>{{list.attr_value}}</text></button>
 										</view>
 									</view>
@@ -63,8 +67,8 @@
 										</view>
 									</view>
 									<view class="reset">
-										<view class="left">重置</view>
-										<view class="left">确定</view>
+										<view class="left" @click="reset">重置</view>
+										<view class="left" @click="sure">确定</view>
 									</view>
 								</scroll-view>
 							</view>
@@ -72,14 +76,43 @@
 					</view>
 
 				</view>
-				<view class="second_list">
-					<view class="list_attr">
-						<view class="item">品牌<uni-icons custom-prefix="iconfont" type="icon-xiajiantou" size="8">
-							</uni-icons>
-						</view>
-						<view class="item" v-for="attrs in attr" :key="attrs.attr_id">{{attrs.attr_name}}
-							<uni-icons custom-prefix="iconfont" type="icon-xiajiantou" size="8"></uni-icons>
-						</view>
+
+				<view class="last_list" :class="temp==1?'boxStyle':''">
+					<view class="last">
+						<van-dropdown-menu>
+							<van-dropdown-item id="item" title="品牌">
+								<view class="title" v-for="(item,index) in brand" :key="item.brand_id" @click="iconClick(index)">
+									<view class="name">
+										{{item.brand_name}}
+									</view>
+									<view class="icons" :class="{actives:index==num}">
+										<uni-icons type="checkmarkempty" color="red" size="20"></uni-icons>
+									</view>
+								</view>
+								<view style="padding: 5px 16px;">
+									<van-button type="danger" block>
+										确认
+									</van-button>
+								</view>
+							</van-dropdown-item>
+							<van-dropdown-item id="item" v-for="item in attr" :key="item.attr_id" :title="item.attr_name">
+								<view class="title" v-for="(att,idx) in item.attr_list" @click="thenClick(idx)">
+									<view class="name">
+										{{att.attr_value}}
+									</view>
+									<view class="icons" :class="{actives:idx==num}">
+										<uni-icons type="checkmarkempty" color="red" size="20"></uni-icons>
+									</view>
+								</view>
+								<view class="button">
+									<van-button type="danger" block>
+										确认
+									</van-button>
+								</view>
+							</van-dropdown-item>
+							
+
+						</van-dropdown-menu>
 					</view>
 				</view>
 			</view>
@@ -101,16 +134,29 @@
 	export default {
 		data() {
 			return {
-				type:'',
-				placeholder: "",
+
+				num:null,
+				temp: 0,
+				myScroll: 0,
+				type: '',
+
+				icons:false,
+
+
+				value: "xxx",
+
 				flag: false,
-				flag1: false,
+				flag1: true,
 				flage: false,
 				Goods: [],
 				brand: [],
 				attr: [],
 				goods_ids: '',
 				price: [],
+				brr:[],
+				arr:[],
+				a:'',
+				b:'',
 				p: 1,
 				flag: true,
 				option1: [{
@@ -120,25 +166,40 @@
 					{
 						text: '最新',
 						value: 1
-					}
+					},
 				],
 				value1: 0,
+				//综合
+				psort: 0,
 
 			}
 		},
-		created() {		
-			this.getgoodList()
+		//品牌导航条固定在顶部
+		onLoad() {
+			uni.createSelectorQuery().select('.second_list').boundingClientRect(res => {
+				this.myScroll = res.top;
+			}).exec();
+		},
+		onPageScroll(e) {
+			if (e.scrollTop > this.myScroll) {
+				this.temp = 1
+			} else {
+				this.temp = 0
+			}
+		},
+		created() {
+
 		},
 		methods: {
 			tosearch() {
 				uni.navigateTo({
-					url: '/pages/search/search',
+					url: `/pages/search/search?value=${this.value}`,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
 			},
-			tocart(){
+			tocart() {
 				uni.navigateTo({
 					url: '/pages/cart/cart',
 					success: res => {},
@@ -147,34 +208,41 @@
 				});
 			},
 			async getgoodList() {
-			
-				console.log(this.type);
+
 				//拿到商品列表
-				let result = await requestGet(`/api/api/category-`+this.type+`/`, {
-					p: this.p
+				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
+					p: this.p,
+					a:this.a,
+					b:this.b
 				})
-				
-				console.log(result,"xxxxxxxxxxxxxx");
-				//商品第一行分类
-				this.brand = result.data.brand_list
-				//商品第二行分类
-				this.attr = result.data.attr
-
-
-				//通过第一页的数据比较
-				if (result.data.goods_list.length < 32) {
-					this.flag = false
-				}
-				//商品信息
-				this.Goods = [...this.Goods, ...result.data.goods_list]
-
-				//把Goods里的goods_id拼接起来，传给goods_ids		
-				for (var i = 0; i < this.Goods.length; i++) {
-					if (i == 0) {
-						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+				if(result.data){
+					//商品第一行分类
+					this.brand =  result.data.brand_list
+					//商品第二行分类
+					this.attr = result.data.attr
+					//通过第一页的数据比较
+					if (result.data.goods_list.length < 32) {
+						this.flag = false
 					}
-					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+					//商品信息
+					this.Goods = [...this.Goods, ...result.data.goods_list]
+					
+					//把Goods里的goods_id拼接起来，传给goods_ids		
+					for (var i = 0; i < this.Goods.length; i++) {
+						if (i == 0) {
+							this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+						}
+						this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+					}
+					
+					//通过goods-ids拿到价格
+					let result2 = await requestGet("/api/api/goods/get_price", {
+						goods_ids: this.goods_ids
+					})
+					this.price = result2.data
+
 				}
+
 
 				//通过goods-ids拿到价格
 				let result2 = await requestGet("/api/api/goods/get_price", {
@@ -196,10 +264,68 @@
 			show1Tag() {
 				this.flag1 = !this.flag1;
 			},
-			currentClick() {
+			addA(m){				
+				if(this.arr.includes(m)){
+					//过滤数组，返回不等于m的
+					this.arr =this.arr.filter(item => item !== m)
+				}else{
+					this.arr.push(m)
+				}
+			},
+			addB(m){
+				if(this.brr.includes(m)){
+					this.brr =this.brr.filter(item => item !== m)
+				}else{
+					this.brr.push(m)
+				}
+			},
+			reset(){
+				this.arr=[];
+				this.brr=[];
+				this.a='';
+				this.b='';
+				this.Goods=[];
+				this.getgoodList();
+			},
+			sure(){				
+				this.arr.forEach(item=>this.a=item+'^'+this.a)
+				this.brr.forEach(item=>this.b=item+'^'+this.b)
+				this.Goods=[];
+				this.getgoodList();
+			},
+			currentClick(k) {
 				this.flage = !this.flage;
+				this.psort = 6
+				this.Goods = [];
+				this.getgoodList();
+			},
+			open() {
+				console.log("xxx")
+			},
+			//全部和最新
+			menu(value1) {
+				console.log(this.value1)
+			},
+			//价格
+			bottomClick(k) {
+				console.log(k);
+				if (k == 1) {
+					this.psort = 1
+					console.log("价格升序")
+				} else {
+					this.psort = 2
+					console.log("价格降序")
+				}
+				this.Goods = [];
+				this.price = [];
+				this.getgoodList();
+			},
+			iconClick(index){
+				this.num=index	
+			},
+			thenClick(idx){
+				this.num=idx;
 			}
-
 		},
 		//上拉刷新
 		onReachBottom() {
@@ -209,11 +335,30 @@
 				this.goods_ids = '';
 			}
 		},
-		onLoad(options) {
-			console.log(options,"xxxxxxxxxxxx");
-			this.type =options.pinyin;
-			this.placeholder = options.chinese;
-			this.getgoodList();
+
+		async onLoad(options) {
+		( options.name&&(!options.pinyin))?this.value = options.name:this.value
+		if (options.name&&options.v) {
+				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+				this.Goods = result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}
+
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
+			} else if(options.pinyin) {
+				this.type = options.pinyin;
+				 this.value = options.chinese;
+				 this.getgoodList();
+			}
 		},
 	}
 </script>
@@ -241,8 +386,9 @@
 
 			.search-input {
 				margin-top: 3px;
-			}			
+			}
 		}
+
 		.cart {
 			float: right;
 			margin-top: 10px;
@@ -300,14 +446,17 @@
 
 					.icon_shang {
 						position: absolute;
-
+						width: 8px;
+						height: 8px;
 						left: 70px;
-						bottom: 3px;
+						bottom: 48px;
 					}
 
 					.icon_xia {
 						position: absolute;
-						top: 3px;
+						width: 8px;
+						height: 8px;
+						top: 5px;
 						left: 70px;
 					}
 				}
@@ -428,8 +577,14 @@
 										}
 									}
 								}
+								.button-hover{
+									border-color: 1px solid #af2e14;
+									color: #af2e14;
+								}
 
 								.active {
+									background-color:  #af2e14;
+									color: #af2e14;
 									height: auto;
 									overflow: visible;
 								}
@@ -497,38 +652,56 @@
 				}
 			}
 
-			.second_list {
+			.last_list {
 				width: 100%;
 				height: 50px;
 				border-top: 1px solid #ddd;
 				background-color: #fff;
 
-				.list_attr {
+				/deep/.last {
 					width: 100%;
 					max-height: 50px;
 					line-height: 50px;
 					overflow: hidden;
 
-					/deep/.item {
-						width: 23%;
+					.van-dropdown-menu__item {
+						background-color: #eee;
+						width: 80px;
 						height: 30px;
-						line-height: 30px;
 						font-size: 14px;
 						color: #666;
-						float: left;
-						background-color: #eee;
-						margin-left: 5px;
-						margin-top: 10px;
-						margin-bottom: 5px;
-						text-align: center;
 						border-radius: 5%;
-
-						.uni-icons {
-							margin-left: 8px;
-							color: #ddd;
+						margin-left: 5px;
+						margin-top: 10px;	
 						}
+						.title {
+							display: flex;
+							float: left;
+							width: 50%;
+							height: 40px;
+							.name{
+								width: 78%;
+								margin-left: 10px;
+								font-size: 14px;
+							}
+							.icons{
+								width: 20%;
+								text-align: center;
+								display: none;
+							}
+							.actives{
+								display: block;
+
+							}
+
 					}
 				}
+			}
+
+			.boxStyle {
+				position: fixed;
+				top: 0;
+				left: 0;
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
 	<view class="list" >
-		<view class="box" v-for="item in Goods" :key="item.goods_name" >
+		<view class="box" v-for="item in Goods" :key="item.goods_name" @click="togoodsdetail(item.goods_id)">
 			<view >
 				<view class="towBox">
 					<image :src="item.goods_img_url"></image>
@@ -40,7 +40,14 @@
 				
 		},
 		methods:{
-			
+			togoodsdetail(id) {
+				uni.navigateTo({
+					url: `/pages/gooddetail/gooddetail?id=${id}`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 		}
 	}
 </script>
@@ -86,7 +93,7 @@
 						text:nth-child(2) {
 							font-size: 10px;
 							color: #999;
-							margin-left: 60px;
+							margin-left: 50px;
 						}
 					}
 				}
