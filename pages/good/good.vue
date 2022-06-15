@@ -151,6 +151,7 @@
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
 					p: this.p
 				})
+
 				if(result.data){
 					//商品第一行分类
 					this.brand =  result.data.brand_list
