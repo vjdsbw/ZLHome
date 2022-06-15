@@ -3,9 +3,6 @@ var common_vendor = require("../../common/vendor.js");
 var _imports_0 = "/static/icon/me.png";
 const _sfc_main = {
   data() {
-<<<<<<< HEAD
-    return {};
-=======
     return {
       username: "",
       imageValue: [],
@@ -17,112 +14,107 @@ const _sfc_main = {
       neverchange: true,
       imgpath: ""
     };
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
   },
   created() {
     this.show();
   },
-<<<<<<< HEAD
   onReady() {
   },
-  methods: {}
-};
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {};
-=======
-  updated() {
-    let result = common_vendor.index.getStorageSync("user");
-    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    if (result) {
-      let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
-      if (result1) {
-        this.imgpath = result1;
-        this.neverchange = false;
-        console.log(this.imgpath, "xxxx");
-      }
-    } else {
-      this.imgpath = "";
-      this.neverchange = true;
-    }
-  },
-  onShow() {
-    this.show();
-  },
   methods: {
-    judget() {
+    updated() {
       let result = common_vendor.index.getStorageSync("user");
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       if (result) {
-        this.changeImage();
-      } else {
-        common_vendor.index.navigateTo({
-          url: "/pages/login/login"
-        });
-      }
-    },
-    changeImage() {
-      var _this = this;
-      common_vendor.index.chooseImage({
-        count: 1,
-        sizeType: ["original"],
-        sourceType: ["album"],
-        success: function(res) {
-          let result = common_vendor.index.getStorageSync("user");
-          _this.neverchange = "false";
-          _this.imgpath = res.tempFilePaths[0];
-          common_vendor.index.setStorageSync(`img${result.user_id}`, _this.imgpath);
+        let result1 = common_vendor.index.getStorageSync(`img${result.user_id}`);
+        if (result1) {
+          this.imgpath = result1;
+          this.neverchange = false;
+          console.log(this.imgpath, "xxxx");
         }
-      });
-    },
-    gologin() {
-      let result = common_vendor.index.getStorageSync("user");
-      if (result) {
-        common_vendor.index.navigateTo({
-          url: "/pages/useredit/useredit"
-        });
       } else {
         this.imgpath = "";
         this.neverchange = true;
-        common_vendor.index.navigateTo({
-          url: "/pages/login/login"
-        });
       }
     },
-    show() {
-      let result = common_vendor.index.getStorageSync("user");
-      if (result) {
-        this.username = result.user_name;
-      } else {
-        this.username = "\u70B9\u51FB\u767B\u5F55";
-      }
+    onShow() {
+      this.show();
     },
-    goSet() {
-      let result = common_vendor.index.getStorageSync("user");
-      if (result) {
-        common_vendor.index.navigateTo({
-          url: "/pages/set/set"
-        });
-      } else {
-        common_vendor.index.navigateTo({
-          url: "/pages/login/login"
-        });
-      }
-    },
-    goOrder() {
-      let result = common_vendor.index.getStorageSync("user");
-      if (result) {
-        common_vendor.index.navigateTo({
-          url: "/pages/order/order"
-        });
-      } else {
-        common_vendor.index.showToast({
-          title: "\u8BF7\u5148\u767B\u5F55",
-          duration: 2e3
-        });
-        setTimeout(() => {
+    methods: {
+      judget() {
+        let result = common_vendor.index.getStorageSync("user");
+        if (result) {
+          this.changeImage();
+        } else {
           common_vendor.index.navigateTo({
             url: "/pages/login/login"
           });
-        }, 2e3);
+        }
+      },
+      changeImage() {
+        var _this = this;
+        common_vendor.index.chooseImage({
+          count: 1,
+          sizeType: ["original"],
+          sourceType: ["album"],
+          success: function(res) {
+            let result = common_vendor.index.getStorageSync("user");
+            _this.neverchange = "false";
+            _this.imgpath = res.tempFilePaths[0];
+            common_vendor.index.setStorageSync(`img${result.user_id}`, _this.imgpath);
+          }
+        });
+      },
+      gologin() {
+        let result = common_vendor.index.getStorageSync("user");
+        if (result) {
+          common_vendor.index.navigateTo({
+            url: "/pages/useredit/useredit"
+          });
+        } else {
+          this.imgpath = "";
+          this.neverchange = true;
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
+        }
+      },
+      show() {
+        let result = common_vendor.index.getStorageSync("user");
+        if (result) {
+          this.username = result.user_name;
+        } else {
+          this.username = "\u70B9\u51FB\u767B\u5F55";
+        }
+      },
+      goSet() {
+        let result = common_vendor.index.getStorageSync("user");
+        if (result) {
+          common_vendor.index.navigateTo({
+            url: "/pages/set/set"
+          });
+        } else {
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
+        }
+      },
+      goOrder() {
+        let result = common_vendor.index.getStorageSync("user");
+        if (result) {
+          common_vendor.index.navigateTo({
+            url: "/pages/order/order"
+          });
+        } else {
+          common_vendor.index.showToast({
+            title: "\u8BF7\u5148\u767B\u5F55",
+            duration: 2e3
+          });
+          setTimeout(() => {
+            common_vendor.index.navigateTo({
+              url: "/pages/login/login"
+            });
+          }, 2e3);
+        }
       }
     }
   }
@@ -130,7 +122,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
@@ -144,10 +135,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {
     c: $data.imgpath
   }, {
-    d: common_vendor.o((...args) => $options.judget && $options.judget(...args)),
+    d: common_vendor.o((...args) => _ctx.judget && _ctx.judget(...args)),
     e: common_vendor.t($data.username),
-    f: common_vendor.o((...args) => $options.gologin && $options.gologin(...args)),
-    g: common_vendor.o($options.goSet),
+    f: common_vendor.o((...args) => _ctx.gologin && _ctx.gologin(...args)),
+    g: common_vendor.o(_ctx.goSet),
     h: common_vendor.p({
       type: "gear-filled",
       size: "30",
@@ -162,7 +153,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right",
       size: "20"
     }),
-    k: common_vendor.o((...args) => $options.goOrder && $options.goOrder(...args)),
+    k: common_vendor.o((...args) => _ctx.goOrder && _ctx.goOrder(...args)),
     l: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-shoucang",
@@ -183,5 +174,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "D:/HBuilderXProject/ZLHome/pages/me/me.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/pages/me/me.vue"]]);
 wx.createPage(MiniProgramPage);

@@ -1,9 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<view>
-		
-=======
-
 	<view class="me">
 		<view class="herder">
 
@@ -32,7 +27,6 @@
 			</view>
 
 		</view>
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 	</view>
 </template>
 
@@ -44,9 +38,6 @@
 	export default {
 		data() {
 			return {
-<<<<<<< HEAD
-				
-=======
 				username: "",
 				imageValue: [],
 				imageStyles: {
@@ -56,128 +47,118 @@
 				},
 				neverchange: true,
 				imgpath: ""
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 			}
 		},
 		created() {
 			this.show()
 		},
-<<<<<<< HEAD
 		onReady() {
-			
+
 		},
 		methods: {
-		
-		
-=======
-		updated() {
-			let result = uni.getStorageSync('user');
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			if(result){
-				let result1 = uni.getStorageSync(`img${result.user_id}`);
-				if (result1) {
-					this.imgpath = result1
-						this.neverchange = false
-					console.log(this.imgpath,"xxxx");
-				}
-			}
-		      else{
-				  this.imgpath = ""
-				  	this.neverchange = true
-			  }
-			
-		},
-		onShow() {
-			this.show()
-		},
-		methods: {
-			judget() {
+			updated() {
 				let result = uni.getStorageSync('user');
+				console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				if (result) {
-					this.changeImage()
-				} else {
-					uni.navigateTo({
-						url: '/pages/login/login',
-					});
-				}
-			},
-			changeImage() {
-				// 调用下面的函数时会丢失this，这里保存当前的this
-				var _this = this;
-				uni.chooseImage({
-					count: 1,
-					sizeType: ['original'],
-					sourceType: ['album'],
-					success: function(res) {
-						let result = uni.getStorageSync('user');
-						_this.neverchange = "false";
-						_this.imgpath = res.tempFilePaths[0];
-						uni.setStorageSync(`img${result.user_id}`, _this.imgpath)
+					let result1 = uni.getStorageSync(`img${result.user_id}`);
+					if (result1) {
+						this.imgpath = result1
+						this.neverchange = false
+						console.log(this.imgpath, "xxxx");
 					}
-				})
-			},
-			gologin() {
-				let result = uni.getStorageSync('user')
-				if (result) {
-					uni.navigateTo({
-						url: '/pages/useredit/useredit',
-					});
 				} else {
-					this.imgpath = "";
+					this.imgpath = ""
 					this.neverchange = true
-					uni.navigateTo({
-						url: '/pages/login/login',
-					});
-				}
-			},
-			show() {
-				let result = uni.getStorageSync('user')
-				if (result) {
-					this.username = result.user_name;
-				} else {
-					this.username = '点击登录'
-				}
-			},
-			goSet() {
-				let result = uni.getStorageSync('user')
-				if (result) {
-					uni.navigateTo({
-						url: '/pages/set/set',
-					});
-				} else {
-					uni.navigateTo({
-						url: '/pages/login/login',
-					});
-				}
-			},
-			goOrder(){
-				let result = uni.getStorageSync('user')
-				if (result) {
-					uni.navigateTo({
-						url: '/pages/order/order',
-					});
-				} else {
-					uni.showToast({
-						title: '请先登录',
-						duration: 2000
-					});
-					setTimeout(()=>{
-						uni.navigateTo({
-							url: '/pages/login/login',
-						})
-					},2000)					
 				}
 
+			},
+			onShow() {
+				this.show()
+			},
+			methods: {
+				judget() {
+					let result = uni.getStorageSync('user');
+					if (result) {
+						this.changeImage()
+					} else {
+						uni.navigateTo({
+							url: '/pages/login/login',
+						});
+					}
+				},
+				changeImage() {
+					// 调用下面的函数时会丢失this，这里保存当前的this
+					var _this = this;
+					uni.chooseImage({
+						count: 1,
+						sizeType: ['original'],
+						sourceType: ['album'],
+						success: function(res) {
+							let result = uni.getStorageSync('user');
+							_this.neverchange = "false";
+							_this.imgpath = res.tempFilePaths[0];
+							uni.setStorageSync(`img${result.user_id}`, _this.imgpath)
+						}
+					})
+				},
+				gologin() {
+					let result = uni.getStorageSync('user')
+					if (result) {
+						uni.navigateTo({
+							url: '/pages/useredit/useredit',
+						});
+					} else {
+						this.imgpath = "";
+						this.neverchange = true
+						uni.navigateTo({
+							url: '/pages/login/login',
+						});
+					}
+				},
+				show() {
+					let result = uni.getStorageSync('user')
+					if (result) {
+						this.username = result.user_name;
+					} else {
+						this.username = '点击登录'
+					}
+				},
+				goSet() {
+					let result = uni.getStorageSync('user')
+					if (result) {
+						uni.navigateTo({
+							url: '/pages/set/set',
+						});
+					} else {
+						uni.navigateTo({
+							url: '/pages/login/login',
+						});
+					}
+				},
+				goOrder() {
+					let result = uni.getStorageSync('user')
+					if (result) {
+						uni.navigateTo({
+							url: '/pages/order/order',
+						});
+					} else {
+						uni.showToast({
+							title: '请先登录',
+							duration: 2000
+						});
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/login/login',
+							})
+						}, 2000)
+					}
+
+				}
 			}
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
-		}
+		},
 	}
 </script>
 
-<<<<<<< HEAD
-<style lang="less">
-	
-=======
 <style scoped lang="less">
 	.file-picker__box-content {
 		width: 200px;
@@ -288,5 +269,4 @@
 		}
 
 	}
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 </style>

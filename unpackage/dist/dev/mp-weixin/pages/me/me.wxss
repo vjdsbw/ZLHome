@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 .file-picker__box-content.data-v-259fb574 {
   width: 200px;
   height: 200px;
@@ -90,4 +88,3 @@
   position: absolute;
   left: 350px;
 }
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
