@@ -5,7 +5,6 @@ var common_vendor = require("./common/vendor.js");
 var store_index = require("./store/index.js");
 if (!Math) {
   "./pages/index/index.js";
-  "./pages/sort/sort.js";
   "./pages/brand/brand.js";
   "./pages/me/me.js";
   "./pages/login/login.js";
