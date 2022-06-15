@@ -12,7 +12,19 @@ const _sfc_main = {
       array.push(Object.assign(this.Goods[n], { shop_price: this.price[m].shop_price }));
     }
   },
-  methods: {}
+  methods: {
+    togoodsdetail(id) {
+      common_vendor.index.navigateTo({
+        url: `/pages/gooddetail/gooddetail?id=${id}`,
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    }
+  }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -22,10 +34,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.t(item.goods_name),
         c: common_vendor.t(item.shop_price),
         d: common_vendor.t(item.sale_total),
-        e: item.goods_name
+        e: item.goods_name,
+        f: common_vendor.o(($event) => $options.togoodsdetail(item.goods_id), item.goods_name)
       };
     })
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-527b7738"], ["__file", "D:/HBuilderXProject/ZLHome/components/goodList/goodList.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-527b7738"], ["__file", "F:/zuolo/components/goodList/goodList.vue"]]);
 wx.createComponent(Component);

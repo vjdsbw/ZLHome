@@ -110,7 +110,16 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/mycollection/mycollection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

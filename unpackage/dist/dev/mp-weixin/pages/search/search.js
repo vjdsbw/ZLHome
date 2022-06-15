@@ -7,8 +7,12 @@ const _sfc_main = {
       searchlist: [],
       keywords: "",
       category_list: [],
-      type: ""
+      type: "",
+      value: ""
     };
+  },
+  onLoad(options) {
+    this.value = options.value;
   },
   methods: {
     onKeyInput: function(event) {
@@ -36,7 +40,6 @@ const _sfc_main = {
       this.searchlist.push(this.keywords);
     },
     GoGoodList(pinyin, chinese) {
-      console.log(pinyin, chinese);
       common_vendor.index.navigateTo({
         url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`
       });
@@ -59,18 +62,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "20"
     }),
     b: common_vendor.o((...args) => $options.onKeyInput && $options.onKeyInput(...args)),
-    c: common_vendor.o((...args) => $options.search && $options.search(...args)),
-    d: common_vendor.o(($event) => $options.GoGoodList("chuang", "\u5E8A")),
-    e: common_vendor.o(($event) => $options.GoGoodList("chuangdian", "\u5E8A\u57AB")),
-    f: common_vendor.o(($event) => $options.GoGoodList("canzhuo", "\u9910\u684C")),
-    g: common_vendor.o(($event) => $options.GoGoodList("shafa", "\u6C99\u53D1")),
-    h: common_vendor.o(($event) => $options.GoGoodList("yigui", "\u8863\u67DC")),
-    i: common_vendor.o($options.clean),
-    j: common_vendor.p({
+    c: $data.value,
+    d: common_vendor.o((...args) => $options.search && $options.search(...args)),
+    e: common_vendor.o(($event) => $options.GoGoodList("chuang", "\u5E8A")),
+    f: common_vendor.o(($event) => $options.GoGoodList("chuangdian", "\u5E8A\u57AB")),
+    g: common_vendor.o(($event) => $options.GoGoodList("canzhuo", "\u9910\u684C")),
+    h: common_vendor.o(($event) => $options.GoGoodList("shafa", "\u6C99\u53D1")),
+    i: common_vendor.o(($event) => $options.GoGoodList("yigui", "\u8863\u67DC")),
+    j: common_vendor.o($options.clean),
+    k: common_vendor.p({
       type: "trash",
       size: "20"
     }),
-    k: common_vendor.f($data.searchlist, (item, indx, i0) => {
+    l: common_vendor.f($data.searchlist, (item, indx, i0) => {
       return {
         a: common_vendor.t(item),
         b: item.idx
@@ -78,5 +82,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-4cedc0c6"], ["__file", "D:/HBuilderXProject/ZLHome/pages/search/search.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-4cedc0c6"], ["__file", "F:/zuolo/pages/search/search.vue"]]);
 wx.createPage(MiniProgramPage);
