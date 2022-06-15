@@ -1,0 +1,58 @@
+.title.data-v-802078d4 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: 6rpx;
+}
+.title .pinpaiguan.data-v-802078d4 {
+  font-size: 48rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+.title .jingxuan.data-v-802078d4 {
+  color: gray;
+  font-size: 28rpx;
+}
+.title .haohuo.data-v-802078d4 {
+  padding: 8rpx;
+}
+.brandlist.data-v-802078d4 {
+  width: 100%;
+  height: 340rpx;
+  display: flex;
+  margin: 40rpx;
+}
+.brandlist .img.data-v-802078d4 {
+  flex: 2;
+}
+.brandlist .brandname.data-v-802078d4 {
+  height: 315rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 4rpx 4rpx 4px 6rpx lightgray;
+  margin-right: 60rpx;
+}
+.brandlist .brandname .logo.data-v-802078d4 {
+  width: 160rpx;
+  height: 70rpx;
+  margin-top: 10rpx;
+  margin-left: 40rpx;
+}
+.brandlist .brandname .name.data-v-802078d4 {
+  font-size: 32rpx;
+  margin-top: 10rpx;
+}
+.brandlist .brandname .desc.data-v-802078d4 {
+  color: gray;
+  font-size: 24rpx;
+  margin: 10rpx 0rpx;
+}
+.brandlist .brandname button.data-v-802078d4 {
+  font-size: 24rpx;
+  width: 200rpx;
+  border-radius: 40rpx;
+  border: #ccc;
+}
