@@ -27,9 +27,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-<<<<<<< HEAD
 var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-527b7738"], ["__file", "C:/Users/dell/Desktop/ZLHome/components/goodList/goodList.vue"]]);
-=======
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-527b7738"], ["__file", "D:/HBuilderXProject/ZLHome/components/goodList/goodList.vue"]]);
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
 wx.createComponent(Component);

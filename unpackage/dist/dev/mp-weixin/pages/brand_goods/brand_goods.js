@@ -30,5 +30,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.t()
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-48aef878"], ["__file", "D:/HBuilderXProject/ZLHome/pages/brand_goods/brand_goods.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-48aef878"], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/brand_goods/brand_goods.vue"]]);
 wx.createPage(MiniProgramPage);

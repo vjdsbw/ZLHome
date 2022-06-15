@@ -1,20 +1,4 @@
 "use strict";
-<<<<<<< HEAD
-var common_js_http = require("../../common/js/http.js");
-var common_vendor = require("../../common/vendor.js");
-const _sfc_main = {
-  data() {
-    return {
-      keywords: "",
-      category_list: [],
-      type: "",
-      info: [],
-      current: 0,
-      mode: "round",
-      bed: [],
-      goodsthing: [],
-      newbrands: []
-=======
 var common_vendor = require("../../common/vendor.js");
 var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
@@ -24,20 +8,16 @@ const _sfc_main = {
       keywords: "",
       category_list: [],
       type: ""
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
     };
   },
   methods: {
     onKeyInput: function(event) {
       this.keywords = event.detail.value;
     },
-<<<<<<< HEAD
-=======
     clean() {
       this.searchlist = [];
       this.keywords = "";
     },
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
     async search() {
       let result = await common_js_http.requestGet(`/api/api/search?keywords=` + this.keywords);
       this.category_list = result.data.category_list;
@@ -52,20 +32,6 @@ const _sfc_main = {
           }
         }
       }
-<<<<<<< HEAD
-      let result2 = await common_js_http.requestGet(`/api/api/category-` + this.type + `v=1&XcxSessKey=%20&company_id=7194`);
-      console.log(result2);
-    }
-  }
-};
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
-    a: common_vendor.o((...args) => $options.onKeyInput && $options.onKeyInput(...args)),
-    b: common_vendor.o((...args) => $options.search && $options.search(...args))
-  };
-}
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/search/search.vue"]]);
-=======
       this.GoGoodList(this.type, this.keywords);
       this.searchlist.push(this.keywords);
     },
@@ -112,6 +78,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-4cedc0c6"], ["__file", "D:/HBuilderXProject/ZLHome/pages/search/search.vue"]]);
->>>>>>> c351516f1c1b65197d755d36d61368c1ee2aefb2
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-4cedc0c6"], ["__file", "C:/Users/dell/Desktop/ZLHome/pages/search/search.vue"]]);
 wx.createPage(MiniProgramPage);
