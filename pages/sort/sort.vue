@@ -62,6 +62,7 @@
 			//跳转商品
 			goGood(pinyin,chinese){
 				pinyin = pinyin.split("-")[1].split("/")[0];
+
 				uni.navigateTo({
 					url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`,
 				});
@@ -79,7 +80,6 @@
 			scrolls(e) {
 				let scrollTop = e.target.scrollTop
 				for (let i = 0; i < this.topList.length; i++) {
-					// console.log(this.topList.length)
 					let h1 = this.topList[i]
 					let h2 = this.topList[i + 1]
 					if (scrollTop >= h1 && scrollTop < h2) {
@@ -96,7 +96,6 @@
 						rel.push(item.top)
 					})
 					this.topList = rel
-					console.log(rel,"9999999999999999999999999")
 				})
 			},
 		},

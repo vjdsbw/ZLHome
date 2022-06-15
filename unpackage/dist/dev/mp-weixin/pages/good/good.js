@@ -7,13 +7,17 @@ const _sfc_main = {
       type: "",
       value: "xxx",
       flag: false,
-      flag1: false,
+      flag1: true,
       flage: false,
       Goods: [],
       brand: [],
       attr: [],
       goods_ids: "",
       price: [],
+      brr: [],
+      arr: [],
+      a: "",
+      b: "",
       p: 1,
       flag: true,
       option1: [
@@ -56,7 +60,9 @@ const _sfc_main = {
     },
     async getgoodList() {
       let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
-        p: this.p
+        p: this.p,
+        a: this.a,
+        b: this.b
       });
       if (result.data) {
         this.brand = result.data.brand_list;
@@ -91,6 +97,34 @@ const _sfc_main = {
     },
     currentClick() {
       this.flage = !this.flage;
+    },
+    addA(m) {
+      if (this.arr.includes(m)) {
+        this.arr = this.arr.filter((item) => item !== m);
+      } else {
+        this.arr.push(m);
+      }
+    },
+    addB(m) {
+      if (this.brr.includes(m)) {
+        this.brr = this.brr.filter((item) => item !== m);
+      } else {
+        this.brr.push(m);
+      }
+    },
+    reset() {
+      this.arr = [];
+      this.brr = [];
+      this.a = "";
+      this.b = "";
+      this.Goods = [];
+      this.getgoodList();
+    },
+    sure() {
+      this.arr.forEach((item) => this.a = item + "^" + this.a);
+      this.brr.forEach((item) => this.b = item + "^" + this.b);
+      this.Goods = [];
+      this.getgoodList();
     }
   },
   onReachBottom() {
@@ -181,7 +215,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     q: common_vendor.f($data.brand, (item, k0, i0) => {
       return {
         a: item.brand_logo_url,
-        b: item.brand_id
+        b: item.brand_id,
+        c: common_vendor.o(($event) => $options.addB(item.brand_id), item.brand_id)
       };
     }),
     r: !$data.flag ? 1 : "",
@@ -191,7 +226,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.f(item.attr_list, (list, k1, i1) => {
           return {
             a: common_vendor.t(list.attr_value),
-            b: list.attr_value_id
+            b: common_vendor.o(($event) => $options.addA(list.attr_value_id), list.attr_value_id),
+            c: list.attr_value_id
           };
         }),
         c: item.attr_id
@@ -200,40 +236,42 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     t: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
     v: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
     w: !$data.flag1 ? 1 : "",
-    x: common_vendor.sr("showRight", "cdccd9b4-7"),
-    y: common_vendor.p({
+    x: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    y: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    z: common_vendor.sr("showRight", "cdccd9b4-7"),
+    A: common_vendor.p({
       mode: "right",
       width: "320",
       ["mask-click"]: false
-    }),
-    z: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
-      size: "8"
-    }),
-    A: common_vendor.f($data.attr, (attrs, k0, i0) => {
-      return {
-        a: common_vendor.t(attrs.attr_name),
-        b: "cdccd9b4-9-" + i0,
-        c: attrs.attr_id
-      };
     }),
     B: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-xiajiantou",
       size: "8"
     }),
-    C: common_vendor.p({
+    C: common_vendor.f($data.attr, (attrs, k0, i0) => {
+      return {
+        a: common_vendor.t(attrs.attr_name),
+        b: "cdccd9b4-9-" + i0,
+        c: attrs.attr_id
+      };
+    }),
+    D: common_vendor.p({
+      ["custom-prefix"]: "iconfont",
+      type: "icon-xiajiantou",
+      size: "8"
+    }),
+    E: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    D: !$data.flag
+    F: !$data.flag
   }, !$data.flag ? {
-    E: common_vendor.p({
+    G: common_vendor.p({
       status: "loading"
     })
   } : {
-    F: common_vendor.p({
+    H: common_vendor.p({
       status: "noMore"
     })
   });

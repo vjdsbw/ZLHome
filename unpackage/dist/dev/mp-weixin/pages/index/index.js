@@ -46,6 +46,17 @@ const _sfc_main = {
     this.getgoodList();
   },
   methods: {
+    tocart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
     scroll(event) {
       if (event.detail.scrollLeft < 860) {
         this.currentIndex = 0;
@@ -215,24 +226,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       inputBorder: "false"
     }),
     e: common_vendor.o(($event) => $options.tosearch()),
-    f: common_vendor.p({
+    f: common_vendor.o($options.tocart),
+    g: common_vendor.p({
       type: "cart",
       size: "30"
     }),
-    g: common_vendor.f($data.info, (item, k0, i0) => {
+    h: common_vendor.f($data.info, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: item.id
       };
     }),
-    h: common_vendor.o((...args) => $options.change && $options.change(...args)),
-    i: common_vendor.p({
+    i: common_vendor.o((...args) => $options.change && $options.change(...args)),
+    j: common_vendor.p({
       info: $data.info,
       current: $data.current,
       field: "content",
       mode: $data.mode
     }),
-    j: common_vendor.f($data.bed, (item, k0, i0) => {
+    k: common_vendor.f($data.bed, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -240,17 +252,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.tosearchDetail(item.desc, item.url_type), item.id)
       };
     }),
-    k: $data.currentIndex === 4 ? 1 : "",
-    l: common_vendor.o(($event) => $options.jumpTo(4)),
-    m: $data.currentIndex === 3 ? 1 : "",
-    n: common_vendor.o(($event) => $options.jumpTo(3)),
-    o: $data.currentIndex === 2 ? 1 : "",
-    p: common_vendor.o(($event) => $options.jumpTo(2)),
-    q: $data.currentIndex === 1 ? 1 : "",
-    r: common_vendor.o(($event) => $options.jumpTo(1)),
-    s: $data.currentIndex === 0 ? 1 : "",
-    t: common_vendor.o(($event) => $options.jumpTo(0)),
-    v: common_vendor.f($data.goodsthing, (item, index, i0) => {
+    l: $data.currentIndex === 4 ? 1 : "",
+    m: common_vendor.o(($event) => $options.jumpTo(4)),
+    n: $data.currentIndex === 3 ? 1 : "",
+    o: common_vendor.o(($event) => $options.jumpTo(3)),
+    p: $data.currentIndex === 2 ? 1 : "",
+    q: common_vendor.o(($event) => $options.jumpTo(2)),
+    r: $data.currentIndex === 1 ? 1 : "",
+    s: common_vendor.o(($event) => $options.jumpTo(1)),
+    t: $data.currentIndex === 0 ? 1 : "",
+    v: common_vendor.o(($event) => $options.jumpTo(0)),
+    w: common_vendor.f($data.goodsthing, (item, index, i0) => {
       return {
         a: common_vendor.f(item.sub_list, (i, k1, i1) => {
           return {
@@ -266,15 +278,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: `s${index}`
       };
     }),
-    w: $data.viewto,
-    x: common_vendor.o((...args) => $options.scroll && $options.scroll(...args)),
-    y: common_vendor.p({
+    x: $data.viewto,
+    y: common_vendor.o((...args) => $options.scroll && $options.scroll(...args)),
+    z: common_vendor.p({
       title: "\u54C1\u724C\u4E0A\u65B0",
       link: "reLaunch",
       to: "/pages/brand/brand",
       rightText: "\u66F4\u591A"
     }),
-    z: common_vendor.f($data.newbrands, (item, k0, i0) => {
+    A: common_vendor.f($data.newbrands, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -283,7 +295,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: common_vendor.o(($event) => $options.tosearchDetail2(item.desc), item.id)
       };
     }),
-    A: common_vendor.f($data.brandlists, (item, index, i0) => {
+    B: common_vendor.f($data.brandlists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc.split("|").join("")),
         b: common_vendor.t(item.desc_t),
@@ -310,7 +322,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: index
       };
     }),
-    B: common_vendor.f($data.catelist, (item, idx, i0) => {
+    C: common_vendor.f($data.catelist, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.t(item.desc_t),
@@ -319,18 +331,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: item.id
       };
     }),
-    C: $data.cate_fixed == true ? 1 : "",
-    D: common_vendor.p({
+    D: $data.cate_fixed == true ? 1 : "",
+    E: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    E: !$data.flag
+    F: !$data.flag
   }, !$data.flag ? {
-    F: common_vendor.p({
+    G: common_vendor.p({
       status: "loading"
     })
   } : {
-    G: common_vendor.p({
+    H: common_vendor.p({
       status: "noMore"
     })
   });

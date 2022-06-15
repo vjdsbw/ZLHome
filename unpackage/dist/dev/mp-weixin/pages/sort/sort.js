@@ -65,7 +65,6 @@ const _sfc_main = {
           rel.push(item.top);
         });
         this.topList = rel;
-        console.log(rel, "9999999999999999999999999");
       });
     }
   }

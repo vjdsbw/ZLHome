@@ -38,18 +38,18 @@
 											<view class="choice" @click="showTag">{{flag?"可多选":"查看全部"}}</view>
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
-											<button v-for="item in brand" :key="item.brand_id">
-												<image :src="item.brand_logo_url"></image>
+											<button v-for="item in brand" :key="item.brand_id" @click="addB(item.brand_id)">
+												<image :src="item.brand_logo_url" ></image>
 											</button>
 										</view>
 									</view>
 									<view class="attr_list" v-for="item in attr" :key="item.attr_id">
-										<view class="brand">
+										<view class="brand" >
 											<view class="brand_name">{{item.attr_name}}</view>
 											<view class="choice" @click="show1Tag">{{flag1?"可多选":"查看全部"}}</view>
 										</view>
 										<view class="attr_text" :class="{active:!flag1}">
-											<button v-for="list in item.attr_list"
+											<button v-for="list in item.attr_list" @click="addA(list.attr_value_id)"
 												:key="list.attr_value_id"><text>{{list.attr_value}}</text></button>
 										</view>
 									</view>
@@ -63,8 +63,8 @@
 										</view>
 									</view>
 									<view class="reset">
-										<view class="left">重置</view>
-										<view class="left">确定</view>
+										<view class="left" @click="reset">重置</view>
+										<view class="left" @click="sure">确定</view>
 									</view>
 								</scroll-view>
 							</view>
@@ -104,13 +104,17 @@
 				type: '',
 				value: "xxx",
 				flag: false,
-				flag1: false,
+				flag1: true,
 				flage: false,
 				Goods: [],
 				brand: [],
 				attr: [],
 				goods_ids: '',
 				price: [],
+				brr:[],
+				arr:[],
+				a:'',
+				b:'',
 				p: 1,
 				flag: true,
 				option1: [{
@@ -149,9 +153,10 @@
 			async getgoodList() {
 				//拿到商品列表
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
-					p: this.p
+					p: this.p,
+					a:this.a,
+					b:this.b
 				})
-
 				if(result.data){
 					//商品第一行分类
 					this.brand =  result.data.brand_list
@@ -177,8 +182,7 @@
 						goods_ids: this.goods_ids
 					})
 					this.price = result2.data
-				}
-				
+				}				
 			},
 			//筛选里的打开
 			showDrawer() {
@@ -196,8 +200,36 @@
 			},
 			currentClick() {
 				this.flage = !this.flage;
+			},
+			addA(m){				
+				if(this.arr.includes(m)){
+					//过滤数组，返回不等于m的
+					this.arr =this.arr.filter(item => item !== m)
+				}else{
+					this.arr.push(m)
+				}
+			},
+			addB(m){
+				if(this.brr.includes(m)){
+					this.brr =this.brr.filter(item => item !== m)
+				}else{
+					this.brr.push(m)
+				}
+			},
+			reset(){
+				this.arr=[];
+				this.brr=[];
+				this.a='';
+				this.b='';
+				this.Goods=[];
+				this.getgoodList();
+			},
+			sure(){				
+				this.arr.forEach(item=>this.a=item+'^'+this.a)
+				this.brr.forEach(item=>this.b=item+'^'+this.b)
+				this.Goods=[];
+				this.getgoodList();
 			}
-
 		},
 		//上拉刷新
 		onReachBottom() {
@@ -445,8 +477,14 @@
 										}
 									}
 								}
+								.button-hover{
+									border-color: 1px solid #af2e14;
+									color: #af2e14;
+								}
 
 								.active {
+									background-color:  #af2e14;
+									color: #af2e14;
 									height: auto;
 									overflow: visible;
 								}
