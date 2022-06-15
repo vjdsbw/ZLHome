@@ -21,7 +21,7 @@
 				</view>
 			</view>
 			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
-				<swiper class="swiper-box" @change="change">
+				<swiper class="swiper-box" @change="change" circular="true">
 					<swiper-item v-for="item in info" :key="item.id">
 						<view class="swiper-item">
 							<image :src="item.image_xcx" mode="widthFix"></image>
@@ -31,7 +31,7 @@
 			</uni-swiper-dot>
 		</view>
 		<view class="body">
-			<view class="bed" v-for="item in bed" :key="item.id" @click="toBed">
+			<view class="bed" v-for="item in bed" :key="item.id" @click="tosearchDetail(item.desc,item.url_type)">
 				<image :src="item.image_xcx" mode=""></image><br>{{item.desc}}
 			</view>
 		</view>
@@ -50,10 +50,11 @@
 				<text class="a" :class="{active:currentIndex===0}" @click='jumpTo(0)' id="s0">客厅</text>
 			</view>
 
-			<scroll-view scroll-x="true" show-scrollbar="false" :scroll-into-view="viewto" scroll-with-animation="true">
+			<scroll-view scroll-x="true" show-scrollbar="false" :scroll-into-view="viewto" @scroll="scroll"
+				scroll-with-animation="true">
 				<view class="newimage">
-					<view class="addition" v-for="(item,index) in goodsthing" :key="index"  :id="`s${index}`">
-						<view v-for=" i  in  item.sub_list"  @click="todetail(i.goods_id)" :key="i.id">
+					<view class="addition" v-for="(item,index) in goodsthing" :key="index" :id="`s${index}`">
+						<view v-for=" i  in  item.sub_list" @click="todetail(i.goods_id)" :key="i.id">
 							<image :src="i.image_xcx"></image>
 							<view class="brand">
 								{{i.brand}}
@@ -76,7 +77,7 @@
 			</uni-list>
 			<scroll-view scroll-x="true">
 				<view class="newimage">
-					<view v-for="item in newbrands" :key="item.id">
+					<view v-for="item in newbrands" :key="item.id" @click="tosearchDetail2(item.desc)">
 						<image :src="item.image_xcx"></image>
 						<view class="tips">
 							{{item.desc}} &nbsp;{{item.desc_t}}
@@ -100,7 +101,8 @@
 					</view>
 
 					<view class="showbrandfar">
-						<view class="showbrand" v-for="j in item.goods.goods_list"  @click="todetail(j.goods_id)" :key="j.id">
+						<view class="showbrand" v-for="j in item.goods.goods_list" @click="todetail(j.goods_id)"
+							:key="j.id">
 							<image :src="j.image_xcx_702" mode="">
 
 							</image>
@@ -122,7 +124,7 @@
 				&nbsp; &nbsp;{{item.brand.tab_name}}
 				<scroll-view scroll-x="true">
 					<view class="newimage">
-						<view v-for="i in item.brand.list" :key="i.id">
+						<view v-for="i in item.brand.list" :key="i.id" @click="tosearchDetail2(i.desc)">
 							<image class="i1" :src="i.image_xcx"></image>
 							<image class="i2" :src="i.image_2_xcx"></image>
 							<view class="tips">
@@ -157,7 +159,7 @@
 
 
 		</view>
-		<goodList :Goods="Goods"></goodList>
+		<goodList :Goods="Goods" :price="price"></goodList>
 		<view class="more">
 			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
@@ -201,7 +203,9 @@
 				flag: true,
 				choosebrandlist: ["keting", "woshi", "canting", "ertongfang", "shufang", "jiancai", "dengshi", "weiyu",
 					"jiafang", "jiashi"
-				]
+				],
+				price: [],
+				brand_url: []
 
 			}
 		},
@@ -211,8 +215,22 @@
 		},
 
 		methods: {
-			todetail(id){
-				console.log(id);
+			scroll(event) {
+				//距离每个边界距离
+				if (event.detail.scrollLeft < 860) {
+					this.currentIndex = 0;
+				} else if (event.detail.scrollLeft < 1720) {
+					this.currentIndex = 1;
+				} else if (event.detail.scrollLeft < 2580) {
+					this.currentIndex = 2;
+				} else if (event.detail.scrollLeft < 3440) {
+					this.currentIndex = 3;
+				} else {
+					this.currentIndex = 4;
+				}
+			},
+			todetail(id) {
+
 				uni.navigateTo({
 					url: `/pages/gooddetail/gooddetail?id=${id}`,
 					success: res => {},
@@ -225,7 +243,7 @@
 				let result = await requestGet(`/api/api/category-${temp}/`, {
 					p: this.p
 				})
-				console.log(result);
+				this.brand_url = result
 				if (result) {
 					this.brand = result.data.brand_list
 					this.attr = result.data.attr
@@ -233,6 +251,19 @@
 						this.flag = false
 					} else {
 						this.Goods = result.data.goods_list
+						//把Goods里的goods_id拼接起来，传给goods_ids
+						for (var i = 0; i < this.Goods.length; i++) {
+							if (i == 0) {
+								this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+							}
+							this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+						}
+
+						//通过goods-ids拿到价格
+						let result2 = await requestGet("/api/api/goods/get_price", {
+							goods_ids: this.goods_ids
+						})
+						this.price = result2.data
 					}
 
 				} else {
@@ -259,7 +290,6 @@
 				this.current = e.detail.current;
 			},
 			tosearch() {
-				console.log("xxxx");
 				uni.navigateTo({
 					url: '/pages/search/search',
 					success: res => {},
@@ -267,20 +297,34 @@
 					complete: () => {}
 				});
 			},
-			toBed() {
+			tosearchDetail(name, pinyin) {
+				if (pinyin.length > 10) {
+					var newp = pinyin.split("-")[1].substring(0, pinyin.split("-")[1].length - 1)
+				} else {
+					newp = "quanbufenlei"
+				}
 				uni.navigateTo({
-					url: '/pages/search/search',
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+					url: `/pages/good/good?pinyin=${newp}&chinese=${name}`,
+				});
+			},
+			async tosearchDetail2(name) {
+				var tempurl;
+				var nurl
+				this.brand_url.data.brand_list.forEach((item) => {
+					if (name == item.brand_name) {
+						tempurl = item.url
+					}
+				})
+				console.log(this.brand_url.data.brand_list);
+				tempurl ? nurl = tempurl.split("?")[1] : nurl = ""
+				console.log(nurl);
+				uni.navigateTo({
+					url: `/pages/good/good?${nurl}&name=${name}`,
 				});
 			},
 			async getSwipers() {
 				//因为配置了api代理，所有路径前面需再加上一个/api,写法参考如下
 				//传参  Post  接口:/m/index/cate
-				let result = await requestPost("/api/m/index/cate", {
-					'biao': 'keting'
-				});
 				//无传参 Post 接口:/x/index/index
 				let result2 = await requestPost("/api/x/index/index");
 				//传参  Get  接口：/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194
@@ -302,7 +346,7 @@
 			}
 
 
-			if (res.scrollTop >= 7000) {
+			if (res.scrollTop >= 6800) {
 
 				this.cate_fixed = true;
 			} else {
@@ -336,14 +380,12 @@
 			align-items: center;
 			/*所有子元素都垂直居中了*/
 			z-index: 1000000000000000;
-			background-color: rgb(230, 42, 41);
+			background: -webkit-radial-gradient(center, circle, rgba(230, 42, 41, 1), rgba(235, 80, 52, 1));
+
 			/deep/ .uni-easyinput {
 				width: 500rpx;
 				height: 60rpx;
 				margin-left: 30rpx;
-
-
-
 			}
 		}
 
@@ -351,7 +393,7 @@
 			height: 500rpx;
 			width: 100%;
 			position: relative;
-			background-color: rgb(230, 42, 41);
+			background: -webkit-radial-gradient(center, circle, rgba(230, 42, 41, 1), rgba(235, 70, 42, 0.8));
 			border-bottom-left-radius: 30rpx;
 			border-bottom-right-radius: 30rpx;
 
@@ -359,7 +401,7 @@
 				width: 620rpx;
 				height: 40rpx;
 				margin-left: 30rpx;
-               margin-right: 20rpx;
+				margin-right: 20rpx;
 
 			}
 
@@ -625,6 +667,7 @@
 		.cate {
 			display: flex;
 			text-align: center;
+
 			scroll-view ::-webkit-scrollbar {
 				width: 0;
 				height: 0;
@@ -638,6 +681,7 @@
 				align-items: center;
 				font-size: 28rpx;
 				height: 300rpx;
+
 				&.fiexdtop {
 					width: 100%;
 					overflow-x: auto;
@@ -718,5 +762,4 @@
 
 		}
 	}
-
 </style>

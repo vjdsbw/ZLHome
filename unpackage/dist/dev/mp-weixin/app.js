@@ -19,6 +19,7 @@ if (!Math) {
   "./pages/order/order.js";
   "./pages/address/address.js";
   "./pages/cart/cart.js";
+  "./pages/mycollection/mycollection.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -32,7 +33,7 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
-var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/HBuilderXProject/ZLHome/App.vue"]]);
+var App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "F:/zuolo/App.vue"]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
   app.use(store_index.store);

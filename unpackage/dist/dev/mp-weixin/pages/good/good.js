@@ -5,7 +5,7 @@ const _sfc_main = {
   data() {
     return {
       type: "",
-      placeholder: "",
+      value: "xxx",
       flag: false,
       flag1: false,
       flage: false,
@@ -30,12 +30,11 @@ const _sfc_main = {
     };
   },
   created() {
-    this.getgoodList();
   },
   methods: {
     tosearch() {
       common_vendor.index.navigateTo({
-        url: "/pages/search/search",
+        url: `/pages/search/search?value=${this.value}`,
         success: (res) => {
         },
         fail: () => {
@@ -55,29 +54,28 @@ const _sfc_main = {
         }
       });
     },
-    async getgoodList(options) {
-      this.type = options.pinyin;
-      this.placeholder = options.chinese;
-      console.log(this.type);
+    async getgoodList() {
       let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
         p: this.p
       });
-      this.brand = result.data.brand_list;
-      this.attr = result.data.attr;
-      if (result.data.goods_list.length < 32) {
-        this.flag = false;
-      }
-      this.Goods = [...this.Goods, ...result.data.goods_list];
-      for (var i = 0; i < this.Goods.length; i++) {
-        if (i == 0) {
-          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+      if (result.data) {
+        this.brand = result.data.brand_list;
+        this.attr = result.data.attr;
+        if (result.data.goods_list.length < 32) {
+          this.flag = false;
         }
-        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+        this.Goods = [...this.Goods, ...result.data.goods_list];
+        for (var i = 0; i < this.Goods.length; i++) {
+          if (i == 0) {
+            this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+          }
+          this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+        }
+        let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+          goods_ids: this.goods_ids
+        });
+        this.price = result2.data;
       }
-      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
-        goods_ids: this.goods_ids
-      });
-      this.price = result2.data;
     },
     showDrawer() {
       this.$refs.showRight.open();
@@ -102,9 +100,26 @@ const _sfc_main = {
       this.goods_ids = "";
     }
   },
-  onLoad(options) {
-    console.log(options, "xxxxxxxxxxxx");
-    this.getgoodList(options);
+  async onLoad(options) {
+    options.name && !options.pinyin ? this.value = options.name : this.value;
+    if (options.name && options.v) {
+      let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+      this.Goods = result.data.goods_list;
+      for (var i = 0; i < this.Goods.length; i++) {
+        if (i == 0) {
+          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+        }
+        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+      }
+      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+        goods_ids: this.goods_ids
+      });
+      this.price = result2.data;
+    } else if (options.pinyin) {
+      this.type = options.pinyin;
+      this.value = options.chinese;
+      this.getgoodList();
+    }
   }
 };
 if (!Array) {
@@ -131,7 +146,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "20"
     }),
     b: common_vendor.o((...args) => _ctx.onKeyInput && _ctx.onKeyInput(...args)),
-    c: $data.placeholder,
+    c: $data.value,
     d: common_vendor.o(($event) => $options.tosearch()),
     e: common_vendor.o($options.tocart),
     f: common_vendor.p({
@@ -223,5 +238,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdccd9b4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/good/good.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdccd9b4"], ["__file", "F:/zuolo/pages/good/good.vue"]]);
 wx.createPage(MiniProgramPage);

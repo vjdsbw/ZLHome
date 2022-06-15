@@ -3,7 +3,7 @@
 		<view class="search">
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
-				<input class="search-input" inputBorder="false" @input="onKeyInput" :placeholder="placeholder" />
+				<input class="search-input" inputBorder="false" @input="onKeyInput" :value="value" />
 			</view>
 			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
 		</view>
@@ -101,8 +101,8 @@
 	export default {
 		data() {
 			return {
-				type:'',
-				placeholder: "",
+				type: '',
+				value: "xxx",
 				flag: false,
 				flag1: false,
 				flage: false,
@@ -126,19 +126,19 @@
 
 			}
 		},
-		created() {		
-			this.getgoodList()
+		created() {
+			
 		},
 		methods: {
 			tosearch() {
 				uni.navigateTo({
-					url: '/pages/search/search',
+					url: `/pages/search/search?value=${this.value}`,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
 				});
 			},
-			tocart(){
+			tocart() {
 				uni.navigateTo({
 					url: '/pages/cart/cart',
 					success: res => {},
@@ -146,40 +146,40 @@
 					complete: () => {}
 				});
 			},
-			async getgoodList(options) {
-				this.type =options.pinyin;
-				this.placeholder = options.chinese;
-				console.log(this.type);
+			async getgoodList() {
 				//拿到商品列表
-				let result = await requestGet(`/api/api/category-`+this.type+`/`, {
+				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
 					p: this.p
 				})
-				//商品第一行分类
-				this.brand = result.data.brand_list
-				//商品第二行分类
-				this.attr = result.data.attr
-
-
-				//通过第一页的数据比较
-				if (result.data.goods_list.length < 32) {
-					this.flag = false
-				}
-				//商品信息
-				this.Goods = [...this.Goods, ...result.data.goods_list]
-
-				//把Goods里的goods_id拼接起来，传给goods_ids		
-				for (var i = 0; i < this.Goods.length; i++) {
-					if (i == 0) {
-						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+				if(result.data){
+					//商品第一行分类
+					this.brand =  result.data.brand_list
+					//商品第二行分类
+					this.attr = result.data.attr
+					
+					
+					//通过第一页的数据比较
+					if (result.data.goods_list.length < 32) {
+						this.flag = false
 					}
-					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+					//商品信息
+					this.Goods = [...this.Goods, ...result.data.goods_list]
+					
+					//把Goods里的goods_id拼接起来，传给goods_ids		
+					for (var i = 0; i < this.Goods.length; i++) {
+						if (i == 0) {
+							this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+						}
+						this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+					}
+					
+					//通过goods-ids拿到价格
+					let result2 = await requestGet("/api/api/goods/get_price", {
+						goods_ids: this.goods_ids
+					})
+					this.price = result2.data
 				}
-
-				//通过goods-ids拿到价格
-				let result2 = await requestGet("/api/api/goods/get_price", {
-					goods_ids: this.goods_ids
-				})
-				this.price = result2.data
+				
 			},
 			//筛选里的打开
 			showDrawer() {
@@ -208,9 +208,29 @@
 				this.goods_ids = '';
 			}
 		},
-		onLoad(options) {
-			console.log(options,"xxxxxxxxxxxx");
-			this.getgoodList(options);
+		async onLoad(options) {
+		( options.name&&(!options.pinyin))?this.value = options.name:this.value
+		if (options.name&&options.v) {
+				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+				this.Goods = result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}
+
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
+			} else if(options.pinyin) {
+				this.type = options.pinyin;
+				 this.value = options.chinese;
+				 this.getgoodList();
+			}
 		},
 	}
 </script>
@@ -238,8 +258,9 @@
 
 			.search-input {
 				margin-top: 3px;
-			}			
+			}
 		}
+
 		.cart {
 			float: right;
 			margin-top: 10px;

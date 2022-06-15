@@ -36,7 +36,9 @@ const _sfc_main = {
         "weiyu",
         "jiafang",
         "jiashi"
-      ]
+      ],
+      price: [],
+      brand_url: []
     };
   },
   created() {
@@ -44,8 +46,20 @@ const _sfc_main = {
     this.getgoodList();
   },
   methods: {
+    scroll(event) {
+      if (event.detail.scrollLeft < 860) {
+        this.currentIndex = 0;
+      } else if (event.detail.scrollLeft < 1720) {
+        this.currentIndex = 1;
+      } else if (event.detail.scrollLeft < 2580) {
+        this.currentIndex = 2;
+      } else if (event.detail.scrollLeft < 3440) {
+        this.currentIndex = 3;
+      } else {
+        this.currentIndex = 4;
+      }
+    },
     todetail(id) {
-      console.log(id);
       common_vendor.index.navigateTo({
         url: `/pages/gooddetail/gooddetail?id=${id}`,
         success: (res) => {
@@ -61,7 +75,7 @@ const _sfc_main = {
       let result = await common_js_http.requestGet(`/api/api/category-${temp}/`, {
         p: this.p
       });
-      console.log(result);
+      this.brand_url = result;
       if (result) {
         this.brand = result.data.brand_list;
         this.attr = result.data.attr;
@@ -69,6 +83,16 @@ const _sfc_main = {
           this.flag = false;
         } else {
           this.Goods = result.data.goods_list;
+          for (var i = 0; i < this.Goods.length; i++) {
+            if (i == 0) {
+              this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+            }
+            this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+          }
+          let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+            goods_ids: this.goods_ids
+          });
+          this.price = result2.data;
         }
       } else {
         this.Goods = [];
@@ -92,7 +116,6 @@ const _sfc_main = {
       this.current = e.detail.current;
     },
     tosearch() {
-      console.log("xxxx");
       common_vendor.index.navigateTo({
         url: "/pages/search/search",
         success: (res) => {
@@ -103,21 +126,32 @@ const _sfc_main = {
         }
       });
     },
-    toBed() {
+    tosearchDetail(name, pinyin) {
+      if (pinyin.length > 10) {
+        var newp = pinyin.split("-")[1].substring(0, pinyin.split("-")[1].length - 1);
+      } else {
+        newp = "quanbufenlei";
+      }
       common_vendor.index.navigateTo({
-        url: "/pages/search/search",
-        success: (res) => {
-        },
-        fail: () => {
-        },
-        complete: () => {
+        url: `/pages/good/good?pinyin=${newp}&chinese=${name}`
+      });
+    },
+    async tosearchDetail2(name) {
+      var tempurl;
+      var nurl;
+      this.brand_url.data.brand_list.forEach((item) => {
+        if (name == item.brand_name) {
+          tempurl = item.url;
         }
+      });
+      console.log(this.brand_url.data.brand_list);
+      tempurl ? nurl = tempurl.split("?")[1] : nurl = "";
+      console.log(nurl);
+      common_vendor.index.navigateTo({
+        url: `/pages/good/good?${nurl}&name=${name}`
       });
     },
     async getSwipers() {
-      await common_js_http.requestPost("/api/m/index/cate", {
-        "biao": "keting"
-      });
       let result2 = await common_js_http.requestPost("/api/x/index/index");
       await common_js_http.requestGet("/api/api/category-chuang/?v=1&XcxSessKey=%20&company_id=7194");
       let brandlist = await common_js_http.requestPost("/api/x/index/index_two");
@@ -135,7 +169,7 @@ const _sfc_main = {
     } else {
       this.is_fixed = false;
     }
-    if (res.scrollTop >= 7e3) {
+    if (res.scrollTop >= 6800) {
       this.cate_fixed = true;
     } else {
       this.cate_fixed = false;
@@ -203,7 +237,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
         c: item.id,
-        d: common_vendor.o((...args) => $options.toBed && $options.toBed(...args), item.id)
+        d: common_vendor.o(($event) => $options.tosearchDetail(item.desc, item.url_type), item.id)
       };
     }),
     k: $data.currentIndex === 4 ? 1 : "",
@@ -233,21 +267,23 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     w: $data.viewto,
-    x: common_vendor.p({
+    x: common_vendor.o((...args) => $options.scroll && $options.scroll(...args)),
+    y: common_vendor.p({
       title: "\u54C1\u724C\u4E0A\u65B0",
       link: "reLaunch",
       to: "/pages/brand/brand",
       rightText: "\u66F4\u591A"
     }),
-    y: common_vendor.f($data.newbrands, (item, k0, i0) => {
+    z: common_vendor.f($data.newbrands, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
         c: common_vendor.t(item.desc_t),
-        d: item.id
+        d: item.id,
+        e: common_vendor.o(($event) => $options.tosearchDetail2(item.desc), item.id)
       };
     }),
-    z: common_vendor.f($data.brandlists, (item, index, i0) => {
+    A: common_vendor.f($data.brandlists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc.split("|").join("")),
         b: common_vendor.t(item.desc_t),
@@ -267,13 +303,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             a: i.image_xcx,
             b: i.image_2_xcx,
             c: common_vendor.t(i.desc_t),
-            d: i.id
+            d: i.id,
+            e: common_vendor.o(($event) => $options.tosearchDetail2(i.desc), i.id)
           };
         }),
         f: index
       };
     }),
-    A: common_vendor.f($data.catelist, (item, idx, i0) => {
+    B: common_vendor.f($data.catelist, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.t(item.desc_t),
@@ -282,21 +319,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: item.id
       };
     }),
-    B: $data.cate_fixed == true ? 1 : "",
-    C: common_vendor.p({
-      Goods: $data.Goods
+    C: $data.cate_fixed == true ? 1 : "",
+    D: common_vendor.p({
+      Goods: $data.Goods,
+      price: $data.price
     }),
-    D: !$data.flag
+    E: !$data.flag
   }, !$data.flag ? {
-    E: common_vendor.p({
+    F: common_vendor.p({
       status: "loading"
     })
   } : {
-    F: common_vendor.p({
+    G: common_vendor.p({
       status: "noMore"
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "D:/HBuilderXProject/ZLHome/pages/index/index.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-57280228"], ["__file", "F:/zuolo/pages/index/index.vue"]]);
 _sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

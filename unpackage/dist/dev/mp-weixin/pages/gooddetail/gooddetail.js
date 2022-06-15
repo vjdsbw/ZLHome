@@ -46,7 +46,6 @@ const _sfc_main = {
       this.duration = e.target.value;
     },
     onTabChange(event) {
-      console.log(event.detail);
       wx.showToast({
         title: `\u5207\u6362\u5230\u6807\u7B7E ${event.detail.name}`,
         icon: "none"
@@ -90,5 +89,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/gooddetail/gooddetail.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "F:/zuolo/pages/gooddetail/gooddetail.vue"]]);
 wx.createPage(MiniProgramPage);

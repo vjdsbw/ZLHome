@@ -75,5 +75,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-3f5a4fc4"], ["__file", "D:/HBuilderXProject/ZLHome/components/goodsdetail_tabs/goodsdetail_tabs.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-3f5a4fc4"], ["__file", "F:/zuolo/components/goodsdetail_tabs/goodsdetail_tabs.vue"]]);
 wx.createComponent(Component);

@@ -14,7 +14,8 @@
     "pages/setnickname/setnickname",
     "pages/order/order",
     "pages/address/address",
-    "pages/cart/cart"
+    "pages/cart/cart",
+    "pages/mycollection/mycollection"
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
