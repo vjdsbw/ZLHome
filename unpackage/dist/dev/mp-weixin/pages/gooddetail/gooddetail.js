@@ -46,7 +46,6 @@ const _sfc_main = {
       this.duration = e.target.value;
     },
     onTabChange(event) {
-      console.log(event.detail);
       wx.showToast({
         title: `\u5207\u6362\u5230\u6807\u7B7E ${event.detail.name}`,
         icon: "none"
