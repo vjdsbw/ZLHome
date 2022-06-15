@@ -15,6 +15,7 @@
 
 <style lang="scss">
 	/*每个页面公共css */
+	@import "@/static/iconfont.css";
 	@import '@/uni_modules/uni-scss/index.scss';
 	/* #ifndef APP-NVUE */
 	@import '@/static/customicons.css';
@@ -45,6 +46,4 @@
 		text-align: left;
 	}
 </style>
-<style>
-		@import "/wxcomponents/vant/dist/common/index.wxss";
-</style>
+

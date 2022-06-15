@@ -1,6 +1,9 @@
 .DS_Store
 node_modules/
+unpackage/
+manifest.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .idea
+manifest.json
