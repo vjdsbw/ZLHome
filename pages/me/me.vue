@@ -55,20 +55,19 @@
 		},
 		updated() {
 			let result = uni.getStorageSync('user');
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			if(result){
+
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
 					this.imgpath = result1
-						this.neverchange = false
-					console.log(this.imgpath,"xxxx");
+					this.neverchange = false
+					console.log(this.imgpath, "xxxx");
 				}
+			} else {
+				this.imgpath = ""
+				this.neverchange = true
 			}
-		      else{
-				  this.imgpath = ""
-				  	this.neverchange = true
-			  }
-			
+
 		},
 		onShow() {
 			this.show()
@@ -133,7 +132,7 @@
 					});
 				}
 			},
-			goOrder(){
+			goOrder() {
 				let result = uni.getStorageSync('user')
 				if (result) {
 					uni.navigateTo({
@@ -142,13 +141,14 @@
 				} else {
 					uni.showToast({
 						title: '请先登录',
+						image:'/static/icon/err.png',
 						duration: 2000
 					});
-					setTimeout(()=>{
+					setTimeout(() => {
 						uni.navigateTo({
 							url: '/pages/login/login',
 						})
-					},2000)					
+					}, 2000)
 				}
 
 			}

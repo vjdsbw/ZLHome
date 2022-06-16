@@ -4,7 +4,7 @@
 		<view class="header">
 			<view class="text-search">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
-				<input class="search-input" @input="onKeyInput" placeholder="输入商品分类、名称" />
+				<input class="search-input" @input="onKeyInput" placeholder="输入商品分类、名称" :value="value"/>
 			</view>
 			<view class="header-right" @click="search">搜索</view>
 		</view>
@@ -45,7 +45,11 @@
 				keywords: '',
 				category_list: [],
 				type: '',
+				value:""
 			}
+		},
+		onLoad(options){
+			this.value = options.value
 		},
 		methods: {
 			onKeyInput: function(event) {
@@ -59,6 +63,7 @@
 			//搜索框功能的实现
 			async search() {
 				let result = await requestGet(`/api/api/search?keywords=` + this.keywords);
+		
 				this.category_list = result.data.category_list;
 				for (let i = 0; i < this.category_list.length; i++) {
 					if (this.category_list[i].keywords.match(this.keywords)) {
@@ -75,7 +80,7 @@
 				this.searchlist.push(this.keywords);
 			},
 			GoGoodList(pinyin,chinese){
-				console.log(pinyin,chinese);
+		
 				uni.navigateTo({
 					url: `/pages/good/good?pinyin=${pinyin}&chinese=${chinese}`,
 				});

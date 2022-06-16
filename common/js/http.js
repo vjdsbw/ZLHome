@@ -7,7 +7,7 @@ export function requestGet(url, params) {
 			url = baseUrl +url.split("/api")[url.split("/api").length-1]
 		}else{
 			url = baseUrl+`/api`+url.split("/api")[url.split("/api").length-1]
-		}	
+		}
 		// #endif
 		uni.request({
 			url: url,

@@ -99,7 +99,8 @@
 		this.getGoodDetail()
 		},
 		onLoad(options) {
-			this.goods_id = options.id	
+			this.goods_id = options.id
+			this.getGoodDetail()
 		},
 		methods: {
 			async getGoodDetail() {
@@ -129,7 +130,7 @@
 			},
 			//tab切换
 			onTabChange(event) {
-				console.log(event.detail);
+			
 				wx.showToast({
 					title: `切换到标签 ${event.detail.name}`,
 					icon: 'none',
