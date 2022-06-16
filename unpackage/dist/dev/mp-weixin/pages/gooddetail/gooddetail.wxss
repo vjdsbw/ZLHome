@@ -7,6 +7,15 @@
   bottom: 0;
   z-index: 10000000000;
 }
+.container .uni-container .goods-carts.data-v-1c515af4 {
+  position: relative;
+}
+.container .uni-container .goods-carts .jiaobiao.data-v-1c515af4 {
+  position: absolute;
+  left: 400rpx;
+  top: -12rpx;
+  z-index: 999999999999999999;
+}
 .container .active.data-v-1c515af4 {
   color: red;
 }
@@ -128,7 +137,7 @@
   position: fixed;
   bottom: 0px;
   left: 0px;
-  z-index: 999;
+  z-index: 10000000001;
 }
 .container .size .canshu .motaikuang .mask.data-v-1c515af4 {
   width: 100%;
@@ -198,7 +207,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1003;
+  z-index: 10000000002;
 }
 .container .size .canshu .motaikuang .queding .sure.data-v-1c515af4 {
   width: 100%;

@@ -34,7 +34,7 @@ const _sfc_main = {
       });
     },
     async login() {
-      let result = await common_js_http.requestPost("/api/api/ajax_login", {
+      let result = await common_js_http.requestPostLogin("/api/api/ajax_login", {
         "username": this.customFormData.username,
         "password": this.customFormData.password
       });

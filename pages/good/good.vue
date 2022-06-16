@@ -4,8 +4,13 @@
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
 				<input class="search-input" inputBorder="false" @input="onKeyInput" :value="value" />
+				<view class="jiaobiao">
+					<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+						<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+					</uni-badge>
+				</view>
 			</view>
-			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
+
 		</view>
 		<view class="goods">
 			<view class="head_list">
@@ -132,7 +137,8 @@
 
 <script>
 	import {
-		requestGet
+		requestGet,
+		requestPost
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -169,6 +175,7 @@
 				value1: 0,
 				//综合
 				psort: 0,
+				gws: 0
 			}
 		},
 		//品牌导航条固定在顶部
@@ -186,6 +193,11 @@
 		},
 		created() {
 
+		},
+		async onShow() {
+			let user = uni.getStorageSync('user');
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+			this.gws = carnum.data.total
 		},
 		methods: {
 			tosearch() {
@@ -234,7 +246,8 @@
 					let result2 = await requestGet("/api/api/goods/get_price", {
 						goods_ids: this.goods_ids
 					})
-					this.price = result2.data}
+					this.price = result2.data
+				}
 			},
 			//筛选里的打开
 			showDrawer() {
@@ -324,21 +337,21 @@
 		async onLoad(options) {
 			console.log(options);
 			(options.name && (!options.pinyin)) ? this.value = options.name: this.value
-			if(options.name && !options.v &&!options.pinyin){
-						let result = await requestGet(`/api/api/search/?v=1&keywords=${options.name }`)
-						this.Goods = result.data.goods_list
-						//把Goods里的goods_id拼接起来，传给goods_ids
-						for (var i = 0; i < this.Goods.length; i++) {
-							if (i == 0) {
-								this.goods_ids = this.goods_ids + this.Goods[i].goods_id
-							}
-							this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-						}
-						//通过goods-ids拿到价格
-						let result2 = await requestGet("/api/api/goods/get_price", {
-							goods_ids: this.goods_ids
-						})
-						this.price = result2.data
+			if (options.name && !options.v && !options.pinyin) {
+				let result = await requestGet(`/api/api/search/?v=1&keywords=${options.name }`)
+				this.Goods = result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
 			}
 			if (options.name && options.v) {
 				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
@@ -360,16 +373,17 @@
 				this.type = options.pinyin;
 				this.value = options.chinese;
 				this.getgoodList();
-			}else if(options.keywords){
-				let result = await requestGet("/api/api/search/?v=1&keywords="+options.keywords+"&XcxSessKey=%20&company_id=7194")
-				this.Goods=result.data.goods_list
+			} else if (options.keywords) {
+				let result = await requestGet("/api/api/search/?v=1&keywords=" + options.keywords +
+					"&XcxSessKey=%20&company_id=7194")
+				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
 				for (var i = 0; i < this.Goods.length; i++) {
 					if (i == 0) {
 						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
 					}
 					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-				}				
+				}
 				//通过goods-ids拿到价格
 				let result2 = await requestGet("/api/api/goods/get_price", {
 					goods_ids: this.goods_ids
@@ -395,6 +409,12 @@
 			top: 10px;
 			border-radius: 30px;
 			background-color: #f0f0f0;
+
+			.jiaobiao {
+				position: absolute;
+				top: 0;
+				right: -60rpx;
+			}
 
 			.iconfont {
 				float: left;

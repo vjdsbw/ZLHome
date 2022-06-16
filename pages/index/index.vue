@@ -17,7 +17,12 @@
 						<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
 						</uni-easyinput>
 					</view>
-					<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+					<view class="jiaobiao">
+						<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+							<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+						</uni-badge>
+					</view>
+					
 				</view>
 			</view>
 			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
@@ -202,13 +207,20 @@
 					"jiafang", "jiashi"
 				],
 				price: [],
-				brand_url: []
+				brand_url: [],
+				gws:0
 
 			}
 		},
 		created() {
 			this.getSwipers();
-			this.getgoodList()
+			this.getgoodList();
+		
+		},
+		 async onShow(){
+			let user = uni.getStorageSync('user');
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+			this.gws = carnum.data.total
 		},
 		onReachBottom() {
 			if (this.flag) {

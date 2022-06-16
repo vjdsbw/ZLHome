@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+
 		<view class="bg">
 			<view class="search">
 			</view>
@@ -108,10 +109,12 @@
 		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
-
+				<view class="jiaobiao">
+					<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+					</uni-badge>
+				</view>
 				<uni-goods-nav :options="optionsgwc" :fill="true" :button-group="buttonGroup" @click="onClick"
 					@buttonClick="buttonClick" />
-
 			</view>
 		</view>
 	</view>
@@ -119,8 +122,9 @@
 
 <script>
 	import {
-		requestGet
-	} from "@/common/js/http.js";
+		requestGet,
+		requestPost
+	} from '@/common/js/http.js'
 	export default {
 		data() {
 			return {
@@ -134,6 +138,7 @@
 				img: '',
 				price: '',
 				goodsNum: '',
+				brandname: '',
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
@@ -165,7 +170,8 @@
 					backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
 					color: '#fff'
 				}],
-
+				gws: 1,
+				addcart2req: true
 			}
 		},
 		created() {
@@ -174,13 +180,15 @@
 		onLoad(options) {
 			this.goods_id = options.id
 		},
-		onShow() {
+		async onShow() {
 
 			this.getGoodDetail()
 			let user = uni.getStorageSync('user');
 			let result = uni.getStorageSync(`col${user.user_id}`)
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
 			var newresult = result.split(',')
 			var nnresult = newresult.splice(0, newresult.length - 1)
+			this.gws = carnum.data.total
 			nnresult.forEach((item) => {
 				if (item == this.goods_id) {
 					this.optionsgwc[2].icon = "star-filled"
@@ -189,6 +197,53 @@
 			})
 		},
 		methods: {
+			async buttonClick(e) {
+				// 添加购物车的时候会发送三个请求 api/add_cart   api/updateCart api/get_cart_num
+				// 其中，第二个请求只有该商品不在购物车时，添加会发送，若已经有该商品在购物车里，就不需要再发送第二个请求
+				let user = uni.getStorageSync('user')
+				let result = await requestGet(`/api/api/cart/guess_goods?company_id=${user.company_id}`);
+				if (user) {
+					var flaghhh = true
+					var a = `${this.goodsId}:1`
+					var b = this.goodsId
+					let result = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
+					let addcart = await requestPost("/api/api/add_cart", {
+						"goods": a,
+						"company_id": user.company_id
+					});
+					let newr = result.data.goods_list
+					let brandn = this.brandname
+					let gid = this.goodsId
+					if (newr) {
+						let newr2 = newr.filter((item) => {
+							if (item.name == brandn) {
+								return item
+							}
+						})
+						console.log(newr2);
+						if (newr2.length != 0) {
+							let newr3 = newr2[0].list
+							let newr4 = newr3.filter((item) => {
+								if (item.goods_id == gid) {
+									return item
+								}
+							})
+							if (newr4) {
+								flaghhh = false
+							}
+						}
+					}
+					this.addcart2req = flaghhh
+					if (this.addcart2req) {
+						let addcart1 = await requestPost("/api/api/updateCart", {
+							"goods": a,
+							"company_id": user.company_id
+						});
+					}
+					let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+					this.gws = carnum.data.total
+				}
+			},
 			onClick(e) {
 				let user = uni.getStorageSync('user')
 				if (user) {
@@ -251,12 +306,19 @@
 			async getGoodDetail() {
 				let result = await requestGet(
 					`/api/api_goods?goods_id=${this.goods_id}`)
+				console.log(result);
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
+				this.goodsId = result.data.goods_info.goods_id
 				this.attrs = result.data.attr_list
 				this.result = result
+				this.brandname = result.data.brand_name
+				this.goodsAttr = result.data.goods_attr.goods
+				this.img = result.data.goods_info.goods_img_url
+				this.price = result.data.goods_info.shop_price
+				this.goodsNum = result.data.goods_info.goods_sn
 			},
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
@@ -279,27 +341,27 @@
 			},
 
 
-	// 模态框
-	showMotaikuang() {
-			this.showmotai = true
-		},
-		exitMotaikuang() {
-			this.showmotai = false
-		},
-		changeClass(i) {
-			this.isActive = i;
-		},
+			// 模态框
+			showMotaikuang() {
+				this.showmotai = true
+			},
+			exitMotaikuang() {
+				this.showmotai = false
+			},
+			changeClass(i) {
+				this.isActive = i;
+			},
 
-		// 加入购物车
-		//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
-		//2.如果用户已登录 用户选择对应商品后加入购物车
-		//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
-		//2）每个用户购物车详情不同，通过用户id判断购物车数据
-		//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
-		addToCarts() {
+			// 加入购物车
+			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
+			//2.如果用户已登录 用户选择对应商品后加入购物车
+			//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
+			//2）每个用户购物车详情不同，通过用户id判断购物车数据
+			//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
+			addToCarts() {
 
-		}
-	},
+			}
+		},
 
 	}
 </script>
@@ -313,6 +375,17 @@
 			position: fixed;
 			bottom: 0;
 			z-index: 10000000000;
+
+			.goods-carts {
+				position: relative;
+
+				.jiaobiao {
+					position: absolute;
+					left: 400rpx;
+					top: -12rpx;
+					z-index: 999999999999999999;
+				}
+			}
 		}
 
 		.active {
@@ -463,7 +536,7 @@
 					position: fixed;
 					bottom: 0px;
 					left: 0px;
-					z-index: 999;
+					z-index: 10000000001;
 
 					.mask {
 						width: 100%;
@@ -548,7 +621,7 @@
 						left: 0;
 						right: 0;
 						bottom: 0;
-						z-index: 1003;
+						z-index: 10000000002;
 
 						.sure {
 							width: 100%;
