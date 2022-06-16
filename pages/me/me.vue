@@ -55,8 +55,8 @@
 		},
 		updated() {
 			let result = uni.getStorageSync('user');
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			if (result) {
+			if(result){
+
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
 					this.imgpath = result1
@@ -141,6 +141,7 @@
 				} else {
 					uni.showToast({
 						title: '请先登录',
+						image:'/static/icon/err.png',
 						duration: 2000
 					});
 					setTimeout(() => {

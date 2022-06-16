@@ -30,7 +30,7 @@
 <script>
 	import {
 		requestGet,
-		requestPost
+		requestPostLogin
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -65,10 +65,11 @@
 				})
 			},
 			async login() {
-				let result = await requestPost("/api/api/ajax_login", {
+				let result = await requestPostLogin("/api/api/ajax_login", {
 					"username": this.customFormData.username,
 					"password": this.customFormData.password
 				});
+				console.log(result);
 				if (result.error === 0) {
 					uni.setStorageSync('user', result.data)
 					uni.showToast({
