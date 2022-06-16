@@ -1,42 +1,12 @@
 .container.data-v-db675620 {
   background-color: #fff;
 }
-.container .info.data-v-db675620 {
-  height: 280px;
-}
-.container .info .add-address.data-v-db675620 {
-  width: 100px;
-  height: 80px;
-  border-left: 1px solid #eee;
-  position: relative;
-  top: -270px;
-  left: 270px;
-  background-color: #fff;
-}
-.container .info .add-address .address-tip.data-v-db675620 {
-  color: #666;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: center;
-}
-.container .info .add-address.data-v-db675620 .uni-icons {
-  text-align: center;
-  margin-left: 33px;
-}
-.container .info .picker.data-v-db675620 {
-  line-height: 38px;
-  color: #333;
-  font-size: 14px;
-}
 .container .deli.data-v-db675620 {
   color: #666;
   font-size: 12px;
   margin-top: 15px;
   border-bottom: 1px solid #aaa;
   padding-bottom: 15px;
-}
-.container.data-v-db675620 .uni-tag {
-  margin-right: 5px;
 }
 .container .changetime.data-v-db675620 {
   margin-top: 10px;
@@ -56,10 +26,6 @@
   height: 20px;
   line-height: 20px;
   background-color: #eee;
-}
-.container .active.data-v-db675620 {
-  height: 35px;
-  overflow: hidden;
 }
 .container .price .good-price.data-v-db675620 {
   color: #333;
