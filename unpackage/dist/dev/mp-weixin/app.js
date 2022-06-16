@@ -12,7 +12,6 @@ if (!Math) {
   "./pages/set/set.js";
   "./pages/brand_goods/brand_goods.js";
   "./pages/gooddetail/gooddetail.js";
-  "./pages/good/good.js";
   "./pages/search/search.js";
   "./pages/useredit/useredit.js";
   "./pages/setnickname/setnickname.js";
