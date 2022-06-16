@@ -1,14 +1,14 @@
 <template>
 	<view class="container">
-	<view class="addtocart">
-		<van-goods-action>
-			<radio-group name="delall" @click="changeall">
-				<radio :checked="allchecked" />全选
-			</radio-group>
-			<van-goods-action-button text="删除" type="warning" @click="delchoose" />
-			<van-goods-action-button text="加入购物车" @click="addtocart" />
-		</van-goods-action>
-	</view>
+		<view class="addtocart">
+			<van-goods-action>
+				<radio-group name="delall" @click="changeall">
+					<radio :checked="allchecked" />全选
+				</radio-group>
+				<van-goods-action-button text="删除" type="warning" @click="delchoose" />
+				<van-goods-action-button text="加入购物车" @click="addtocart" />
+			</van-goods-action>
+		</view>
 		<view class="itemgoods" v-for="(item,idx) in col" :key="idx">
 			<view class="brandname" @click="tosearch(item.data.brand_name)">
 				<uni-list>
@@ -47,8 +47,9 @@
 
 <script>
 	import {
-		requestGet
-	} from "@/common/js/http.js";
+		requestGet,
+		requestPost
+	} from '@/common/js/http.js'
 	export default {
 		data() {
 			return {
@@ -61,7 +62,8 @@
 					}
 				}],
 				cc: [],
-				allchecked: false
+				allchecked: false,
+				addcart2req:true
 			}
 		},
 		onShow() {
@@ -79,14 +81,62 @@
 				let cc = this.cheflag
 				let len = cc.length;
 				for (var i = 0; i < len; i++) {
-					if (cc[i]) {				
-						this.delCol(i)				
+					if (cc[i]) {
+						this.delCol(i)
 						i = -1; //这里重新把i赋值-1，是因为调用delcol后，会删除遍历的数组，把下表调回开头就可以重新开始遍历，不会遗漏
 					}
 				}
 			},
-			addtocart() {
-				console.log("add");
+			async addtocart() {
+				var _this = this
+				this.cheflag.forEach(async (item, idx) => {
+					if (item) {
+						let user = uni.getStorageSync('user')
+						let result = await requestGet(
+							`/api/api/cart/guess_goods?company_id=${user.company_id}`);
+						if (user) {
+							var flaghhh = true
+							var a = `${_this.col[idx].data.goods_info.goods_id}:1`
+							var b = _this.col[idx].data.goods_info.goods_id
+							let result = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
+							let addcart = await requestPost("/api/api/add_cart", {
+								"goods": a,
+								"company_id": user.company_id
+							});
+							let newr = result.data.goods_list
+							let brandn = _this.col[idx].data.brand_name
+							let gid = _this.col[idx].data.goods_info.goods_id
+							if (newr) {
+								let newr2 = newr.filter((item) => {
+									if (item.name == brandn) {
+										return item
+									}
+								})
+	
+								if (newr2.length != 0) {
+									let newr3 = newr2[0].list
+									let newr4 = newr3.filter((item) => {
+										if (item.goods_id == gid) {
+											return item
+										}
+									})
+									if (newr4) {
+										_this.addcart2req = false
+									}
+								}
+							}
+							if (_this.addcart2req) {
+								let addcart1 = await requestPost("/api/api/updateCart", {
+									"goods": a,
+									"company_id": user.company_id
+								});
+							}
+							let carnum = await requestPost(
+								`/api/api/get_cart_num?company_id=${user.company_id}`)
+						}
+					}
+				})
+
 			},
 			async tosearch(name) {
 
@@ -139,11 +189,12 @@
 
 <style lang="less" scoped>
 	.container {
-		.addtocart{
+		.addtocart {
 			position: fixed;
 			bottom: 0;
 			z-index: 11111111111;
 		}
+
 		.itemgoods {
 			border: 1px solid lightgray;
 			margin-bottom: 100rpx;

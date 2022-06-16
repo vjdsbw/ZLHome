@@ -4,16 +4,24 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      num: null,
+      temp: 0,
+      myScroll: 0,
       type: "",
-      value: "xxx",
+      icons: false,
+      value: "",
       flag: false,
-      flag1: false,
+      flag1: true,
       flage: false,
       Goods: [],
       brand: [],
       attr: [],
       goods_ids: "",
       price: [],
+      brr: [],
+      arr: [],
+      a: "",
+      b: "",
       p: 1,
       flag: true,
       option1: [
@@ -26,10 +34,29 @@ const _sfc_main = {
           value: 1
         }
       ],
-      value1: 0
+      value1: 0,
+      psort: 0,
+      gws: 0
     };
   },
+  onLoad() {
+    common_vendor.index.createSelectorQuery().select(".second_list").boundingClientRect((res) => {
+      this.myScroll = res.top;
+    }).exec();
+  },
+  onPageScroll(e) {
+    if (e.scrollTop > this.myScroll) {
+      this.temp = 1;
+    } else {
+      this.temp = 0;
+    }
+  },
   created() {
+  },
+  async onShow() {
+    let user = common_vendor.index.getStorageSync("user");
+    let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
+    this.gws = carnum.data.total;
   },
   methods: {
     tosearch() {
@@ -56,7 +83,9 @@ const _sfc_main = {
     },
     async getgoodList() {
       let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
-        p: this.p
+        p: this.p,
+        a: this.a,
+        b: this.b
       });
       if (result.data) {
         this.brand = result.data.brand_list;
@@ -89,8 +118,64 @@ const _sfc_main = {
     show1Tag() {
       this.flag1 = !this.flag1;
     },
-    currentClick() {
+    addA(m) {
+      if (this.arr.includes(m)) {
+        this.arr = this.arr.filter((item) => item !== m);
+      } else {
+        this.arr.push(m);
+      }
+    },
+    addB(m) {
+      if (this.brr.includes(m)) {
+        this.brr = this.brr.filter((item) => item !== m);
+      } else {
+        this.brr.push(m);
+      }
+    },
+    reset() {
+      this.arr = [];
+      this.brr = [];
+      this.a = "";
+      this.b = "";
+      this.Goods = [];
+      this.getgoodList();
+    },
+    sure() {
+      this.arr.forEach((item) => this.a = item + "^" + this.a);
+      this.brr.forEach((item) => this.b = item + "^" + this.b);
+      this.Goods = [];
+      this.getgoodList();
+    },
+    currentClick(k) {
       this.flage = !this.flage;
+      this.psort = 6;
+      this.Goods = [];
+      this.getgoodList();
+    },
+    open() {
+      console.log("xxx");
+    },
+    menu(value1) {
+      console.log(this.value1);
+    },
+    bottomClick(k) {
+      console.log(k);
+      if (k == 1) {
+        this.psort = 1;
+        console.log("\u4EF7\u683C\u5347\u5E8F");
+      } else {
+        this.psort = 2;
+        console.log("\u4EF7\u683C\u964D\u5E8F");
+      }
+      this.Goods = [];
+      this.price = [];
+      this.getgoodList();
+    },
+    iconClick(index) {
+      this.num = index;
+    },
+    thenClick(idx) {
+      this.num = idx;
     }
   },
   onReachBottom() {
@@ -134,24 +219,40 @@ const _sfc_main = {
       this.type = options.pinyin;
       this.value = options.chinese;
       this.getgoodList();
+    } else if (options.keywords) {
+      let result = await common_js_http.requestGet("/api/api/search/?v=1&keywords=" + options.keywords + "&XcxSessKey=%20&company_id=7194");
+      this.Goods = result.data.goods_list;
+      for (var i = 0; i < this.Goods.length; i++) {
+        if (i == 0) {
+          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+        }
+        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+      }
+      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+        goods_ids: this.goods_ids
+      });
+      this.price = result2.data;
     }
   }
 };
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
+  const _easycom_uni_badge2 = common_vendor.resolveComponent("uni-badge");
   const _component_van_dropdown_item = common_vendor.resolveComponent("van-dropdown-item");
   const _component_van_dropdown_menu = common_vendor.resolveComponent("van-dropdown-menu");
   const _easycom_uni_drawer2 = common_vendor.resolveComponent("uni-drawer");
+  const _component_van_button = common_vendor.resolveComponent("van-button");
   const _easycom_goodList2 = common_vendor.resolveComponent("goodList");
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_easycom_uni_icons2 + _component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_drawer2 + _easycom_goodList2 + _easycom_uni_load_more2)();
+  (_easycom_uni_icons2 + _easycom_uni_badge2 + _component_van_dropdown_item + _component_van_dropdown_menu + _easycom_uni_drawer2 + _component_van_button + _easycom_goodList2 + _easycom_uni_load_more2)();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+const _easycom_uni_badge = () => "../../uni_modules/uni-badge/components/uni-badge/uni-badge.js";
 const _easycom_uni_drawer = () => "../../uni_modules/uni-drawer/components/uni-drawer/uni-drawer.js";
 const _easycom_goodList = () => "../../components/goodList/goodList.js";
 const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  (_easycom_uni_icons + _easycom_uni_drawer + _easycom_goodList + _easycom_uni_load_more)();
+  (_easycom_uni_icons + _easycom_uni_badge + _easycom_uni_drawer + _easycom_goodList + _easycom_uni_load_more)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -162,96 +263,139 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     b: common_vendor.o((...args) => _ctx.onKeyInput && _ctx.onKeyInput(...args)),
     c: $data.value,
-    d: common_vendor.o(($event) => $options.tosearch()),
-    e: common_vendor.o($options.tocart),
-    f: common_vendor.p({
+    d: common_vendor.o($options.tocart),
+    e: common_vendor.p({
       type: "cart",
       size: "30"
     }),
-    g: common_vendor.p({
+    f: common_vendor.p({
+      size: "small",
+      text: $data.gws,
+      absolute: "rightTop",
+      type: "error"
+    }),
+    g: common_vendor.o(($event) => $options.tosearch()),
+    h: common_vendor.o(($event) => $options.menu($data.value1)),
+    i: common_vendor.p({
       value: $data.value1,
       options: $data.option1
     }),
-    h: common_vendor.o((...args) => $options.currentClick && $options.currentClick(...args)),
-    i: $data.flage ? 1 : "",
-    j: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
+    j: common_vendor.o(($event) => $options.currentClick(_ctx.value6)),
+    k: $data.flage ? 1 : "",
+    l: common_vendor.o(($event) => $options.bottomClick(1)),
+    m: common_vendor.p({
+      type: "bottom",
       size: "8"
     }),
-    k: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-shangjiantou",
+    n: common_vendor.o(($event) => $options.bottomClick(2)),
+    o: common_vendor.p({
+      type: "top",
       size: "8"
     }),
-    l: common_vendor.p({
+    p: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-shaixuan",
       size: "14"
     }),
-    m: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
-    n: common_vendor.o((...args) => $options.closeDrawer && $options.closeDrawer(...args)),
-    o: common_vendor.t($data.flag ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    p: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
-    q: common_vendor.f($data.brand, (item, k0, i0) => {
+    q: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
+    r: common_vendor.t($data.flag ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
+    s: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
+    t: common_vendor.f($data.brand, (item, k0, i0) => {
       return {
         a: item.brand_logo_url,
-        b: item.brand_id
+        b: item.brand_id,
+        c: common_vendor.o(($event) => $options.addB(item.brand_id), item.brand_id)
       };
     }),
-    r: !$data.flag ? 1 : "",
-    s: common_vendor.f($data.attr, (item, k0, i0) => {
+    v: !$data.flag ? 1 : "",
+    w: common_vendor.f($data.attr, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.attr_name),
         b: common_vendor.f(item.attr_list, (list, k1, i1) => {
           return {
             a: common_vendor.t(list.attr_value),
-            b: list.attr_value_id
+            b: common_vendor.o(($event) => $options.addA(list.attr_value_id), list.attr_value_id),
+            c: list.attr_value_id
           };
         }),
         c: item.attr_id
       };
     }),
-    t: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    v: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
-    w: !$data.flag1 ? 1 : "",
-    x: common_vendor.sr("showRight", "cdccd9b4-7"),
-    y: common_vendor.p({
+    x: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
+    y: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
+    z: !$data.flag1 ? 1 : "",
+    A: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    B: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    C: common_vendor.sr("showRight", "cdccd9b4-8"),
+    D: common_vendor.p({
       mode: "right",
       width: "320",
-      ["mask-click"]: false
+      ["mask-click"]: true
     }),
-    z: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
-      size: "8"
-    }),
-    A: common_vendor.f($data.attr, (attrs, k0, i0) => {
+    E: common_vendor.f($data.brand, (item, index, i0) => {
       return {
-        a: common_vendor.t(attrs.attr_name),
-        b: "cdccd9b4-9-" + i0,
-        c: attrs.attr_id
+        a: common_vendor.t(item.brand_name),
+        b: "cdccd9b4-11-" + i0 + ",cdccd9b4-10",
+        c: index == $data.num ? 1 : "",
+        d: item.brand_id,
+        e: common_vendor.o(($event) => $options.iconClick(index), item.brand_id)
       };
     }),
-    B: common_vendor.p({
-      ["custom-prefix"]: "iconfont",
-      type: "icon-xiajiantou",
-      size: "8"
+    F: common_vendor.p({
+      type: "checkmarkempty",
+      color: "red",
+      size: "20"
     }),
-    C: common_vendor.p({
+    G: common_vendor.p({
+      type: "danger",
+      block: true
+    }),
+    H: common_vendor.p({
+      title: "\u54C1\u724C"
+    }),
+    I: common_vendor.f($data.attr, (item, k0, i0) => {
+      return {
+        a: common_vendor.f(item.attr_list, (att, idx, i1) => {
+          return {
+            a: common_vendor.t(att.attr_value),
+            b: "cdccd9b4-14-" + i0 + "-" + i1 + "," + ("cdccd9b4-13-" + i0),
+            c: idx == $data.num ? 1 : "",
+            d: common_vendor.o(($event) => $options.thenClick(idx))
+          };
+        }),
+        b: "cdccd9b4-15-" + i0 + "," + ("cdccd9b4-13-" + i0),
+        c: item.attr_id,
+        d: "cdccd9b4-13-" + i0 + ",cdccd9b4-9",
+        e: common_vendor.p({
+          title: item.attr_name
+        })
+      };
+    }),
+    J: common_vendor.p({
+      type: "checkmarkempty",
+      color: "red",
+      size: "20"
+    }),
+    K: common_vendor.p({
+      type: "danger",
+      block: true
+    }),
+    L: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
+    M: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    D: !$data.flag
+    N: !$data.flag
   }, !$data.flag ? {
-    E: common_vendor.p({
+    O: common_vendor.p({
       status: "loading"
     })
   } : {
-    F: common_vendor.p({
+    P: common_vendor.p({
       status: "noMore"
     })
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdccd9b4"], ["__file", "F:/zuolo/pages/good/good.vue"]]);
+_sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

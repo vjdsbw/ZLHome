@@ -38,12 +38,18 @@ const _sfc_main = {
         "jiashi"
       ],
       price: [],
-      brand_url: []
+      brand_url: [],
+      gws: 0
     };
   },
   created() {
     this.getSwipers();
     this.getgoodList();
+  },
+  async onShow() {
+    let user = common_vendor.index.getStorageSync("user");
+    let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
+    this.gws = carnum.data.total;
   },
   onReachBottom() {
     if (this.flag) {
@@ -53,6 +59,17 @@ const _sfc_main = {
     console.log(this.p);
   },
   methods: {
+    tocart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
     scroll(event) {
       if (event.detail.scrollLeft < 860) {
         this.currentIndex = 0;
@@ -180,22 +197,24 @@ const _sfc_main = {
 if (!Array) {
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
+  const _easycom_uni_badge2 = common_vendor.resolveComponent("uni-badge");
   const _easycom_uni_swiper_dot2 = common_vendor.resolveComponent("uni-swiper-dot");
   const _easycom_uni_list_item2 = common_vendor.resolveComponent("uni-list-item");
   const _easycom_uni_list2 = common_vendor.resolveComponent("uni-list");
   const _easycom_goodList2 = common_vendor.resolveComponent("goodList");
   const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_easycom_uni_easyinput2 + _easycom_uni_icons2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2 + _easycom_goodList2 + _easycom_uni_load_more2)();
+  (_easycom_uni_easyinput2 + _easycom_uni_icons2 + _easycom_uni_badge2 + _easycom_uni_swiper_dot2 + _easycom_uni_list_item2 + _easycom_uni_list2 + _easycom_goodList2 + _easycom_uni_load_more2)();
 }
 const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+const _easycom_uni_badge = () => "../../uni_modules/uni-badge/components/uni-badge/uni-badge.js";
 const _easycom_uni_swiper_dot = () => "../../uni_modules/uni-swiper-dot/components/uni-swiper-dot/uni-swiper-dot.js";
 const _easycom_uni_list_item = () => "../../uni_modules/uni-list/components/uni-list-item/uni-list-item.js";
 const _easycom_uni_list = () => "../../uni_modules/uni-list/components/uni-list/uni-list.js";
 const _easycom_goodList = () => "../../components/goodList/goodList.js";
 const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  (_easycom_uni_easyinput + _easycom_uni_icons + _easycom_uni_swiper_dot + _easycom_uni_list_item + _easycom_uni_list + _easycom_goodList + _easycom_uni_load_more)();
+  (_easycom_uni_easyinput + _easycom_uni_icons + _easycom_uni_badge + _easycom_uni_swiper_dot + _easycom_uni_list_item + _easycom_uni_list + _easycom_goodList + _easycom_uni_load_more)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -216,24 +235,31 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       inputBorder: "false"
     }),
     e: common_vendor.o(($event) => $options.tosearch()),
-    f: common_vendor.p({
+    f: common_vendor.o($options.tocart),
+    g: common_vendor.p({
       type: "cart",
       size: "30"
     }),
-    g: common_vendor.f($data.info, (item, k0, i0) => {
+    h: common_vendor.p({
+      size: "small",
+      text: $data.gws,
+      absolute: "rightTop",
+      type: "error"
+    }),
+    i: common_vendor.f($data.info, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: item.id
       };
     }),
-    h: common_vendor.o((...args) => $options.change && $options.change(...args)),
-    i: common_vendor.p({
+    j: common_vendor.o((...args) => $options.change && $options.change(...args)),
+    k: common_vendor.p({
       info: $data.info,
       current: $data.current,
       field: "content",
       mode: $data.mode
     }),
-    j: common_vendor.f($data.bed, (item, k0, i0) => {
+    l: common_vendor.f($data.bed, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -241,17 +267,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.tosearchDetail(item.desc, item.url_type), item.id)
       };
     }),
-    k: $data.currentIndex === 4 ? 1 : "",
-    l: common_vendor.o(($event) => $options.jumpTo(4)),
-    m: $data.currentIndex === 3 ? 1 : "",
-    n: common_vendor.o(($event) => $options.jumpTo(3)),
-    o: $data.currentIndex === 2 ? 1 : "",
-    p: common_vendor.o(($event) => $options.jumpTo(2)),
-    q: $data.currentIndex === 1 ? 1 : "",
-    r: common_vendor.o(($event) => $options.jumpTo(1)),
-    s: $data.currentIndex === 0 ? 1 : "",
-    t: common_vendor.o(($event) => $options.jumpTo(0)),
-    v: common_vendor.f($data.goodsthing, (item, index, i0) => {
+    m: $data.currentIndex === 4 ? 1 : "",
+    n: common_vendor.o(($event) => $options.jumpTo(4)),
+    o: $data.currentIndex === 3 ? 1 : "",
+    p: common_vendor.o(($event) => $options.jumpTo(3)),
+    q: $data.currentIndex === 2 ? 1 : "",
+    r: common_vendor.o(($event) => $options.jumpTo(2)),
+    s: $data.currentIndex === 1 ? 1 : "",
+    t: common_vendor.o(($event) => $options.jumpTo(1)),
+    v: $data.currentIndex === 0 ? 1 : "",
+    w: common_vendor.o(($event) => $options.jumpTo(0)),
+    x: common_vendor.f($data.goodsthing, (item, index, i0) => {
       return {
         a: common_vendor.f(item.sub_list, (i, k1, i1) => {
           return {
@@ -267,15 +293,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: `s${index}`
       };
     }),
-    w: $data.viewto,
-    x: common_vendor.o((...args) => $options.scroll && $options.scroll(...args)),
-    y: common_vendor.p({
+    y: $data.viewto,
+    z: common_vendor.o((...args) => $options.scroll && $options.scroll(...args)),
+    A: common_vendor.p({
       title: "\u54C1\u724C\u4E0A\u65B0",
       link: "reLaunch",
       to: "/pages/brand/brand",
       rightText: "\u66F4\u591A"
     }),
-    z: common_vendor.f($data.newbrands, (item, k0, i0) => {
+    B: common_vendor.f($data.newbrands, (item, k0, i0) => {
       return {
         a: item.image_xcx,
         b: common_vendor.t(item.desc),
@@ -284,7 +310,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: common_vendor.o(($event) => $options.tosearchDetail2(item.desc), item.id)
       };
     }),
-    A: common_vendor.f($data.brandlists, (item, index, i0) => {
+    C: common_vendor.f($data.brandlists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc.split("|").join("")),
         b: common_vendor.t(item.desc_t),
@@ -311,7 +337,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: index
       };
     }),
-    B: common_vendor.f($data.catelist, (item, idx, i0) => {
+    D: common_vendor.f($data.catelist, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.t(item.desc_t),
@@ -320,18 +346,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: item.id
       };
     }),
-    C: $data.cate_fixed == true ? 1 : "",
-    D: common_vendor.p({
+    E: $data.cate_fixed == true ? 1 : "",
+    F: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    E: !$data.flag
+    G: !$data.flag
   }, !$data.flag ? {
-    F: common_vendor.p({
+    H: common_vendor.p({
       status: "loading"
     })
   } : {
-    G: common_vendor.p({
+    I: common_vendor.p({
       status: "noMore"
     })
   });

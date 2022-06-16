@@ -92,7 +92,7 @@
 						text:nth-child(2) {
 							font-size: 10px;
 							color: #999;
-							margin-left: 60px;
+							margin-left: 50px;
 						}
 					}
 				}

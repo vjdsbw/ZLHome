@@ -4,14 +4,23 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      result: {},
       swiperImg: [],
       goodsInfo: {},
       fromaddress: "",
       toaddress: "",
+      goodsId: "",
+      goodsAttr: [],
+      img: "",
+      price: "",
+      goodsNum: "",
+      brandname: "",
       indicatorDots: true,
       autoplay: true,
       interval: 2e3,
       duration: 1e3,
+      showmotai: false,
+      isActive: 0,
       goods_id: 0,
       result: {},
       optionsgwc: [{
@@ -35,7 +44,9 @@ const _sfc_main = {
         text: "\u52A0\u5165\u8D2D\u7269\u8F66",
         backgroundColor: "linear-gradient(90deg, #FE6035, #EF1224)",
         color: "#fff"
-      }]
+      }],
+      gws: 1,
+      addcart2req: true
     };
   },
   created() {
@@ -43,12 +54,14 @@ const _sfc_main = {
   onLoad(options) {
     this.goods_id = options.id;
   },
-  onShow() {
+  async onShow() {
     this.getGoodDetail();
     let user = common_vendor.index.getStorageSync("user");
     let result = common_vendor.index.getStorageSync(`col${user.user_id}`);
+    let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
     var newresult = result.split(",");
     var nnresult = newresult.splice(0, newresult.length - 1);
+    this.gws = carnum.data.total;
     nnresult.forEach((item) => {
       if (item == this.goods_id) {
         this.optionsgwc[2].icon = "star-filled";
@@ -57,6 +70,51 @@ const _sfc_main = {
     });
   },
   methods: {
+    async buttonClick(e) {
+      let user = common_vendor.index.getStorageSync("user");
+      await common_js_http.requestGet(`/api/api/cart/guess_goods?company_id=${user.company_id}`);
+      if (user) {
+        var flaghhh = true;
+        var a = `${this.goodsId}:1`;
+        this.goodsId;
+        let result = await common_js_http.requestPost(`/api/api/cart?company_id=${user.company_id}`);
+        await common_js_http.requestPost("/api/api/add_cart", {
+          "goods": a,
+          "company_id": user.company_id
+        });
+        let newr = result.data.goods_list;
+        let brandn = this.brandname;
+        let gid = this.goodsId;
+        if (newr) {
+          let newr2 = newr.filter((item) => {
+            if (item.name == brandn) {
+              return item;
+            }
+          });
+          console.log(newr2);
+          if (newr2.length != 0) {
+            let newr3 = newr2[0].list;
+            let newr4 = newr3.filter((item) => {
+              if (item.goods_id == gid) {
+                return item;
+              }
+            });
+            if (newr4) {
+              flaghhh = false;
+            }
+          }
+        }
+        this.addcart2req = flaghhh;
+        if (this.addcart2req) {
+          await common_js_http.requestPost("/api/api/updateCart", {
+            "goods": a,
+            "company_id": user.company_id
+          });
+        }
+        let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
+        this.gws = carnum.data.total;
+      }
+    },
     onClick(e) {
       let user = common_vendor.index.getStorageSync("user");
       if (user) {
@@ -117,12 +175,19 @@ const _sfc_main = {
     },
     async getGoodDetail() {
       let result = await common_js_http.requestGet(`/api/api_goods?goods_id=${this.goods_id}`);
+      console.log(result);
       this.swiperImg = result.data.goods_main_image;
       this.goodsInfo = result.data.goods_info;
       this.fromaddress = result.data.address_name;
       this.toaddress = result.data.local_address;
+      this.goodsId = result.data.goods_info.goods_id;
       this.attrs = result.data.attr_list;
       this.result = result;
+      this.brandname = result.data.brand_name;
+      this.goodsAttr = result.data.goods_attr.goods;
+      this.img = result.data.goods_info.goods_img_url;
+      this.price = result.data.goods_info.shop_price;
+      this.goodsNum = result.data.goods_info.goods_sn;
     },
     changeIndicatorDots(e) {
       this.indicatorDots = !this.indicatorDots;
@@ -141,21 +206,34 @@ const _sfc_main = {
         title: `\u5207\u6362\u5230\u6807\u7B7E ${event.detail.name}`,
         icon: "none"
       });
+    },
+    showMotaikuang() {
+      this.showmotai = true;
+    },
+    exitMotaikuang() {
+      this.showmotai = false;
+    },
+    changeClass(i) {
+      this.isActive = i;
+    },
+    addToCarts() {
     }
   }
 };
 if (!Array) {
   const _easycom_goodsdetail_tabs2 = common_vendor.resolveComponent("goodsdetail_tabs");
+  const _easycom_uni_badge2 = common_vendor.resolveComponent("uni-badge");
   const _easycom_uni_goods_nav2 = common_vendor.resolveComponent("uni-goods-nav");
-  (_easycom_goodsdetail_tabs2 + _easycom_uni_goods_nav2)();
+  (_easycom_goodsdetail_tabs2 + _easycom_uni_badge2 + _easycom_uni_goods_nav2)();
 }
 const _easycom_goodsdetail_tabs = () => "../../components/goodsdetail_tabs/goodsdetail_tabs.js";
+const _easycom_uni_badge = () => "../../uni_modules/uni-badge/components/uni-badge/uni-badge.js";
 const _easycom_uni_goods_nav = () => "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.js";
 if (!Math) {
-  (_easycom_goodsdetail_tabs + _easycom_uni_goods_nav)();
+  (_easycom_goodsdetail_tabs + _easycom_uni_badge + _easycom_uni_goods_nav)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: common_vendor.f($data.swiperImg, (item, k0, i0) => {
       return {
         a: item.imgs_url_2,
@@ -177,17 +255,42 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     n: common_vendor.t($data.toaddress.city_name),
     o: common_vendor.t($data.toaddress.area_name),
     p: common_vendor.t($data.goodsInfo.delivery_time),
-    q: common_vendor.p({
+    q: common_vendor.o((...args) => $options.showMotaikuang && $options.showMotaikuang(...args)),
+    r: $data.showmotai
+  }, $data.showmotai ? {
+    s: common_vendor.o((...args) => $options.exitMotaikuang && $options.exitMotaikuang(...args)),
+    t: common_vendor.o((...args) => $options.exitMotaikuang && $options.exitMotaikuang(...args)),
+    v: $data.img,
+    w: common_vendor.t($data.price),
+    x: common_vendor.t($data.goodsNum),
+    y: common_vendor.f($data.goodsAttr, (item, index, i0) => {
+      return {
+        a: common_vendor.t(item.size),
+        b: item.id,
+        c: $data.isActive === index ? 1 : "",
+        d: common_vendor.o(($event) => $options.changeClass(index), item.id)
+      };
+    }),
+    z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
+    A: common_vendor.o((...args) => $options.addToCarts && $options.addToCarts(...args))
+  } : {}, {
+    B: common_vendor.p({
       result: $data.result
     }),
-    r: common_vendor.o($options.onClick),
-    s: common_vendor.o(_ctx.buttonClick),
-    t: common_vendor.p({
+    C: common_vendor.p({
+      size: "small",
+      text: $data.gws,
+      absolute: "rightTop",
+      type: "error"
+    }),
+    D: common_vendor.o($options.onClick),
+    E: common_vendor.o($options.buttonClick),
+    F: common_vendor.p({
       options: $data.optionsgwc,
       fill: true,
       ["button-group"]: $data.buttonGroup
     })
-  };
+  });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "F:/zuolo/pages/gooddetail/gooddetail.vue"]]);
 wx.createPage(MiniProgramPage);
