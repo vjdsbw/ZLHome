@@ -163,10 +163,7 @@
 		<view class="more">
 			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
-
 		</view>
-
-
 	</view>
 </template>
 
@@ -213,7 +210,13 @@
 			this.getSwipers();
 			this.getgoodList()
 		},
-
+		onReachBottom() {
+			if (this.flag) {
+				this.p++;
+				this.getgoodList();
+			}
+			console.log(this.p);
+		},
 		methods: {
 			scroll(event) {
 				//距离每个边界距离
@@ -268,12 +271,6 @@
 
 				} else {
 					this.Goods = []
-				}
-			},
-			onReachBottom() {
-				if (this.flag) {
-					this.p++;
-					this.getgoodList();
 				}
 			},
 			choosecate(id) {

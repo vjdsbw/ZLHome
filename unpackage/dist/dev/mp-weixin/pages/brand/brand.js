@@ -16,7 +16,6 @@ const _sfc_main = {
       this.brandList = result.data;
       this.brandList.map((item) => {
         item.id;
-        console.log(item.id);
       });
     },
     goGoodsDetail() {
@@ -46,5 +45,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.o((...args) => $options.goGoodsDetail && $options.goGoodsDetail(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-802078d4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/brand/brand.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-802078d4"], ["__file", "F:/zuolo/pages/brand/brand.vue"]]);
 wx.createPage(MiniProgramPage);

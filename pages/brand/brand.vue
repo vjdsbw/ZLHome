@@ -44,7 +44,6 @@
 				this.brandList=result.data
 				this.brandList.map((item)=>{
 					item.id
-					console.log(item.id)
 				})
 			},
 			// https://m.meijiavip.com/api/search/?v=1&keywords=喜临门&XcxSessKey=%20&company_id=7194

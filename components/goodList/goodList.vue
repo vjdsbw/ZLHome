@@ -37,7 +37,6 @@
 						Object.assign(this.Goods[n],{shop_price:this.price[m].shop_price})
 						)
 				}
-				
 		},
 		methods:{
 			togoodsdetail(id) {

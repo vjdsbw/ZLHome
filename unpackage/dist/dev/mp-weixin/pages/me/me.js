@@ -112,6 +112,25 @@ const _sfc_main = {
           });
         }, 2e3);
       }
+    },
+    goCollection() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result) {
+        common_vendor.index.navigateTo({
+          url: "/pages/mycollection/mycollection"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          image: "/static/icon/err.png",
+          duration: 2e3
+        });
+        setTimeout(() => {
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
+        }, 2e3);
+      }
     }
   }
 };
@@ -159,16 +178,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right",
       size: "20"
     }),
-    n: common_vendor.p({
+    n: common_vendor.o((...args) => $options.goCollection && $options.goCollection(...args)),
+    o: common_vendor.p({
       ["custom-prefix"]: "iconfont",
       type: "icon-ziwopingjia",
       size: "20"
     }),
-    o: common_vendor.p({
+    p: common_vendor.p({
       type: "right",
       size: "20"
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "D:/HBuilderXProject/ZLHome/pages/me/me.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-259fb574"], ["__file", "F:/zuolo/pages/me/me.vue"]]);
 wx.createPage(MiniProgramPage);
