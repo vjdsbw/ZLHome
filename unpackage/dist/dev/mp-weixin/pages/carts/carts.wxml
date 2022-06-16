@@ -1,0 +1,1 @@
+<view class="container data-v-14ff6a2e"><view wx:if="{{a}}" class="empty data-v-14ff6a2e"><view class="emptytext data-v-14ff6a2e">空空如也的购物~~</view><view class="emptybutton data-v-14ff6a2e" bindtap="{{b}}">去选购</view></view><view class="carts data-v-14ff6a2e"></view></view>

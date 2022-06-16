@@ -9,7 +9,6 @@ const _sfc_main = {
     };
   },
   created() {
-    this.goGoodsDetailById();
   },
   onLoad(options) {
     this.brandName = options.keywords;

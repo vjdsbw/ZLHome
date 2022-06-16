@@ -11,7 +11,8 @@
     "pages/good/good",
     "pages/search/search",
     "pages/useredit/useredit",
-    "pages/setnickname/setnickname"
+    "pages/setnickname/setnickname",
+    "pages/carts/carts"
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",

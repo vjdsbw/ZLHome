@@ -1,11 +1,6 @@
 <template>
 	<view class="container">
-		<view class="sort">
-			排序
-		</view>
-		<view class="shaixuan">
-			筛选
-		</view>
+		
 		<view class="goods" >
 			<view v-for="item in goodsList" :key="item.goods_id" class="gooditem" mode="widthFix" @click="goGoodsDetailById(item.goods_id)">
 				<image :src="item.goods_img_url" ></image>
@@ -22,7 +17,6 @@
 		</view>
 		<view class="">
 			  抱歉没有更多商品了~
-			
 		</view>			
 	</view>
 </template>
@@ -39,7 +33,7 @@
 			}
 		},
 		created(){
-			this.goGoodsDetailById()
+
 		},
 		onLoad(options){
 			this.brandName=options.keywords;

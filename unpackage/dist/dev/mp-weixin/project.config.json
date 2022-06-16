@@ -24,31 +24,35 @@
     "useStaticServer": true,
     "showES6CompileOption": false,
     "checkInvalidKey": true,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
     "disableUseStrict": false,
-    "useCompilerPlugins": false,
-    "minifyWXML": true
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.24.5",
   "appid": "wx73d3630f41d47a4b",
   "projectname": "ZLHome",
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "pages/brand_goods/brand_goods",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        }
-      ]
+      "current": -1,
+      "list": []
     }
   },
   "editorSetting": {

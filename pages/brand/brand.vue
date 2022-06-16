@@ -41,10 +41,7 @@
 		methods: {
 			async getBrands(){
 				let result = await requestGet("/api/api/brand_list?XcxSessKey=%20&company_id=7194")
-				this.brandList=result.data
-				// this.brandName=this.brandList.brand_name
-				// console.log(this.brandList)
-				
+				this.brandList=result.data	
 			},
 			// https://m.meijiavip.com/api/search/?v=1&keywords=喜临门&XcxSessKey=%20&company_id=7194
 			goGoodsForKeywords(brand_name){

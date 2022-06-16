@@ -87,7 +87,16 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/carts/carts",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "购物车",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
