@@ -26,14 +26,10 @@
 				"enablePullDownRefresh": false
 			}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
-		}, {
+	}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录",
+			"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
 
@@ -44,33 +40,8 @@
 				"enablePullDownRefresh": false
 			}
 
-<<<<<<< HEAD
 
-		}, {
-			"path": "pages/brand_goods/brand_goods",
-			"style": {
-				"navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/gooddetail/gooddetail",
-			"style": {
-				"navigationBarTitleText": "佐罗优选",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-=======
-		},  {
-            "path" : "pages/brand_goods/brand_goods",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
-                "enablePullDownRefresh": false
-            }
-            
-        }  ,{
+		}  ,{
             "path" : "pages/gooddetail/gooddetail",
             "style" :                                                                                    
             {
@@ -79,7 +50,6 @@
             }  
 			
         },	{
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -107,22 +77,8 @@
 
 			}
 
-<<<<<<< HEAD
-=======
 		}
-	    ,{
-            "path" : "pages/carts/carts",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "购物车",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
-
-		}, {
+	    , {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
@@ -172,14 +128,11 @@
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
 			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-<<<<<<< HEAD
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
 			"van-area": "/wxcomponents/vant/dist/area/index",
 			"van-picker": "/wxcomponents/vant/dist/picker/index",
 			"van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
-=======
-			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
+
 		}
 	},
 	"tabBar": {

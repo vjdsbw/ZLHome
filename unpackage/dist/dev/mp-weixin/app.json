@@ -6,20 +6,15 @@
     "pages/me/me",
     "pages/login/login",
     "pages/set/set",
-    "pages/brand_goods/brand_goods",
     "pages/gooddetail/gooddetail",
     "pages/good/good",
     "pages/search/search",
     "pages/useredit/useredit",
     "pages/setnickname/setnickname",
-<<<<<<< HEAD
     "pages/order/order",
     "pages/address/address",
     "pages/cart/cart",
     "pages/mycollection/mycollection"
-=======
-    "pages/carts/carts"
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
   ],
   "usingComponents": {
     "van-button": "/wxcomponents/vant/dist/button/index",
@@ -28,14 +23,10 @@
     "van-cell": "/wxcomponents/vant/dist/cell/index",
     "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
     "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-<<<<<<< HEAD
     "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
     "van-area": "/wxcomponents/vant/dist/area/index",
     "van-picker": "/wxcomponents/vant/dist/picker/index",
     "van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
-=======
-    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index"
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
   },
   "window": {
     "navigationBarTextStyle": "black",
@@ -72,6 +63,5 @@
         "selectedIconPath": "static/icon/me-active.png"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

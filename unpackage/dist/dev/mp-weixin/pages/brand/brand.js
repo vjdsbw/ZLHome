@@ -13,12 +13,11 @@ const _sfc_main = {
   methods: {
     async getBrands() {
       let result = await common_js_http.requestGet("/api/api/brand_list?XcxSessKey=%20&company_id=7194");
-      console.log(result);
       this.brandList = result.data;
     },
-    goGoodsDetail() {
+    goGoodsForKeywords(brand_name) {
       common_vendor.index.navigateTo({
-        url: "../brand_goods/brand_goods",
+        url: "/pages/good/good?keywords=" + brand_name,
         success: (res) => {
         },
         fail: () => {
@@ -37,10 +36,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: item.brand_logo_url,
         c: common_vendor.t(item.brand_name),
         d: common_vendor.t(item.desc_t),
-        e: item.brand_id
+        e: common_vendor.o(($event) => $options.goGoodsForKeywords(item.brand_name)),
+        f: item.brand_id
       };
-    }),
-    b: common_vendor.o((...args) => $options.goGoodsDetail && $options.goGoodsDetail(...args))
+    })
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-802078d4"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/brand/brand.vue"]]);

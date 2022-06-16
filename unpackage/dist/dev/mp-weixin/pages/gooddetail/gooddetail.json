@@ -2,6 +2,7 @@
   "navigationBarTitleText": "佐罗优选",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "goodsdetail_tabs": "../../components/goodsdetail_tabs/goodsdetail_tabs"
+    "goodsdetail_tabs": "../../components/goodsdetail_tabs/goodsdetail_tabs",
+    "uni-goods-nav": "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav"
   }
 }

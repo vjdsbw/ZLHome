@@ -107,9 +107,7 @@
 				<text>售后服务</text><text>极速发货</text><text>贵就赔</text>
 			</view>
 		</view>
-<<<<<<< HEAD
-		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
-=======
+
 		<goodsdetail_tabs></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
@@ -117,7 +115,6 @@
 					@buttonClick="buttonClick" />
 			</view>
 		</view>
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 	</view>
 </template>
 
@@ -141,18 +138,6 @@
 				autoplay: true,
 				interval: 2000,
 				duration: 1000,
-<<<<<<< HEAD
-				goods_id: 0,
-				result:{}
-			}
-		},
-		created() {
-		this.getGoodDetail()
-		},
-		onLoad(options) {
-			this.goods_id = options.id
-			this.getGoodDetail()
-=======
 				showmotai:false,
 				isActive:0,
 				options: [{
@@ -175,41 +160,32 @@
 			}
 		},
 		created() {
-			console.log("ccccccccccccccccccccccccc")
+			
 		},
 		onLoad(options){
-			this.goodsId=options.goods_id
+			this.goodsId=options.id
 		},
 		onReady(){
 			this.getGoodDetail()	
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 		},
 		methods: {
 			async getGoodDetail() {
 				console.log(this.goods_id)
 				let result = await requestGet(
-<<<<<<< HEAD
-					`/api/api_goods?goods_id=${this.goods_id}`)
-=======
 					"/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id="+this.goodsId)
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
 				console.log(result.data.goods_info,'22222222222222222222')
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
-<<<<<<< HEAD
-				this.result = result
-			  console.log(this.result,"far");
-=======
+
 				
 				console.log(result.data.goods_attr.goods,'eeeeeeeeeeeeeeeeeeeeeeeeeee')
 				this.goodsAttr=result.data.goods_attr.goods
 				this.img=result.data.goods_info.goods_img_url
 				this.price=result.data.goods_info.shop_price
 				this.goodsNum=result.data.goods_info.goods_sn
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 			},
 		
 			// 轮播图
@@ -227,11 +203,8 @@
 			},
 			//tab切换
 			onTabChange(event) {
-<<<<<<< HEAD
-			
-=======
+
 				// console.log(event.detail);
->>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 				wx.showToast({
 					title: `切换到标签 ${event.detail.name}`,
 					icon: 'none',
@@ -270,7 +243,7 @@
 			},
 			changeClass(i) {
 			    this.isActive = i;
-			  },
+			},
 			
 			// 加入购物车
 			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
