@@ -73,6 +73,12 @@
 			</view>
 		</view>
 		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
+		<view class="uni-container">
+			<view class="goods-carts">
+				<uni-goods-nav :options="optionsgwc" :fill="true" :button-group="buttonGroup" @click="onClick"
+					@buttonClick="buttonClick" />
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -92,7 +98,29 @@
 				interval: 2000,
 				duration: 1000,
 				goods_id: 0,
-				result:{}
+				result: {},
+				optionsgwc: [{
+					icon: 'chat',
+					text: '佐罗优选'
+				}, {
+					icon: 'shop',
+					text: '分类',
+					infoBackgroundColor: '#007aff',
+					infoColor: "#f5f5f5"
+				}, {
+					icon: 'star',
+					text: '收藏',
+					infoBackgroundColor: '#007aff',
+					infoColor: "#f5f5f5"
+				}, {
+					icon: 'cart',
+					text: '购物车',
+				}],
+				buttonGroup: [{
+					text: '加入购物车',
+					backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
+					color: '#fff'
+				}],
 			}
 		},
 		created() {
@@ -100,49 +128,125 @@
 		},
 		onLoad(options) {
 			this.goods_id = options.id
+		},
+		onShow() {
+
 			this.getGoodDetail()
+			let user = uni.getStorageSync('user');
+			let result = uni.getStorageSync(`col${user.user_id}`)
+			var newresult = result.split(',')
+			var nnresult = newresult.splice(0, newresult.length - 1)
+			nnresult.forEach((item) => {
+				if (item == this.goods_id) {
+					this.optionsgwc[2].icon = "star-filled"
+					this.optionsgwc[2].text = "已收藏"
+				}
+			})
 		},
 		methods: {
-			async getGoodDetail() {
-				
-				let result = await requestGet(
-					`/api/api_goods?goods_id=${this.goods_id}`)
-				this.swiperImg = result.data.goods_main_image
-				this.goodsInfo = result.data.goods_info
-				this.fromaddress = result.data.address_name
-				this.toaddress = result.data.local_address
-				this.attrs = result.data.attr_list
-				this.result = result
-			  console.log(this.result,"far");
-			},
-			changeIndicatorDots(e) {
-				this.indicatorDots = !this.indicatorDots
-			},
-			changeAutoplay(e) {
-				this.autoplay = !this.autoplay
-			},
-			intervalChange(e) {
-				this.interval = e.target.value
-			},
-			durationChange(e) {
-				this.duration = e.target.value
-			},
-			//tab切换
-			onTabChange(event) {
-			
-				wx.showToast({
-					title: `切换到标签 ${event.detail.name}`,
-					icon: 'none',
-				});
-			},
+			onClick(e) {
+				let user = uni.getStorageSync('user')
+				if (user) {
+					if (e.index == 2) {
+						if (this.optionsgwc[e.index].icon == "star") {
+							this.optionsgwc[e.index].icon = "star-filled"
+							this.optionsgwc[e.index].text = "已收藏"
+							this.shoucang()
+						} else {
+							this.optionsgwc[e.index].icon = "star"
+							this.optionsgwc[e.index].text = "收藏"
+							this.delCol()
+						}
+					}
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						image: '/static/icon/err.png',
+						duration: 2000
+					});
+					setTimeout(() => {
+						uni.navigateTo({
+							url: '/pages/login/login',
+						})
+					}, 2000)
+				}
 		},
+		delCol() {
+			let user = uni.getStorageSync('user');
+			let result = uni.getStorageSync(`col${user.user_id}`)
+			var newresult = result.split(',')
+			var nnresult = newresult.splice(0, newresult.length - 1)
+			nnresult.forEach((item, idx) => {
+				if (item == this.result.data.goods_info.goods_id) {
+					nnresult.splice(idx, 1)
+				}
+			})
+			var ns = nnresult.join(",")
+			uni.setStorageSync(`col${user.user_id}`, `${ns},`)
+		},
+		shoucang() {
+			// 点击收藏将商品id存到对应用户的col中
+			let user = uni.getStorageSync('user');
+			let result = uni.getStorageSync(`col${user.user_id}`)
+			var aaa = Object.values(this.result.data)
+			if (result) {
+				var newresult = result.split(',')
+				for (var i = 0; i < newresult.length - 1; i++) {
+					if (aaa[8].goods_id == newresult[i]) {
+						return
+					}
+				}
+				result = `${result}${aaa[8].goods_id},`
+				uni.setStorageSync(`col${user.user_id}`, result)
+			} else {
+				var new1 = `${aaa[8].goods_id},`;
+				uni.setStorageSync(`col${user.user_id}`, new1)
+			}
+		},
+		async getGoodDetail() {
+			let result = await requestGet(
+				`/api/api_goods?goods_id=${this.goods_id}`)
+			this.swiperImg = result.data.goods_main_image
+			this.goodsInfo = result.data.goods_info
+			this.fromaddress = result.data.address_name
+			this.toaddress = result.data.local_address
+			this.attrs = result.data.attr_list
+			this.result = result
+		},
+		changeIndicatorDots(e) {
+			this.indicatorDots = !this.indicatorDots
+		},
+		changeAutoplay(e) {
+			this.autoplay = !this.autoplay
+		},
+		intervalChange(e) {
+			this.interval = e.target.value
+		},
+		durationChange(e) {
+			this.duration = e.target.value
+		},
+		//tab切换
+		onTabChange(event) {
 
-	}
+			wx.showToast({
+				title: `切换到标签 ${event.detail.name}`,
+				icon: 'none',
+			});
+		}
+},
+}
 </script>
 
 <style lang="less" scoped>
 	.container {
 		width: 100%;
+
+		.uni-container {
+			width: 100%;
+			position: fixed;
+			bottom: 0;
+			z-index: 10000000000;
+		}
 
 		.bg {
 

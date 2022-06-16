@@ -101,7 +101,22 @@ const _sfc_main = {
     }
   },
   async onLoad(options) {
+    console.log(options);
     options.name && !options.pinyin ? this.value = options.name : this.value;
+    if (options.name && !options.v && !options.pinyin) {
+      let result = await common_js_http.requestGet(`/api/api/search/?v=1&keywords=${options.name}`);
+      this.Goods = result.data.goods_list;
+      for (var i = 0; i < this.Goods.length; i++) {
+        if (i == 0) {
+          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+        }
+        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+      }
+      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+        goods_ids: this.goods_ids
+      });
+      this.price = result2.data;
+    }
     if (options.name && options.v) {
       let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
       this.Goods = result.data.goods_list;

@@ -1,6 +1,6 @@
 "use strict";
-var common_js_http = require("../../common/js/http.js");
 var common_vendor = require("../../common/vendor.js");
+var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
@@ -13,16 +13,108 @@ const _sfc_main = {
       interval: 2e3,
       duration: 1e3,
       goods_id: 0,
-      result: {}
+      result: {},
+      optionsgwc: [{
+        icon: "chat",
+        text: "\u4F50\u7F57\u4F18\u9009"
+      }, {
+        icon: "shop",
+        text: "\u5206\u7C7B",
+        infoBackgroundColor: "#007aff",
+        infoColor: "#f5f5f5"
+      }, {
+        icon: "star",
+        text: "\u6536\u85CF",
+        infoBackgroundColor: "#007aff",
+        infoColor: "#f5f5f5"
+      }, {
+        icon: "cart",
+        text: "\u8D2D\u7269\u8F66"
+      }],
+      buttonGroup: [{
+        text: "\u52A0\u5165\u8D2D\u7269\u8F66",
+        backgroundColor: "linear-gradient(90deg, #FE6035, #EF1224)",
+        color: "#fff"
+      }]
     };
   },
   created() {
   },
   onLoad(options) {
     this.goods_id = options.id;
+  },
+  onShow() {
     this.getGoodDetail();
+    let user = common_vendor.index.getStorageSync("user");
+    let result = common_vendor.index.getStorageSync(`col${user.user_id}`);
+    var newresult = result.split(",");
+    var nnresult = newresult.splice(0, newresult.length - 1);
+    nnresult.forEach((item) => {
+      if (item == this.goods_id) {
+        this.optionsgwc[2].icon = "star-filled";
+        this.optionsgwc[2].text = "\u5DF2\u6536\u85CF";
+      }
+    });
   },
   methods: {
+    onClick(e) {
+      let user = common_vendor.index.getStorageSync("user");
+      if (user) {
+        if (e.index == 2) {
+          if (this.optionsgwc[e.index].icon == "star") {
+            this.optionsgwc[e.index].icon = "star-filled";
+            this.optionsgwc[e.index].text = "\u5DF2\u6536\u85CF";
+            this.shoucang();
+          } else {
+            this.optionsgwc[e.index].icon = "star";
+            this.optionsgwc[e.index].text = "\u6536\u85CF";
+            this.delCol();
+          }
+        }
+      } else {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          image: "/static/icon/err.png",
+          duration: 2e3
+        });
+        setTimeout(() => {
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
+        }, 2e3);
+      }
+    },
+    delCol() {
+      let user = common_vendor.index.getStorageSync("user");
+      let result = common_vendor.index.getStorageSync(`col${user.user_id}`);
+      var newresult = result.split(",");
+      var nnresult = newresult.splice(0, newresult.length - 1);
+      nnresult.forEach((item, idx) => {
+        if (item == this.result.data.goods_info.goods_id) {
+          nnresult.splice(idx, 1);
+        }
+      });
+      var ns = nnresult.join(",");
+      common_vendor.index.setStorageSync(`col${user.user_id}`, `${ns},`);
+    },
+    shoucang() {
+      let user = common_vendor.index.getStorageSync("user");
+      let result = common_vendor.index.getStorageSync(`col${user.user_id}`);
+      var aaa = Object.values(this.result.data);
+      if (result) {
+        var newresult = result.split(",");
+        for (var i = 0; i < newresult.length - 1; i++) {
+          if (aaa[8].goods_id == newresult[i]) {
+            return;
+          }
+        }
+        result = `${result}${aaa[8].goods_id},`;
+        common_vendor.index.setStorageSync(`col${user.user_id}`, result);
+      } else {
+        var new1 = `${aaa[8].goods_id},`;
+        common_vendor.index.setStorageSync(`col${user.user_id}`, new1);
+      }
+    },
     async getGoodDetail() {
       let result = await common_js_http.requestGet(`/api/api_goods?goods_id=${this.goods_id}`);
       this.swiperImg = result.data.goods_main_image;
@@ -31,7 +123,6 @@ const _sfc_main = {
       this.toaddress = result.data.local_address;
       this.attrs = result.data.attr_list;
       this.result = result;
-      console.log(this.result, "far");
     },
     changeIndicatorDots(e) {
       this.indicatorDots = !this.indicatorDots;
@@ -55,11 +146,13 @@ const _sfc_main = {
 };
 if (!Array) {
   const _easycom_goodsdetail_tabs2 = common_vendor.resolveComponent("goodsdetail_tabs");
-  _easycom_goodsdetail_tabs2();
+  const _easycom_uni_goods_nav2 = common_vendor.resolveComponent("uni-goods-nav");
+  (_easycom_goodsdetail_tabs2 + _easycom_uni_goods_nav2)();
 }
 const _easycom_goodsdetail_tabs = () => "../../components/goodsdetail_tabs/goodsdetail_tabs.js";
+const _easycom_uni_goods_nav = () => "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.js";
 if (!Math) {
-  _easycom_goodsdetail_tabs();
+  (_easycom_goodsdetail_tabs + _easycom_uni_goods_nav)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -86,6 +179,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     p: common_vendor.t($data.goodsInfo.delivery_time),
     q: common_vendor.p({
       result: $data.result
+    }),
+    r: common_vendor.o($options.onClick),
+    s: common_vendor.o(_ctx.buttonClick),
+    t: common_vendor.p({
+      options: $data.optionsgwc,
+      fill: true,
+      ["button-group"]: $data.buttonGroup
     })
   };
 }

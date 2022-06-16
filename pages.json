@@ -109,17 +109,15 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/mycollection/mycollection",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/mycollection/mycollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -137,7 +135,12 @@
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
 			"van-area": "/wxcomponents/vant/dist/area/index",
-			"van-picker": "/wxcomponents/vant/dist/picker/index"
+			"van-picker": "/wxcomponents/vant/dist/picker/index",
+			"van-goods-action": "/wxcomponents/vant/dist/goods-action/index",
+			"van-goods-action-icon": "/wxcomponents/vant/dist/goods-action-icon/index",
+			"van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index"，,
+			  "van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
+			  "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index"
 		}
 	},
 	"tabBar": {

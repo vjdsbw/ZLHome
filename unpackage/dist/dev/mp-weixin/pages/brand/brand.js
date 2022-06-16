@@ -16,7 +16,6 @@ const _sfc_main = {
       this.brandList = result.data;
       this.brandList.map((item) => {
         item.id;
-        console.log(item.id);
       });
     },
     goGoodsDetail() {

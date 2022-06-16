@@ -45,6 +45,13 @@ const _sfc_main = {
     this.getSwipers();
     this.getgoodList();
   },
+  onReachBottom() {
+    if (this.flag) {
+      this.p++;
+      this.getgoodList();
+    }
+    console.log(this.p);
+  },
   methods: {
     scroll(event) {
       if (event.detail.scrollLeft < 860) {
@@ -96,12 +103,6 @@ const _sfc_main = {
         }
       } else {
         this.Goods = [];
-      }
-    },
-    onReachBottom() {
-      if (this.flag) {
-        this.p++;
-        this.getgoodList();
       }
     },
     choosecate(id) {

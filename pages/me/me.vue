@@ -16,7 +16,7 @@
 				客户订单
 				<uni-icons class="right" type="right" size="20"></uni-icons>
 			</view>
-			<view class="shoucang">
+			<view class="shoucang" @click="goCollection">
 				<uni-icons class="icon" custom-prefix="iconfont" type="icon-shoucang" size="20"></uni-icons>
 				我的收藏
 				<uni-icons class="right" type="right" size="20"></uni-icons>
@@ -55,7 +55,6 @@
 		},
 		updated() {
 			let result = uni.getStorageSync('user');
-			console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			if(result){
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
@@ -142,6 +141,7 @@
 				} else {
 					uni.showToast({
 						title: '请先登录',
+						image:'/static/icon/err.png',
 						duration: 2000
 					});
 					setTimeout(()=>{
@@ -151,6 +151,25 @@
 					},2000)					
 				}
 
+			},
+			goCollection(){
+				let result = uni.getStorageSync('user')
+				if (result) {
+					uni.navigateTo({
+						url: '/pages/mycollection/mycollection',
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						image:'/static/icon/err.png',
+						duration: 2000
+					});
+					setTimeout(()=>{
+						uni.navigateTo({
+							url: '/pages/login/login',
+						})
+					},2000)					
+				}
 			}
 		}
 	}
