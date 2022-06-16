@@ -17,7 +17,7 @@
 					<image class="logo"  :src="item.brand_logo_url" mode="widthFix"></image>
 					<view class="name"> {{item.brand_name}} </view>
 					<view class="desc"> {{item.desc_t}} </view>
-					<button @click="goGoodsDetail">进入品牌</button>
+					<button @click="goGoodsForKeywords(item.brand_name)">进入品牌</button>
 				</view>
 			</view>
 		</view>
@@ -41,13 +41,17 @@
 		methods: {
 			async getBrands(){
 				let result = await requestGet("/api/api/brand_list?XcxSessKey=%20&company_id=7194")
+<<<<<<< HEAD
 				console.log(result)
 				this.brandList=result.data
+=======
+				this.brandList=result.data	
+>>>>>>> 900eca9201e7a7a9142c7ee3911635f3c4af54cd
 			},
 			// https://m.meijiavip.com/api/search/?v=1&keywords=喜临门&XcxSessKey=%20&company_id=7194
-			goGoodsDetail(){
+			goGoodsForKeywords(brand_name){
 				uni.navigateTo({
-					url: '../brand_goods/brand_goods',
+					url: "/pages/brand_goods/brand_goods?keywords=" +brand_name ,
 					success: res => {},
 					fail: () => {},
 					complete: () => {}
