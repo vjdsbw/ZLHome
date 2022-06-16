@@ -39,20 +39,19 @@ const _sfc_main = {
     };
   },
   created() {
+    console.log("ccccccccccccccccccccccccc");
   },
   onLoad(options) {
-    this.goodsId = options.id;
+    this.goodsId = options.goods_id;
   },
   onReady() {
     this.getGoodDetail();
   },
   methods: {
     async getGoodDetail() {
-      console.log(this.goods_id);
       let result = await common_js_http.requestGet("/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id=" + this.goodsId);
       this.swiperImg = result.data.goods_main_image;
       this.goodsInfo = result.data.goods_info;
-      console.log(result.data.goods_info, "22222222222222222222");
       this.fromaddress = result.data.address_name;
       this.toaddress = result.data.local_address;
       this.attrs = result.data.attr_list;

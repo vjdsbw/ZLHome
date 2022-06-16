@@ -107,7 +107,6 @@
 				<text>售后服务</text><text>极速发货</text><text>贵就赔</text>
 			</view>
 		</view>
-
 		<goodsdetail_tabs></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
@@ -160,26 +159,23 @@
 			}
 		},
 		created() {
-			
+			console.log("ccccccccccccccccccccccccc")
 		},
 		onLoad(options){
-			this.goodsId=options.id
+			this.goodsId=options.goods_id
 		},
 		onReady(){
 			this.getGoodDetail()	
 		},
 		methods: {
 			async getGoodDetail() {
-				console.log(this.goods_id)
 				let result = await requestGet(
 					"/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id="+this.goodsId)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
-				console.log(result.data.goods_info,'22222222222222222222')
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
-
 				
 				console.log(result.data.goods_attr.goods,'eeeeeeeeeeeeeeeeeeeeeeeeeee')
 				this.goodsAttr=result.data.goods_attr.goods
@@ -203,12 +199,11 @@
 			},
 			//tab切换
 			onTabChange(event) {
-
 				// console.log(event.detail);
 				wx.showToast({
 					title: `切换到标签 ${event.detail.name}`,
 					icon: 'none',
-				});
+			 });
 			},
 			// 商品tabbar
 			onClick(e) {
@@ -243,7 +238,7 @@
 			},
 			changeClass(i) {
 			    this.isActive = i;
-			},
+			  },
 			
 			// 加入购物车
 			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
@@ -255,7 +250,7 @@
 				
 			}
 		},
-
+		
 	}
 </script>
 
