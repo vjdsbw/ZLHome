@@ -4,6 +4,7 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      result: {},
       swiperImg: [],
       goodsInfo: {},
       fromaddress: "",
@@ -42,7 +43,7 @@ const _sfc_main = {
     console.log("ccccccccccccccccccccccccc");
   },
   onLoad(options) {
-    this.goodsId = options.goods_id;
+    this.goodsId = options.id;
   },
   onReady() {
     this.getGoodDetail();
@@ -55,11 +56,11 @@ const _sfc_main = {
       this.fromaddress = result.data.address_name;
       this.toaddress = result.data.local_address;
       this.attrs = result.data.attr_list;
-      console.log(result.data.goods_attr.goods, "eeeeeeeeeeeeeeeeeeeeeeeeeee");
       this.goodsAttr = result.data.goods_attr.goods;
       this.img = result.data.goods_info.goods_img_url;
       this.price = result.data.goods_info.shop_price;
       this.goodsNum = result.data.goods_info.goods_sn;
+      this.result = result;
     },
     changeIndicatorDots(e) {
       this.indicatorDots = !this.indicatorDots;
@@ -79,26 +80,22 @@ const _sfc_main = {
         icon: "none"
       });
     },
-    onClick(e) {
-      if (e.index == 0) {
-        common_vendor.index.switchTab({
-          url: "/pages/index/index"
+    buttonClick() {
+      let result = common_vendor.index.getStorageSync("user");
+      if (result)
+        ;
+      else {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          image: "/static/icon/err.png",
+          duration: 2e3
         });
+        setTimeout(() => {
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
+        }, 2e3);
       }
-      if (e.index == 1) {
-        common_vendor.index.switchTab({
-          url: "/pages/sort/sort"
-        });
-      }
-      if (e.index == 2) {
-        common_vendor.index.navigateTo({
-          url: "/pages/carts/carts"
-        });
-      }
-    },
-    buttonClick(e) {
-      console.log(e);
-      this.options[2].info++;
     },
     showMotaikuang() {
       this.showmotai = true;
@@ -165,7 +162,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
     A: common_vendor.o((...args) => $options.addToCarts && $options.addToCarts(...args))
   } : {}, {
-    B: common_vendor.o($options.onClick),
+    B: common_vendor.p({
+      result: $data.result
+    }),
     C: common_vendor.o($options.buttonClick),
     D: common_vendor.p({
       options: $data.options,
