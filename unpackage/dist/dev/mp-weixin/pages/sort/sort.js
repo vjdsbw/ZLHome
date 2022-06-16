@@ -65,14 +65,35 @@ const _sfc_main = {
           rel.push(item.top);
         });
         this.topList = rel;
-        console.log(rel, "9999999999999999999999999");
       });
     }
   }
 };
+if (!Array) {
+  const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
+  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
+  (_easycom_uni_search_bar2 + _easycom_uni_icons2)();
+}
+const _easycom_uni_search_bar = () => "../../uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.js";
+const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+if (!Math) {
+  (_easycom_uni_search_bar + _easycom_uni_icons)();
+}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.f($data.title, (item, idx, i0) => {
+    a: common_vendor.o(_ctx.search),
+    b: common_vendor.p({
+      placeholder: "\u8F93\u5165\u5546\u54C1\u5206\u7C7B\u3001\u540D\u79F0",
+      radius: 100,
+      cancelButton: "none"
+    }),
+    c: common_vendor.o((...args) => _ctx.tosearch && _ctx.tosearch(...args)),
+    d: common_vendor.o(_ctx.tocart),
+    e: common_vendor.p({
+      type: "cart",
+      size: "30"
+    }),
+    f: common_vendor.f($data.title, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.n({
@@ -82,7 +103,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.leftClick(idx, item), item.id)
       };
     }),
-    b: common_vendor.f($data.lists, (item, index, i0) => {
+    g: common_vendor.f($data.lists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.f(item.cat_list, (item1, index1, i1) => {
@@ -97,9 +118,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: "po" + index
       };
     }),
-    c: $data.doms,
-    d: common_vendor.o((...args) => $options.scrolls && $options.scrolls(...args)),
-    e: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
+    h: $data.doms,
+    i: common_vendor.o((...args) => $options.scrolls && $options.scrolls(...args)),
+    j: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "F:/zuolo/pages/sort/sort.vue"]]);

@@ -3,7 +3,8 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "优选Home",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 50
 			}
 		}, {
 			"path": "pages/sort/sort",
@@ -26,11 +27,10 @@
 				"enablePullDownRefresh": false
 			}
 
-
-		}, {
+	}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录",
+			"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
 
@@ -42,21 +42,15 @@
 			}
 
 
-		}, {
-			"path": "pages/brand_goods/brand_goods",
-			"style": {
-				"navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/gooddetail/gooddetail",
-			"style": {
-				"navigationBarTitleText": "佐罗优选",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
+		}  ,{
+            "path" : "pages/gooddetail/gooddetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "佐罗优选",
+                "enablePullDownRefresh": false
+            }  
+			
+        },	{
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -84,8 +78,8 @@
 
 			}
 
-
-		}, {
+		}
+	    , {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
@@ -97,7 +91,7 @@
 		}, {
 			"path": "pages/address/address",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "订单地址",
 				"enablePullDownRefresh": false
 
 			}
@@ -138,9 +132,11 @@
 			"van-picker": "/wxcomponents/vant/dist/picker/index",
 			"van-goods-action": "/wxcomponents/vant/dist/goods-action/index",
 			"van-goods-action-icon": "/wxcomponents/vant/dist/goods-action-icon/index",
-			"van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index"，,
-			  "van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
-			  "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index"
+			"van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index",
+			"van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
+		    "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index",
+			"van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
+
 		}
 	},
 	"tabBar": {

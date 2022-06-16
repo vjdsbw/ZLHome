@@ -69,6 +69,7 @@
 					"username": this.customFormData.username,
 					"password": this.customFormData.password
 				});
+				console.log(result);
 				if (result.error === 0) {
 					uni.setStorageSync('user', result.data)
 					uni.showToast({

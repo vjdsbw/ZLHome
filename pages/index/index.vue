@@ -17,7 +17,7 @@
 						<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
 						</uni-easyinput>
 					</view>
-					<uni-icons type="cart" size="30"></uni-icons>
+					<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
 				</view>
 			</view>
 			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
@@ -218,6 +218,14 @@
 			console.log(this.p);
 		},
 		methods: {
+			tocart(){
+				uni.navigateTo({
+					url: '/pages/cart/cart',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			scroll(event) {
 				//距离每个边界距离
 				if (event.detail.scrollLeft < 860) {

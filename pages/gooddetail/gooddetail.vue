@@ -51,9 +51,42 @@
 				<view class="canshu1">
 					参数
 				</view>
-				<view class="canshu2">
-					xxxxxxxxxxxxxxxxxxx
+				<view class="canshu2" @click="showMotaikuang">
+					请选择产品尺寸
 				</view>
+
+				<!-- 模态框-->
+				<view class="motaikuang" v-if="showmotai" :mask-close-able="true">
+					<view class="mask" @click="exitMotaikuang"></view>
+					<view class="bottomPopup">
+						<view class="close" @click="exitMotaikuang">x</view>
+						<view class="popupHead">
+							<view class="headImg">
+								<image :src="img" mode="widthFix"></image>
+							</view>
+							<view class="text">
+								<view class="headPrice">
+									￥{{price}}
+								</view>
+								<view class="headNum">
+									商品编号：{{goodsNum}}
+								</view>
+							</view>
+						</view>
+						<view class="guige">规格</view>
+						<view class="motaikuangsize" @click="chooseSize">
+							<view class="sizevalue" v-for="(item,index) in goodsAttr" :key="item.id"
+								:class="{active: isActive === index}" @click="changeClass(index)">
+								{{item.size}}
+							</view>
+						</view>
+					</view>
+					<view class="queding">
+						<view class="sure" @click="addToCarts">确定</view>
+					</view>
+				</view>
+				<!-- 模态框 -->
+
 			</view>
 			<view class="caizhi">
 				<view class="caizhi1">
@@ -75,8 +108,10 @@
 		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
+
 				<uni-goods-nav :options="optionsgwc" :fill="true" :button-group="buttonGroup" @click="onClick"
 					@buttonClick="buttonClick" />
+
 			</view>
 		</view>
 	</view>
@@ -89,14 +124,22 @@
 	export default {
 		data() {
 			return {
+				result: {},
 				swiperImg: [],
 				goodsInfo: {},
 				fromaddress: '',
 				toaddress: '',
+				goodsId: '',
+				goodsAttr: [],
+				img: '',
+				price: '',
+				goodsNum: '',
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
 				duration: 1000,
+				showmotai: false,
+				isActive: 0,
 				goods_id: 0,
 				result: {},
 				optionsgwc: [{
@@ -113,6 +156,7 @@
 					infoBackgroundColor: '#007aff',
 					infoColor: "#f5f5f5"
 				}, {
+
 					icon: 'cart',
 					text: '购物车',
 				}],
@@ -121,6 +165,7 @@
 					backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
 					color: '#fff'
 				}],
+
 			}
 		},
 		created() {
@@ -170,71 +215,93 @@
 						})
 					}, 2000)
 				}
-		},
-		delCol() {
-			let user = uni.getStorageSync('user');
-			let result = uni.getStorageSync(`col${user.user_id}`)
-			var newresult = result.split(',')
-			var nnresult = newresult.splice(0, newresult.length - 1)
-			nnresult.forEach((item, idx) => {
-				if (item == this.result.data.goods_info.goods_id) {
-					nnresult.splice(idx, 1)
-				}
-			})
-			var ns = nnresult.join(",")
-			uni.setStorageSync(`col${user.user_id}`, `${ns},`)
-		},
-		shoucang() {
-			// 点击收藏将商品id存到对应用户的col中
-			let user = uni.getStorageSync('user');
-			let result = uni.getStorageSync(`col${user.user_id}`)
-			var aaa = Object.values(this.result.data)
-			if (result) {
+			},
+			delCol() {
+				let user = uni.getStorageSync('user');
+				let result = uni.getStorageSync(`col${user.user_id}`)
 				var newresult = result.split(',')
-				for (var i = 0; i < newresult.length - 1; i++) {
-					if (aaa[8].goods_id == newresult[i]) {
-						return
+				var nnresult = newresult.splice(0, newresult.length - 1)
+				nnresult.forEach((item, idx) => {
+					if (item == this.result.data.goods_info.goods_id) {
+						nnresult.splice(idx, 1)
 					}
+				})
+				var ns = nnresult.join(",")
+				uni.setStorageSync(`col${user.user_id}`, `${ns},`)
+			},
+			shoucang() {
+				// 点击收藏将商品id存到对应用户的col中
+				let user = uni.getStorageSync('user');
+				let result = uni.getStorageSync(`col${user.user_id}`)
+				var aaa = Object.values(this.result.data)
+				if (result) {
+					var newresult = result.split(',')
+					for (var i = 0; i < newresult.length - 1; i++) {
+						if (aaa[8].goods_id == newresult[i]) {
+							return
+						}
+					}
+					result = `${result}${aaa[8].goods_id},`
+					uni.setStorageSync(`col${user.user_id}`, result)
+				} else {
+					var new1 = `${aaa[8].goods_id},`;
+					uni.setStorageSync(`col${user.user_id}`, new1)
 				}
-				result = `${result}${aaa[8].goods_id},`
-				uni.setStorageSync(`col${user.user_id}`, result)
-			} else {
-				var new1 = `${aaa[8].goods_id},`;
-				uni.setStorageSync(`col${user.user_id}`, new1)
-			}
-		},
-		async getGoodDetail() {
-			let result = await requestGet(
-				`/api/api_goods?goods_id=${this.goods_id}`)
-			this.swiperImg = result.data.goods_main_image
-			this.goodsInfo = result.data.goods_info
-			this.fromaddress = result.data.address_name
-			this.toaddress = result.data.local_address
-			this.attrs = result.data.attr_list
-			this.result = result
-		},
-		changeIndicatorDots(e) {
-			this.indicatorDots = !this.indicatorDots
-		},
-		changeAutoplay(e) {
-			this.autoplay = !this.autoplay
-		},
-		intervalChange(e) {
-			this.interval = e.target.value
-		},
-		durationChange(e) {
-			this.duration = e.target.value
-		},
-		//tab切换
-		onTabChange(event) {
+			},
+			async getGoodDetail() {
+				let result = await requestGet(
+					`/api/api_goods?goods_id=${this.goods_id}`)
+				this.swiperImg = result.data.goods_main_image
+				this.goodsInfo = result.data.goods_info
+				this.fromaddress = result.data.address_name
+				this.toaddress = result.data.local_address
+				this.attrs = result.data.attr_list
+				this.result = result
+			},
+			changeIndicatorDots(e) {
+				this.indicatorDots = !this.indicatorDots
+			},
+			changeAutoplay(e) {
+				this.autoplay = !this.autoplay
+			},
+			intervalChange(e) {
+				this.interval = e.target.value
+			},
+			durationChange(e) {
+				this.duration = e.target.value
+			},
+			//tab切换
+			onTabChange(event) {
+				wx.showToast({
+					title: `切换到标签 ${event.detail.name}`,
+					icon: 'none',
+				});
+			},
 
-			wx.showToast({
-				title: `切换到标签 ${event.detail.name}`,
-				icon: 'none',
-			});
+
+	// 模态框
+	showMotaikuang() {
+			this.showmotai = true
+		},
+		exitMotaikuang() {
+			this.showmotai = false
+		},
+		changeClass(i) {
+			this.isActive = i;
+		},
+
+		// 加入购物车
+		//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
+		//2.如果用户已登录 用户选择对应商品后加入购物车
+		//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
+		//2）每个用户购物车详情不同，通过用户id判断购物车数据
+		//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
+		addToCarts() {
+
 		}
-},
-}
+	},
+
+	}
 </script>
 
 <style lang="less" scoped>
@@ -248,9 +315,11 @@
 			z-index: 10000000000;
 		}
 
+		.active {
+			color: red;
+		}
+
 		.bg {
-
-
 			.search {}
 
 			.swiper {
@@ -386,7 +455,111 @@
 
 				.canshu2 {
 					flex: 6;
+				}
 
+				.motaikuang {
+					width: 100%;
+					height: 100%;
+					position: fixed;
+					bottom: 0px;
+					left: 0px;
+					z-index: 999;
+
+					.mask {
+						width: 100%;
+						height: auto;
+						position: fixed;
+						top: 0px;
+						bottom: 0px;
+						left: 0px;
+						right: 0px;
+						margin: 0px auto;
+						background: rgba(0, 0, 0, 0.4);
+						z-index: 1000;
+					}
+
+					.bottomPopup {
+						width: 100%;
+						height: 70%;
+						position: fixed;
+						bottom: 0px;
+						left: 0px;
+						right: 0px;
+						z-index: 1001;
+						background: #fff;
+						border-radius: 5px 5px 0px 0px;
+
+						.close {
+							position: absolute;
+							top: 0rpx;
+							right: 20rpx;
+							font-size: 50rpx;
+							color: #999;
+							z-index: 1002;
+						}
+
+						.popupHead {
+							width: 94%;
+							height: auto;
+							margin: 0px auto;
+							border-bottom: 1px #eee solid;
+							display: flex;
+							flex-direction: row;
+							padding: 20rpx 0px;
+
+							.headImg {
+								image {
+									width: 280rpx;
+									margin-top: -100rpx;
+								}
+							}
+
+							.text {
+								.headPrice {
+									color: red;
+									font-size: 44rpx;
+								}
+
+								.headNum {
+									color: #999;
+									font-size: 24rpx;
+								}
+							}
+						}
+
+						.guige {
+							color: #999;
+						}
+
+						.motaikuangsize {
+							.sizevalue {
+								width: 20%;
+								border: 1px solid lightgrey;
+								margin: 10rpx;
+								padding: 20rpx;
+							}
+						}
+					}
+
+					.queding {
+						width: 100%;
+						display: flex;
+						position: fixed;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						z-index: 1003;
+
+						.sure {
+							width: 100%;
+							text-align: center;
+							color: #fff;
+							height: 100rpx;
+							line-height: 100rpx;
+							background: #E31D1A;
+							letter-spacing: 3px;
+						}
+					}
 				}
 			}
 
@@ -429,6 +602,21 @@
 					padding-right: 40rpx;
 				}
 			}
+		}
+
+		.goods-carts {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			flex-direction: column;
+			position: fixed;
+			left: 0;
+			right: 0;
+			/* #ifdef H5 */
+			left: var(--window-left);
+			right: var(--window-right);
+			/* #endif */
+			bottom: 0;
 		}
 	}
 </style>

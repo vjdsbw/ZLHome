@@ -4,14 +4,22 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      result: {},
       swiperImg: [],
       goodsInfo: {},
       fromaddress: "",
       toaddress: "",
+      goodsId: "",
+      goodsAttr: [],
+      img: "",
+      price: "",
+      goodsNum: "",
       indicatorDots: true,
       autoplay: true,
       interval: 2e3,
       duration: 1e3,
+      showmotai: false,
+      isActive: 0,
       goods_id: 0,
       result: {},
       optionsgwc: [{
@@ -141,6 +149,17 @@ const _sfc_main = {
         title: `\u5207\u6362\u5230\u6807\u7B7E ${event.detail.name}`,
         icon: "none"
       });
+    },
+    showMotaikuang() {
+      this.showmotai = true;
+    },
+    exitMotaikuang() {
+      this.showmotai = false;
+    },
+    changeClass(i) {
+      this.isActive = i;
+    },
+    addToCarts() {
     }
   }
 };
@@ -155,7 +174,7 @@ if (!Math) {
   (_easycom_goodsdetail_tabs + _easycom_uni_goods_nav)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: common_vendor.f($data.swiperImg, (item, k0, i0) => {
       return {
         a: item.imgs_url_2,
@@ -177,17 +196,36 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     n: common_vendor.t($data.toaddress.city_name),
     o: common_vendor.t($data.toaddress.area_name),
     p: common_vendor.t($data.goodsInfo.delivery_time),
-    q: common_vendor.p({
+    q: common_vendor.o((...args) => $options.showMotaikuang && $options.showMotaikuang(...args)),
+    r: $data.showmotai
+  }, $data.showmotai ? {
+    s: common_vendor.o((...args) => $options.exitMotaikuang && $options.exitMotaikuang(...args)),
+    t: common_vendor.o((...args) => $options.exitMotaikuang && $options.exitMotaikuang(...args)),
+    v: $data.img,
+    w: common_vendor.t($data.price),
+    x: common_vendor.t($data.goodsNum),
+    y: common_vendor.f($data.goodsAttr, (item, index, i0) => {
+      return {
+        a: common_vendor.t(item.size),
+        b: item.id,
+        c: $data.isActive === index ? 1 : "",
+        d: common_vendor.o(($event) => $options.changeClass(index), item.id)
+      };
+    }),
+    z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
+    A: common_vendor.o((...args) => $options.addToCarts && $options.addToCarts(...args))
+  } : {}, {
+    B: common_vendor.p({
       result: $data.result
     }),
-    r: common_vendor.o($options.onClick),
-    s: common_vendor.o(_ctx.buttonClick),
-    t: common_vendor.p({
+    C: common_vendor.o($options.onClick),
+    D: common_vendor.o(_ctx.buttonClick),
+    E: common_vendor.p({
       options: $data.optionsgwc,
       fill: true,
       ["button-group"]: $data.buttonGroup
     })
-  };
+  });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "F:/zuolo/pages/gooddetail/gooddetail.vue"]]);
 wx.createPage(MiniProgramPage);
