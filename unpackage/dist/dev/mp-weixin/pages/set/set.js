@@ -12,10 +12,10 @@ const _sfc_main = {
     this.info();
   },
   methods: {
-    async info() {
-      let reult = common_vendor.index.getStorageSync("user");
-      this.username = reult.user_name;
-      this.username2 = reult.user_id;
+    info() {
+      let result = common_vendor.index.getStorageSync("user");
+      result.alias ? this.username = result.alias : this.username = reult.user_name;
+      this.username2 = result.user_name;
     },
     async Out() {
       let result = await common_js_http.requestPost("/api/api/logout");

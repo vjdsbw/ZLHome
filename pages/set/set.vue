@@ -34,10 +34,10 @@
 			this.info()
 		},
 		methods: {
-			async info() {
-				let reult= uni.getStorageSync('user');
-				this.username =reult.user_name;
-				this.username2 =reult.user_id;
+			info() {
+				let result = uni.getStorageSync('user');
+				result.alias?this.username=result.alias:this.username=reult.user_name
+				this.username2 =result.user_name;
 			},
 			async Out() {
 				let result = await requestPost("/api/api/logout");

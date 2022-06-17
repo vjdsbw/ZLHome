@@ -56,12 +56,10 @@
 		updated() {
 			let result = uni.getStorageSync('user');
 			if(result){
-
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
 					this.imgpath = result1
 					this.neverchange = false
-					console.log(this.imgpath, "xxxx");
 				}
 			} else {
 				this.imgpath = ""
@@ -114,11 +112,7 @@
 			},
 			show() {
 				let result = uni.getStorageSync('user')
-				if (result) {
-					this.username = result.user_name;
-				} else {
-					this.username = '点击登录'
-				}
+				result.alias?this.username=result.alias:this.username=reult.user_name
 			},
 			goSet() {
 				let result = uni.getStorageSync('user')

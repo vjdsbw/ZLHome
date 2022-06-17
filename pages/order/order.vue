@@ -57,7 +57,6 @@
 			async order() {
 				let result = await requestPost("/api/api/order_list?XcxSessKey=%20&company_id=7194");
 				this.list = result.data.list
-				console.log(this.list);
 				this.list.forEach(item=>this.length.push(item.all_goods.length))
 		
 			},
@@ -148,9 +147,6 @@
 					}
 				}
 			}
-
-
-
 			.good-bottom {
 				height: 20px;
 				color: #666;

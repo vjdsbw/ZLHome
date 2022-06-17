@@ -4,15 +4,25 @@ var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
+      currents: null,
+      current: null,
+      num: 0,
+      num1: [0, 0, 0, 0],
+      minvalue: "",
+      maxvalue: "",
+      isChoose: true,
+      noChoose: false,
       num: null,
       temp: 0,
       myScroll: 0,
       type: "",
       icons: false,
       value: "",
-      flag: false,
+      flag: true,
       flag1: true,
       flage: false,
+      flag2: true,
+      flag3: true,
       Goods: [],
       brand: [],
       attr: [],
@@ -20,10 +30,12 @@ const _sfc_main = {
       price: [],
       brr: [],
       arr: [],
+      krr: [[]],
       a: "",
       b: "",
       p: 1,
-      flag: true,
+      pn: "",
+      px: "",
       option1: [
         {
           text: "\u7EFC\u5408",
@@ -51,6 +63,7 @@ const _sfc_main = {
     }
   },
   created() {
+    this.getgoodList();
   },
   methods: {
     tosearch() {
@@ -79,11 +92,17 @@ const _sfc_main = {
       let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
         p: this.p,
         a: this.a,
-        b: this.b
+        b: this.b,
+        psort: this.psort,
+        pn: this.pn,
+        px: this.px
       });
-      if (result.data) {
+      if (result.data.goods_list.length > 0) {
         this.brand = result.data.brand_list;
         this.attr = result.data.attr;
+        for (let k = 0; k < result.data.attr.length; k++) {
+          this.krr[k] = [];
+        }
         if (result.data.goods_list.length < 32) {
           this.flag = false;
         }
@@ -94,15 +113,17 @@ const _sfc_main = {
           }
           this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
         }
-        let result22 = await common_js_http.requestGet("/api/api/goods/get_price", {
+        let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
           goods_ids: this.goods_ids
         });
-        this.price = result22.data;
+        this.price = result2.data;
+      } else {
+        common_vendor.index.showToast({
+          title: "\u6CA1\u6709\u66F4\u591A\u6570\u636E\u4E86",
+          image: "/static/icon/err.png",
+          duration: 2e3
+        });
       }
-      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
-        goods_ids: this.goods_ids
-      });
-      this.price = result2.data;
     },
     showDrawer() {
       this.$refs.showRight.open();
@@ -113,15 +134,27 @@ const _sfc_main = {
     showTag() {
       this.flag = !this.flag;
     },
-    show1Tag() {
+    show1Tag(idx) {
+      this.current = idx;
       this.flag1 = !this.flag1;
+      console.log(this.attr);
     },
-    addA(m) {
+    addA(m, n) {
+      if (this.krr[n].includes(m)) {
+        this.krr[n] = this.krr[n].filter((item) => item !== m);
+      } else {
+        this.krr[n].push(m);
+      }
+      this.num1[n] = this.krr[n].length;
+      console.log(this.num1, "ccccccccccccccccccccc");
       if (this.arr.includes(m)) {
         this.arr = this.arr.filter((item) => item !== m);
       } else {
         this.arr.push(m);
       }
+      console.log(this.arr);
+      this.currents = n;
+      this.flag2 = false;
     },
     addB(m) {
       if (this.brr.includes(m)) {
@@ -129,20 +162,31 @@ const _sfc_main = {
       } else {
         this.brr.push(m);
       }
+      this.num = this.brr.length;
+      this.flag3 = false;
     },
     reset() {
       this.arr = [];
       this.brr = [];
       this.a = "";
       this.b = "";
+      this.num = 0;
+      this.num1 = 0;
+      this.minvalue = "";
+      this.maxvalue = "";
       this.Goods = [];
       this.getgoodList();
+      this.flag2 = true;
+      this.flag3 = true;
     },
     sure() {
       this.arr.forEach((item) => this.a = item + "^" + this.a);
       this.brr.forEach((item) => this.b = item + "^" + this.b);
+      this.pn = this.minvalue;
+      this.px = this.maxvalue;
       this.Goods = [];
       this.getgoodList();
+      this.$refs.showRight.close();
     },
     currentClick(k) {
       this.flage = !this.flage;
@@ -154,7 +198,15 @@ const _sfc_main = {
       console.log("xxx");
     },
     menu(value1) {
-      console.log(this.value1);
+      if (this.value1 == 0) {
+        this.value1 = 1;
+        this.psort = 4;
+      } else {
+        this.value1 = 0;
+        this.psort = 0;
+      }
+      this.Goods = [];
+      this.getgoodList();
     },
     bottomClick(k) {
       console.log(k);
@@ -167,13 +219,16 @@ const _sfc_main = {
       }
       this.Goods = [];
       this.price = [];
+      this.goods_ids = "";
       this.getgoodList();
     },
-    iconClick(index) {
-      this.num = index;
+    onminPrice(e) {
+      this.minvalue = e.detail.value;
+      console.log(e, e.detail.value);
     },
-    thenClick(idx) {
-      this.num = idx;
+    onmaxPrice(e) {
+      this.maxvalue = e.detail.value;
+      console.log(e, e.detail.value);
     }
   },
   onReachBottom() {
@@ -273,100 +328,121 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "14"
     }),
     p: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
-    q: common_vendor.t($data.flag ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
+    q: common_vendor.t($data.flag3 ? "\u53EF\u591A\u9009" : `\u5DF2\u9009${$data.num}\u9879`),
     r: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
     s: common_vendor.f($data.brand, (item, k0, i0) => {
       return {
         a: item.brand_logo_url,
         b: item.brand_id,
-        c: common_vendor.o(($event) => $options.addB(item.brand_id), item.brand_id)
+        c: common_vendor.o(($event) => $options.addB(item.brand_id), item.brand_id),
+        d: $data.brr.indexOf(item.brand_id) != -1 ? "red" : "#eee"
       };
     }),
     t: !$data.flag ? 1 : "",
     v: common_vendor.f($data.attr, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.attr_name),
-        b: common_vendor.f(item.attr_list, (list, k1, i1) => {
+        b: common_vendor.t($data.flag2 ? "\u53EF\u591A\u9009" : $data.currents == idx ? `\u5DF2\u9009${$data.num1[idx]}\u9879` : "\u53EF\u591A\u9009"),
+        c: common_vendor.o(($event) => $options.show1Tag(idx)),
+        d: common_vendor.f(item.attr_list, (list, k1, i1) => {
           return {
             a: common_vendor.t(list.attr_value),
-            b: common_vendor.o(($event) => $options.addA(list.attr_value_id), list.attr_value_id),
-            c: list.attr_value_id
+            b: common_vendor.o(($event) => $options.addA(list.attr_value_id, idx), list.attr_value_id),
+            c: list.attr_value_id,
+            d: $data.arr.indexOf(list.attr_value_id) != -1 ? "red" : "#333"
           };
         }),
-        c: item.attr_id
+        e: common_vendor.n($data.flag1 ? $data.current == idx ? "active" : "attr_text" : false),
+        f: item.attr_id
       };
     }),
-    w: common_vendor.t($data.flag1 ? "\u53EF\u591A\u9009" : "\u67E5\u770B\u5168\u90E8"),
-    x: common_vendor.o((...args) => $options.show1Tag && $options.show1Tag(...args)),
-    y: !$data.flag1 ? 1 : "",
-    z: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
-    A: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
-    B: common_vendor.sr("showRight", "cdccd9b4-7"),
-    C: common_vendor.p({
+    w: common_vendor.o((...args) => $options.onminPrice && $options.onminPrice(...args)),
+    x: $data.minvalue,
+    y: common_vendor.o((...args) => $options.onmaxPrice && $options.onmaxPrice(...args)),
+    z: $data.maxvalue,
+    A: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    B: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    C: common_vendor.sr("showRight", "cdccd9b4-7"),
+    D: common_vendor.p({
       mode: "right",
       width: "320",
       ["mask-click"]: true
     }),
-    D: common_vendor.f($data.brand, (item, index, i0) => {
+    E: common_vendor.f($data.brand, (item, index, i0) => {
       return {
         a: common_vendor.t(item.brand_name),
-        b: "cdccd9b4-10-" + i0 + ",cdccd9b4-9",
-        c: index == $data.num ? 1 : "",
-        d: item.brand_id,
-        e: common_vendor.o(($event) => $options.iconClick(index), item.brand_id)
+        b: common_vendor.o(($event) => $options.addB(item.brand_id)),
+        c: $data.brr.indexOf(item.brand_id) != -1 ? "red" : "#333",
+        d: "cdccd9b4-10-" + i0 + ",cdccd9b4-9",
+        e: $data.brr.indexOf(item.brand_id) != -1 ? $data.isChoose : $data.noChoose,
+        f: item.brand_id
       };
     }),
-    E: common_vendor.p({
+    F: common_vendor.p({
       type: "checkmarkempty",
       color: "red",
       size: "20"
     }),
-    F: common_vendor.p({
+    G: common_vendor.p({
+      block: true
+    }),
+    H: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    I: common_vendor.p({
       type: "danger",
       block: true
     }),
-    G: common_vendor.p({
+    J: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    K: common_vendor.p({
       title: "\u54C1\u724C"
     }),
-    H: common_vendor.f($data.attr, (item, k0, i0) => {
+    L: common_vendor.f($data.attr, (item, k0, i0) => {
       return {
         a: common_vendor.f(item.attr_list, (att, idx, i1) => {
           return {
             a: common_vendor.t(att.attr_value),
-            b: "cdccd9b4-13-" + i0 + "-" + i1 + "," + ("cdccd9b4-12-" + i0),
-            c: idx == $data.num ? 1 : "",
-            d: common_vendor.o(($event) => $options.thenClick(idx))
+            b: common_vendor.o(($event) => $options.addA(att.attr_value_id)),
+            c: $data.arr.indexOf(att.attr_value_id) != -1 ? "red" : "#333",
+            d: "cdccd9b4-14-" + i0 + "-" + i1 + "," + ("cdccd9b4-13-" + i0),
+            e: $data.arr.indexOf(att.attr_value_id) != -1 ? $data.isChoose : $data.noChoose,
+            f: att.attr_value_id
           };
         }),
-        b: "cdccd9b4-14-" + i0 + "," + ("cdccd9b4-12-" + i0),
-        c: item.attr_id,
-        d: "cdccd9b4-12-" + i0 + ",cdccd9b4-8",
-        e: common_vendor.p({
+        b: "cdccd9b4-15-" + i0 + "," + ("cdccd9b4-13-" + i0),
+        c: "cdccd9b4-16-" + i0 + "," + ("cdccd9b4-13-" + i0),
+        d: item.attr_id,
+        e: "cdccd9b4-13-" + i0 + ",cdccd9b4-8",
+        f: common_vendor.p({
           title: item.attr_name
         })
       };
     }),
-    I: common_vendor.p({
+    M: common_vendor.p({
       type: "checkmarkempty",
       color: "red",
       size: "20"
     }),
-    J: common_vendor.p({
+    N: common_vendor.p({
+      block: true
+    }),
+    O: common_vendor.o((...args) => $options.reset && $options.reset(...args)),
+    P: common_vendor.p({
       type: "danger",
       block: true
     }),
-    K: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
-    L: common_vendor.p({
+    Q: common_vendor.o((...args) => $options.sure && $options.sure(...args)),
+    R: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
+    S: common_vendor.p({
       Goods: $data.Goods,
-      price: $data.price
+      price: $data.price,
+      psort: $data.psort
     }),
-    M: !$data.flag
+    T: !$data.flag
   }, !$data.flag ? {
-    N: common_vendor.p({
+    U: common_vendor.p({
       status: "loading"
     })
   } : {
-    O: common_vendor.p({
+    V: common_vendor.p({
       status: "noMore"
     })
   });

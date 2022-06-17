@@ -1,16 +1,15 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
-  props: ["Goods", "price"],
+  props: ["Goods", "price", "psort"],
   name: "goodList",
   data() {
-    return {};
+    return {
+      array: []
+    };
   },
   updated() {
-    let array = [];
-    for (var m = 0, n = 0; m < this.price.length; m++, n++) {
-      array.push(Object.assign(this.Goods[n], { shop_price: this.price[m].shop_price }));
-    }
+    this.getgoodlist();
   },
   methods: {
     togoodsdetail(id) {
@@ -23,12 +22,28 @@ const _sfc_main = {
         complete: () => {
         }
       });
+    },
+    getgoodlist() {
+      let array2 = [];
+      for (var m = 0, n = 0; m < this.price.length; m++, n++) {
+        array2.push(Object.assign(this.Goods[n], { shop_price: this.price[m].shop_price }));
+      }
+      this.array = array2;
+      if (this.psort == 1) {
+        this.array.sort((a, b) => {
+          return a.shop_price - b.shop_price;
+        });
+      } else if (this.psort == 2) {
+        this.array.sort((a, b) => {
+          return b.shop_price - a.shop_price;
+        });
+      }
     }
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.f($props.Goods, (item, k0, i0) => {
+    a: common_vendor.f($data.array, (item, k0, i0) => {
       return {
         a: item.goods_img_url,
         b: common_vendor.t(item.goods_name),

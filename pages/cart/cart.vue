@@ -55,8 +55,7 @@
 								</view>
 								<view class="jisuan">
 									<text class="price">{{i.shop_price}}</text>
-									<view class="num">
-									
+									<view class="num">									
 											<uni-number-box @change="changeValue" />
 										
 									</view>	

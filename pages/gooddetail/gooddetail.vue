@@ -182,7 +182,6 @@
 				this.price=result.data.goods_info.shop_price
 				this.goodsNum=result.data.goods_info.goods_sn
 				this.result = result
-
 			},
 		
 			// 轮播图
@@ -243,13 +242,6 @@
 				this.goodsNum = this.goodsAttr[i].goods_sn
 				this.goodsId=this.goodsAttr[i].id
 			  },
-			
-			// 加入购物车
-			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
-			//2.如果用户已登录 用户选择对应商品后加入购物车
-			//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
-			//2）每个用户购物车详情不同，通过用户id判断购物车数据
-			//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
 			otherdetails(){
 				console.log(this.goodsId);
 				uni.navigateTo({
