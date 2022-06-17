@@ -10,7 +10,6 @@ if (!Math) {
   "./pages/me/me.js";
   "./pages/login/login.js";
   "./pages/set/set.js";
-  "./pages/brand_goods/brand_goods.js";
   "./pages/gooddetail/gooddetail.js";
   "./pages/good/good.js";
   "./pages/search/search.js";
@@ -20,6 +19,7 @@ if (!Math) {
   "./pages/address/address.js";
   "./pages/cart/cart.js";
   "./pages/mycollection/mycollection.js";
+  "./pages/orderdetail/orderdetail.js";
 }
 const _sfc_main = {
   onLaunch: function() {

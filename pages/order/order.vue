@@ -8,7 +8,7 @@
 				</view>
 				<view class="good-details">
 					<view class="tools">
-						<view class="goods" v-for="(item1,) in item.all_goods" :key="item1">
+						<view class="goods" v-for="(item1,) in item.all_goods" :key="item1" @click="goOrderdtail">
 							<!-- 单件商品 -->
 							<view class="good-del" v-if="item.all_goods.length == 1">
 								<view class="good-left">
@@ -52,6 +52,7 @@
 		},
 		created() {
 			this.order();
+			this.goOrderdtail(order_sn);
 		},
 		methods: {
 			async order() {
@@ -64,6 +65,11 @@
 			goCart() {
 				uni.navigateTo({
 					url: '/pages/cart/cart'
+				})
+			},
+			goOrderdtail(order_sn){
+				uni.navigateTo({
+					url:`/pages/orderdetail/orderdetail?order_sn=${order_sn}`
 				})
 			}
 		}
@@ -97,7 +103,7 @@
 			height: 190px;
 
 			.tools {
-				height: 70px;
+				height: 100px;
 				.goods {
 
 					// 单件商品

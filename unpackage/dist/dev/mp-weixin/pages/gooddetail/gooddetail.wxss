@@ -1,0 +1,246 @@
+.container.data-v-1c515af4 {
+  width: 100%;
+}
+.container .active.data-v-1c515af4 {
+  color: red;
+}
+.container .bg .swiper.data-v-1c515af4 {
+  height: 564rpx;
+  width: 100%;
+}
+.container .bg .swiper image.data-v-1c515af4 {
+  width: 100%;
+  height: 100%;
+}
+.container .info.data-v-1c515af4 {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 30rpx;
+}
+.container .info .price.data-v-1c515af4 {
+  color: red;
+  font-size: 52rpx;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+.container .info .name.data-v-1c515af4 {
+  font-size: 16px;
+}
+.container .info .subtitle.data-v-1c515af4 {
+  color: red;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.container .info .sale.data-v-1c515af4 {
+  display: flex;
+}
+.container .info .sale .salenum.data-v-1c515af4 {
+  flex: 1;
+}
+.container .info .sale .score.data-v-1c515af4 {
+  flex: 1;
+  text-align: center;
+}
+.container .info .sale .fromaddress.data-v-1c515af4 {
+  flex: 2;
+  text-align: end;
+}
+.container .market.data-v-1c515af4 {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 20rpx 0rpx;
+  padding: 30rpx;
+  font-size: 28rpx;
+}
+.container .market .hotsale.data-v-1c515af4 {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding-top: 10rpx;
+  padding-bottom: 20rpx;
+}
+.container .market .hotsale .cuxiao.data-v-1c515af4 {
+  flex: 2;
+  color: gray;
+}
+.container .market .hotsale .jieshao.data-v-1c515af4 {
+  flex: 6;
+  color: red;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.container .market .express.data-v-1c515af4 {
+  display: flex;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+}
+.container .market .express .address.data-v-1c515af4 {
+  font-size: 26rpx;
+}
+.container .market .express .yunfei.data-v-1c515af4 {
+  color: gray;
+  flex: 2;
+}
+.container .market .express .express_detail.data-v-1c515af4 {
+  flex: 6;
+}
+.container .market .express .express_detail .times.data-v-1c515af4 {
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+.container .market .express .express_detail .money.data-v-1c515af4 {
+  color: red;
+}
+.container .size.data-v-1c515af4 {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 20rpx 0rpx;
+  padding: 30rpx;
+  font-size: 28rpx;
+}
+.container .size .canshu.data-v-1c515af4 {
+  flex: 1;
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding-top: 10rpx;
+  padding-bottom: 20rpx;
+}
+.container .size .canshu .canshu1.data-v-1c515af4 {
+  color: gray;
+  flex: 2;
+}
+.container .size .canshu .canshu2.data-v-1c515af4 {
+  flex: 6;
+}
+.container .size .canshu .motaikuang.data-v-1c515af4 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 999;
+}
+.container .size .canshu .motaikuang .mask.data-v-1c515af4 {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+.container .size .canshu .motaikuang .bottomPopup.data-v-1c515af4 {
+  width: 100%;
+  height: 70%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1001;
+  background: #fff;
+  border-radius: 5px 5px 0px 0px;
+}
+.container .size .canshu .motaikuang .bottomPopup .close.data-v-1c515af4 {
+  position: absolute;
+  top: 0rpx;
+  right: 20rpx;
+  font-size: 50rpx;
+  color: #999;
+  z-index: 1002;
+}
+.container .size .canshu .motaikuang .bottomPopup .popupHead.data-v-1c515af4 {
+  width: 94%;
+  height: auto;
+  margin: 0px auto;
+  border-bottom: 1px #eee solid;
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx 0px;
+}
+.container .size .canshu .motaikuang .bottomPopup .popupHead .headImg image.data-v-1c515af4 {
+  width: 280rpx;
+  margin-top: -100rpx;
+}
+.container .size .canshu .motaikuang .bottomPopup .popupHead .text .headPrice.data-v-1c515af4 {
+  color: red;
+  font-size: 44rpx;
+}
+.container .size .canshu .motaikuang .bottomPopup .popupHead .text .headNum.data-v-1c515af4 {
+  color: #999;
+  font-size: 24rpx;
+}
+.container .size .canshu .motaikuang .bottomPopup .guige.data-v-1c515af4 {
+  color: #999;
+}
+.container .size .canshu .motaikuang .bottomPopup .motaikuangsize .sizevalue.data-v-1c515af4 {
+  width: 20%;
+  border: 1px solid lightgrey;
+  margin: 10rpx;
+  padding: 20rpx;
+}
+.container .size .canshu .motaikuang .queding.data-v-1c515af4 {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1003;
+}
+.container .size .canshu .motaikuang .queding .sure.data-v-1c515af4 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #E31D1A;
+  letter-spacing: 3px;
+}
+.container .size .caizhi.data-v-1c515af4 {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+}
+.container .size .caizhi .caizhi1.data-v-1c515af4 {
+  flex: 2;
+  color: gray;
+}
+.container .size .caizhi .caizhi2.data-v-1c515af4 {
+  flex: 6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.container .service.data-v-1c515af4 {
+  display: flex;
+  background-color: #fff;
+  margin: 20rpx 0rpx;
+  padding: 30rpx;
+  font-size: 28rpx;
+}
+.container .service .service1.data-v-1c515af4 {
+  color: gray;
+  flex: 2;
+}
+.container .service .service2.data-v-1c515af4 {
+  flex: 6;
+}
+.container .service .service2 text.data-v-1c515af4 {
+  padding-right: 40rpx;
+}
+.container .goods-carts.data-v-1c515af4 {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

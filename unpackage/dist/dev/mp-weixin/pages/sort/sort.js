@@ -31,6 +31,11 @@ const _sfc_main = {
       this.lists = result.data;
       console.log(this.lists, "xxxxxxxxx");
     },
+    goCart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart"
+      });
+    },
     goGood(pinyin, chinese) {
       pinyin = pinyin.split("-")[1].split("/")[0];
       common_vendor.index.navigateTo({
@@ -88,7 +93,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       cancelButton: "none"
     }),
     c: common_vendor.o((...args) => _ctx.tosearch && _ctx.tosearch(...args)),
-    d: common_vendor.o(_ctx.tocart),
+    d: common_vendor.o($options.goCart),
     e: common_vendor.p({
       type: "cart",
       size: "30"
