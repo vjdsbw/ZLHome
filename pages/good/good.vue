@@ -88,7 +88,7 @@
 					<view class="last">
 						<van-dropdown-menu>
 
-							<van-dropdown-item  id="item1" title="品牌">
+							<van-dropdown-item  class="item" title="品牌">
 								<view class="title" v-for="(item,index) in brand" :key="item.brand_id">
 									<view class="name" @click="addB(item.brand_id)"
 									
@@ -114,11 +114,11 @@
 								</view>
 
 							</van-dropdown-item>
-							<van-dropdown-item id="item" v-for="item in attr" :key="item.attr_id"
+							<van-dropdown-item class="item" v-for="item in attr" :key="item.attr_id"
 								:title="item.attr_name">
 
 								<view class="title" v-for="(att,idx) in item.attr_list" :key="att.attr_value_id">
-									<view class="name" @click="addA(att.attr_value_id)"
+									<view class="name" @click="addA(att.attr_value_id,idx)"
 										:style="{'color':(arr.indexOf(att.attr_value_id)!=-1?'red':'#333')}">
 
 										{{att.attr_value}}
@@ -226,6 +226,9 @@
 			} else {
 				this.temp = 0
 			}
+			this.selectAllComponents(".item").map((item)=>{
+				item.toggle(false)
+			})
 		},
 		created() {
 			this.getgoodList();
@@ -327,7 +330,6 @@
 					this.arr = this.arr.filter(item => item !== m)				
 				} else {
 					this.arr.push(m)					
-
 				}
 				console.log(this.arr);
 				this.currents=n;
@@ -368,8 +370,10 @@
 				this.Goods = [];
 				this.getgoodList();
 				this.$refs.showRight.close();
-				// this.selectComponent('#item').toggle();
-				// this.selectComponent('#item1').toggle();
+				this.selectAllComponents(".item").map((item)=>{
+					item.toggle(false)
+				})
+
 			},
 			//销量
 			currentClick(k) {

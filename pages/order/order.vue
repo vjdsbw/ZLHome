@@ -1,14 +1,14 @@
 <template>
 	<van-tabs active="{{ active }}" :change="onChange">
 		<van-tab title="全部">
-			<view class="order" v-for="(item,index) in list" :key="item" @click="goOrderdtail(item.order_sn)" >
+			<view class="order" v-for="(item,index) in list" :key="item" @click="goOrderdtail(item.order_sn)">
 				<view class="customer-info">
 					<view class="nameinfo">{{item.consignee}} {{item.tel}}</view>
 					<view class="order-status">{{item.order_status_string}}</view>
 				</view>
 				<view class="good-details">
 					<view class="tools">
-						<view class="goods" v-for="(item1,) in item.all_goods" :key="item1" >
+						<view class="goods" v-for="(item1,) in item.all_goods" :key="item1">
 							<!-- 单件商品 -->
 							<view class="good-del" v-if="item.all_goods.length == 1">
 								<view class="good-left">
@@ -19,7 +19,7 @@
 							</view>
 							<!-- 多件商品 -->
 							<view class="goods-del" v-else="item.all_goods.length != 1">
-								<image :src="item1.goods_thumb_url" class="imgs"></image>
+									<image :src="item1.goods_thumb_url" class="imgs"></image>
 							</view>
 						</view>
 					</view>
@@ -47,7 +47,7 @@
 		data() {
 			return {
 				list: [],
-				length:[],
+				length: [],
 			}
 		},
 		created() {
@@ -57,17 +57,17 @@
 			async order() {
 				let result = await requestPost("/api/api/order_list?XcxSessKey=%20&company_id=7194");
 				this.list = result.data.list
-				this.list.forEach(item=>this.length.push(item.all_goods.length))
-		
+				this.list.forEach(item => this.length.push(item.all_goods.length))
+
 			},
 			goCart() {
 				uni.navigateTo({
 					url: '/pages/cart/cart'
 				})
 			},
-			goOrderdtail(order_sn){
+			goOrderdtail(order_sn) {
 				uni.navigateTo({
-					url:`/pages/orderdetail/orderdetail?order_sn=${order_sn}`
+					url: `/pages/orderdetail/orderdetail?order_sn=${order_sn}`
 				})
 			}
 		}
@@ -102,6 +102,7 @@
 
 			.tools {
 				height: 100px;
+
 				.goods {
 
 					// 单件商品
