@@ -118,6 +118,11 @@ const _sfc_main = {
     onClick(e) {
       let user = common_vendor.index.getStorageSync("user");
       if (user) {
+        if (e.index == 3) {
+          common_vendor.index.navigateTo({
+            url: "/pages/cart/cart"
+          });
+        }
         if (e.index == 2) {
           if (this.optionsgwc[e.index].icon == "star") {
             this.optionsgwc[e.index].icon = "star-filled";

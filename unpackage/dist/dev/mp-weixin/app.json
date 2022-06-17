@@ -31,7 +31,8 @@
     "van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index",
     "van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
     "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index",
-    "van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
+    "van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index",
+    "van-stepper": "/wxcomponents/vant/dist/stepper/index"
   },
   "window": {
     "navigationBarTextStyle": "black",

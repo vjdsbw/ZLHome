@@ -281,7 +281,6 @@
 							}
 							this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
 						}
-
 						//通过goods-ids拿到价格
 						let result2 = await requestGet("/api/api/goods/get_price", {
 							goods_ids: this.goods_ids

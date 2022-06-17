@@ -247,6 +247,11 @@
 			onClick(e) {
 				let user = uni.getStorageSync('user')
 				if (user) {
+					if(e.index==3){
+						uni.navigateTo({
+							url:'/pages/cart/cart'
+						})
+					}
 					if (e.index == 2) {
 						if (this.optionsgwc[e.index].icon == "star") {
 							this.optionsgwc[e.index].icon = "star-filled"
@@ -381,7 +386,7 @@
 
 				.jiaobiao {
 					position: absolute;
-					left: 400rpx;
+					left: 425rpx;
 					top: -12rpx;
 					z-index: 999999999999999999;
 				}
