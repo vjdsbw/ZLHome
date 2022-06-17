@@ -61,6 +61,9 @@ const _sfc_main = {
     } else {
       this.temp = 0;
     }
+    this.selectAllComponents(".item").map((item) => {
+      item.toggle(false);
+    });
   },
   created() {
     this.getgoodList();
@@ -187,6 +190,9 @@ const _sfc_main = {
       this.Goods = [];
       this.getgoodList();
       this.$refs.showRight.close();
+      this.selectAllComponents(".item").map((item) => {
+        item.toggle(false);
+      });
     },
     currentClick(k) {
       this.flage = !this.flage;
@@ -400,7 +406,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: common_vendor.f(item.attr_list, (att, idx, i1) => {
           return {
             a: common_vendor.t(att.attr_value),
-            b: common_vendor.o(($event) => $options.addA(att.attr_value_id)),
+            b: common_vendor.o(($event) => $options.addA(att.attr_value_id, idx)),
             c: $data.arr.indexOf(att.attr_value_id) != -1 ? "red" : "#333",
             d: "cdccd9b4-14-" + i0 + "-" + i1 + "," + ("cdccd9b4-13-" + i0),
             e: $data.arr.indexOf(att.attr_value_id) != -1 ? $data.isChoose : $data.noChoose,
