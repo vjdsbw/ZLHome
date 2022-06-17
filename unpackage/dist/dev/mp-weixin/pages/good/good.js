@@ -49,6 +49,9 @@ const _sfc_main = {
     } else {
       this.temp = 0;
     }
+    this.selectAllComponents(".item").map((item) => {
+      item.toggle(false);
+    });
   },
   created() {
   },
@@ -174,6 +177,11 @@ const _sfc_main = {
     },
     thenClick(idx) {
       this.num = idx;
+    },
+    colseMun() {
+      this.selectAllComponents(".item").map((item) => {
+        item.toggle(false);
+      });
     }
   },
   onReachBottom() {
@@ -325,10 +333,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "danger",
       block: true
     }),
-    G: common_vendor.p({
+    G: common_vendor.o((...args) => $options.colseMun && $options.colseMun(...args)),
+    H: common_vendor.p({
       title: "\u54C1\u724C"
     }),
-    H: common_vendor.f($data.attr, (item, k0, i0) => {
+    I: common_vendor.f($data.attr, (item, k0, i0) => {
       return {
         a: common_vendor.f(item.attr_list, (att, idx, i1) => {
           return {
@@ -346,27 +355,28 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    I: common_vendor.p({
+    J: common_vendor.p({
       type: "checkmarkempty",
       color: "red",
       size: "20"
     }),
-    J: common_vendor.p({
+    K: common_vendor.p({
       type: "danger",
       block: true
     }),
-    K: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
-    L: common_vendor.p({
+    L: common_vendor.o((...args) => $options.colseMun && $options.colseMun(...args)),
+    M: common_vendor.n($data.temp == 1 ? "boxStyle" : ""),
+    N: common_vendor.p({
       Goods: $data.Goods,
       price: $data.price
     }),
-    M: !$data.flag
+    O: !$data.flag
   }, !$data.flag ? {
-    N: common_vendor.p({
+    P: common_vendor.p({
       status: "loading"
     })
   } : {
-    O: common_vendor.p({
+    Q: common_vendor.p({
       status: "noMore"
     })
   });

@@ -137,12 +137,13 @@
 	export default {
 		data() {
 			return {
-				order_sn: "2022061495159",
+				order_sn: "",
 				order_info: {},
 				order_goods_info: []
 			}
 		},
-		created() {
+		onLoad(options) {
+			this.order_sn=options.order_sn
 			this.orderdetails()
 		},
 		methods: {
@@ -152,8 +153,6 @@
 				});
 				this.order_info = result.data.order_info;
 				this.order_goods_info = result.data.order_goods_info
-				console.log(this.order_info, "xxxxxxxxx");
-				console.log(this.order_goods_info, "11111111111111");
 			},
 			goCart(){
 				uni.navigateTo({
