@@ -107,12 +107,15 @@
 				<text>售后服务</text><text>极速发货</text><text>贵就赔</text>
 			</view>
 		</view>
+
 		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
-				<uni-goods-nav :options="options" :fill="true" :button-group="buttonGroup" @buttonClick="buttonClick" />
+				<uni-goods-nav :options="options" :fill="true" :button-group="buttonGroup" @click="onClick"
+					@buttonClick="buttonClick" />
 			</view>
 		</view>
+
 	</view>
 </template>
 
@@ -169,19 +172,25 @@
 		},
 		methods: {
 			async getGoodDetail() {
+				console.log(this.goods_id)
 				let result = await requestGet(
+
 					"/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id="+this.goodsId)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
+				console.log(result.data.goods_info,'22222222222222222222')
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
 
+				
+				console.log(result.data.goods_attr.goods,'eeeeeeeeeeeeeeeeeeeeeeeeeee')
 				this.goodsAttr=result.data.goods_attr.goods
 				this.img=result.data.goods_info.goods_img_url
 				this.price=result.data.goods_info.shop_price
-				this.goodsNum=result.data.goods_info.goods_sn
+				this.goodsNum=result.data.goods_info.goods_sn 
 				this.result = result
+
 			},
 		
 			// 轮播图
@@ -199,29 +208,34 @@
 			},
 			//tab切换
 			onTabChange(event) {
-				// console.log(event.detail);
 				wx.showToast({
 					title: `切换到标签 ${event.detail.name}`,
 					icon: 'none',
-			 });
+				});
 			},
 			// 商品tabbar
-			buttonClick() {
-				let result = uni.getStorageSync('user')
-				if (result) {
-					
-				} else {
-					uni.showToast({
-						title: '请先登录',
-						image:'/static/icon/err.png',
-						duration: 2000
+			onClick(e) {
+				if(e.index==0){
+					uni.switchTab({
+					    url: '/pages/index/index'
 					});
-					setTimeout(() => {
-						uni.navigateTo({
-							url: '/pages/login/login',
-						})
-					}, 2000)
 				}
+				if(e.index==1){
+					uni.switchTab({
+					    url: '/pages/sort/sort'
+					});
+				}
+				// 点击购物车按钮，判断用户是否登录 如果登录直接跳转到购物车页面，如果没有登录购物车页面显示未登录
+				if(e.index==2){
+					uni.navigateTo({
+						 url: '/pages/carts/carts'
+					})
+				}
+				
+			},
+			buttonClick(e) {
+				console.log(e)
+				this.options[2].info++
 			},
 			// 模态框
 			showMotaikuang(){
@@ -244,7 +258,7 @@
 				
 			}
 		},
-		
+
 	}
 </script>
 
@@ -256,50 +270,61 @@
 		}
 		.bg {
 			.search {}
+
 			.swiper {
 				height: 564rpx;
 				width: 100%;
+
 				image {
 					width: 100%;
 					height: 100%;
 				}
 			}
 		}
+
 		.info {
 			display: flex;
 			flex-direction: column;
 			background-color: #fff;
 			padding: 30rpx;
+
 			.price {
 				color: red;
 				font-size: 52rpx;
 				margin-top: 10rpx;
 				margin-bottom: 10rpx;
 			}
+
 			.name {
 				font-size: 16px;
 			}
+
 			.subtitle {
 				color: red;
 				font-size: 28rpx;
 				margin-top: 20rpx;
 				margin-bottom: 20rpx;
 			}
+
 			.sale {
 				display: flex;
+
 				.salenum {
 					flex: 1;
 				}
+
 				.score {
 					flex: 1;
 					text-align: center;
 				}
+
 				.fromaddress {
 					flex: 2;
 					text-align: end;
 				}
 			}
 		}
+
 		.market {
 			display: flex;
 			flex-direction: column;
@@ -307,15 +332,18 @@
 			margin: 20rpx 0rpx;
 			padding: 30rpx;
 			font-size: 28rpx;
+
 			.hotsale {
 				display: flex;
 				border-bottom: 1px solid lightgray;
 				padding-top: 10rpx;
 				padding-bottom: 20rpx;
+
 				.cuxiao {
 					flex: 2;
 					color: gray;
 				}
+
 				.jieshao {
 					flex: 6;
 					color: red;
@@ -324,29 +352,36 @@
 					white-space: nowrap;
 				}
 			}
+
 			.express {
 				display: flex;
 				padding-top: 20rpx;
 				padding-bottom: 10rpx;
+
 				.address {
 					font-size: 26rpx;
 				}
+
 				.yunfei {
 					color: gray;
 					flex: 2;
 				}
+
 				.express_detail {
 					flex: 6;
+
 					.times {
 						padding-top: 10rpx;
 						padding-bottom: 10rpx;
 					}
+
 					.money {
 						color: red;
 					}
 				}
 			}
 		}
+
 		.size {
 			display: flex;
 			flex-direction: column;
@@ -354,12 +389,14 @@
 			margin: 20rpx 0rpx;
 			padding: 30rpx;
 			font-size: 28rpx;
+
 			.canshu {
 				flex: 1;
 				display: flex;
 				border-bottom: 1px solid lightgray;
 				padding-top: 10rpx;
 				padding-bottom: 20rpx;
+
 				.canshu1 {
 					color: gray;
 					flex: 2;
@@ -462,15 +499,18 @@
 						}
 				}
 			}
+
 			.caizhi {
 				display: flex;
 				flex-direction: row;
 				padding-top: 20rpx;
 				padding-bottom: 10rpx;
+
 				.caizhi1 {
 					flex: 2;
 					color: gray;
 				}
+
 				.caizhi2 {
 					flex: 6;
 					overflow: hidden;
@@ -479,18 +519,22 @@
 				}
 			}
 		}
+
 		.service {
 			display: flex;
 			background-color: #fff;
 			margin: 20rpx 0rpx;
 			padding: 30rpx;
 			font-size: 28rpx;
+
 			.service1 {
 				color: gray;
 				flex: 2;
 			}
+
 			.service2 {
 				flex: 6;
+
 				text {
 					padding-right: 40rpx;
 				}

@@ -50,12 +50,15 @@ const _sfc_main = {
   },
   methods: {
     async getGoodDetail() {
+      console.log(this.goods_id);
       let result = await common_js_http.requestGet("/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id=" + this.goodsId);
       this.swiperImg = result.data.goods_main_image;
       this.goodsInfo = result.data.goods_info;
+      console.log(result.data.goods_info, "22222222222222222222");
       this.fromaddress = result.data.address_name;
       this.toaddress = result.data.local_address;
       this.attrs = result.data.attr_list;
+      console.log(result.data.goods_attr.goods, "eeeeeeeeeeeeeeeeeeeeeeeeeee");
       this.goodsAttr = result.data.goods_attr.goods;
       this.img = result.data.goods_info.goods_img_url;
       this.price = result.data.goods_info.shop_price;
@@ -80,22 +83,26 @@ const _sfc_main = {
         icon: "none"
       });
     },
-    buttonClick() {
-      let result = common_vendor.index.getStorageSync("user");
-      if (result)
-        ;
-      else {
-        common_vendor.index.showToast({
-          title: "\u8BF7\u5148\u767B\u5F55",
-          image: "/static/icon/err.png",
-          duration: 2e3
+    onClick(e) {
+      if (e.index == 0) {
+        common_vendor.index.switchTab({
+          url: "/pages/index/index"
         });
-        setTimeout(() => {
-          common_vendor.index.navigateTo({
-            url: "/pages/login/login"
-          });
-        }, 2e3);
       }
+      if (e.index == 1) {
+        common_vendor.index.switchTab({
+          url: "/pages/sort/sort"
+        });
+      }
+      if (e.index == 2) {
+        common_vendor.index.navigateTo({
+          url: "/pages/carts/carts"
+        });
+      }
+    },
+    buttonClick(e) {
+      console.log(e);
+      this.options[2].info++;
     },
     showMotaikuang() {
       this.showmotai = true;
@@ -165,8 +172,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     B: common_vendor.p({
       result: $data.result
     }),
-    C: common_vendor.o($options.buttonClick),
-    D: common_vendor.p({
+    C: common_vendor.o($options.onClick),
+    D: common_vendor.o($options.buttonClick),
+    E: common_vendor.p({
       options: $data.options,
       fill: true,
       ["button-group"]: $data.buttonGroup
