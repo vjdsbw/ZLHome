@@ -75,16 +75,13 @@
 						</view>
 						<view class="guige">规格</view>
 						<view class="motaikuangsize" @click="chooseSize">
-							<view class="sizevalue" v-for="(item,index) in goodsAttr" 
-							:key="item.id" 
-							:class="{active: isActive === index}"
-							@click="changeClass(index)">
-							{{item.size}}
+							<view class="sizevalue" v-for="(item,index) in goodsAttr" :key="item.id" :class="{active: isActive === index}" @click="changeClass(index)">
+								{{item.size}}
 							</view>
 						</view>
 					</view>
 					<view class="queding">
-						<view class="sure" @click="addToCarts">确定</view>
+						<view class="sure" @click="otherdetails()">确定</view>
 					</view>
 				</view>
 				<!-- 模态框 -->
@@ -162,7 +159,7 @@
 			}
 		},
 		created() {
-			console.log("ccccccccccccccccccccccccc")
+			
 		},
 		onLoad(options){
 			this.goodsId=options.id
@@ -188,7 +185,7 @@
 				this.goodsAttr=result.data.goods_attr.goods
 				this.img=result.data.goods_info.goods_img_url
 				this.price=result.data.goods_info.shop_price
-				this.goodsNum=result.data.goods_info.goods_sn 
+				this.goodsNum=result.data.goods_info.goods_sn
 				this.result = result
 
 			},
@@ -246,6 +243,10 @@
 			},
 			changeClass(i) {
 			    this.isActive = i;
+				this.img = this.goodsAttr[i].goods_img_url
+				this.price = this.goodsAttr[i].shop_price
+				this.goodsNum = this.goodsAttr[i].goods_sn
+				this.goodsId=this.goodsAttr[i].id
 			  },
 			
 			// 加入购物车
@@ -254,8 +255,14 @@
 			//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
 			//2）每个用户购物车详情不同，通过用户id判断购物车数据
 			//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
-			addToCarts(){
-				
+			otherdetails(){
+				console.log(this.goodsId);
+				uni.navigateTo({
+					url: `/pages/gooddetail/gooddetail?id=${this.goodsId}`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		},
 
@@ -472,10 +479,11 @@
 									}
 									.motaikuangsize {
 										.sizevalue {
-											width: 20%;
+											width: 30%;
 											border: 1px solid lightgrey;
 											margin: 10rpx;
 											padding: 20rpx;
+											float: left;
 										}
 									}	
 							}

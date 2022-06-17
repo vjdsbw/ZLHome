@@ -180,10 +180,11 @@
   color: #999;
 }
 .container .size .canshu .motaikuang .bottomPopup .motaikuangsize .sizevalue.data-v-1c515af4 {
-  width: 20%;
+  width: 30%;
   border: 1px solid lightgrey;
   margin: 10rpx;
   padding: 20rpx;
+  float: left;
 }
 .container .size .canshu .motaikuang .queding.data-v-1c515af4 {
   width: 100%;

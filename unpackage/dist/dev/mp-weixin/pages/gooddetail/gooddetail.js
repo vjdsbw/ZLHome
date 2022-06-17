@@ -40,7 +40,6 @@ const _sfc_main = {
     };
   },
   created() {
-    console.log("ccccccccccccccccccccccccc");
   },
   onLoad(options) {
     this.goodsId = options.id;
@@ -112,8 +111,22 @@ const _sfc_main = {
     },
     changeClass(i) {
       this.isActive = i;
+      this.img = this.goodsAttr[i].goods_img_url;
+      this.price = this.goodsAttr[i].shop_price;
+      this.goodsNum = this.goodsAttr[i].goods_sn;
+      this.goodsId = this.goodsAttr[i].id;
     },
-    addToCarts() {
+    otherdetails() {
+      console.log(this.goodsId);
+      common_vendor.index.navigateTo({
+        url: `/pages/gooddetail/gooddetail?id=${this.goodsId}`,
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
     }
   }
 };
@@ -167,7 +180,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
-    A: common_vendor.o((...args) => $options.addToCarts && $options.addToCarts(...args))
+    A: common_vendor.o(($event) => $options.otherdetails())
   } : {}, {
     B: common_vendor.p({
       result: $data.result
