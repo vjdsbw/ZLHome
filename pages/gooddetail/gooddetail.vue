@@ -171,17 +171,12 @@
 			async getGoodDetail() {
 				console.log(this.goods_id)
 				let result = await requestGet(
-
 					"/api/api_goods?category_pinyin=undefined&XcxSessKey=%20&company_id=7194&goods_id="+this.goodsId)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
-				console.log(result.data.goods_info,'22222222222222222222')
 				this.fromaddress = result.data.address_name
 				this.toaddress = result.data.local_address
 				this.attrs = result.data.attr_list
-
-				
-				console.log(result.data.goods_attr.goods,'eeeeeeeeeeeeeeeeeeeeeeeeeee')
 				this.goodsAttr=result.data.goods_attr.goods
 				this.img=result.data.goods_info.goods_img_url
 				this.price=result.data.goods_info.shop_price

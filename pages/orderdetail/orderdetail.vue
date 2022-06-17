@@ -41,7 +41,6 @@
 					</view>
 				</view>
 			</view>
-
 		</view>
 		<view class="liu">
 			给卖家留言：{{}}
@@ -85,7 +84,7 @@
 				<view class="sn">
 					商品总金额：
 				</view>
-				<view class="sn2">
+				<view class="sn2-red">
 					￥{{order_info.goods_wholesale_amount}}
 				</view>
 			</view>
@@ -113,17 +112,17 @@
 					￥{{order_info.customer_install_price}}
 				</view>
 			</view>
-			<view class="ordersn">
-				<view class="sn">
+			<view class="ordersn2">
+				<view class="sn3">
 					订单总金额：
 				</view>
-				<view class="sn2">
+				<view class="sn4">
 					￥{{order_info.order_total_price}}
 				</view>
 			</view>
 		</view>
 		<view class="again">
-			<view class="button">
+			<view class="button" @click="goCart">
 				再次购买
 			</view>
 		</view>
@@ -138,12 +137,13 @@
 	export default {
 		data() {
 			return {
-				order_sn: "2022061495159",
+				order_sn: "",
 				order_info: {},
 				order_goods_info: []
 			}
 		},
-		created() {
+		onLoad(options) {
+			this.order_sn=options.order_sn
 			this.orderdetails()
 		},
 		methods: {
@@ -153,8 +153,11 @@
 				});
 				this.order_info = result.data.order_info;
 				this.order_goods_info = result.data.order_goods_info
-				console.log(this.order_info, "xxxxxxxxx");
-				console.log(this.order_goods_info, "11111111111111");
+			},
+			goCart(){
+				uni.navigateTo({
+					url:'/pages/cart/cart'
+				})
 			}
 		}
 	}
@@ -227,13 +230,49 @@
 					font-weight: 300;
 				}
 			}
+			.thum{
+				height: 100px;
+				width: 365px;
+				display: flex;
+				margin-bottom: 10px;
+				.goods_thumb_url{
+					width: 100px;
+					height: 60px;
+					padding-left: 5px;
+				}
+				.customer{
+					margin-left: 5px;
+					.goodsname{
+						font-size: 12px;
+						letter-spacing: 1px;
+					}
+					.price{
+						color: red;
+						font-size: 14px;
+						margin-top: 10px;
+					}
+					.number{
+						width: 283.225px;
+						color: #666;
+						font-size: 12px;
+						text-align: right;
+						position: relative;
+						bottom: 20px;
+						right: 5px;
+					}
+					.yunfei{
+						color: #666;
+						font-size: 12px;
+					}
+				}
+			}
 		}
 
 
 		.liu {
 			background-color: white;
 			height: 30px;
-			font-size: 13px;
+			font-size: 12px;
 			padding-left: 15px;
 			line-height: 30px;
 		}
@@ -245,7 +284,7 @@
 			padding-left: 15px;
 			padding-right: 8px;
 			font-size: 15px;
-			color: #919191;
+			color: #333;
 
 			.ordersn {
 				height: 30px;
@@ -258,7 +297,7 @@
 
 				.sn2 {
 					float: right;
-
+					color: black;
 				}
 			}
 		}
@@ -270,7 +309,8 @@
 			padding-left: 15px;
 			padding-right: 8px;
 			font-size: 15px;
-			color: #919191;
+			color: #333;
+			margin-bottom: 70px;
 
 			.ordersn {
 				height: 30px;
@@ -283,16 +323,36 @@
 
 				.sn2 {
 					float: right;
-
+				}
+				.sn2-red {
+					float: right;
+					color: red;
+				}
+			}
+			.ordersn2 {
+				height: 30px;
+				line-height: 30px;
+				padding-top: 5px;
+			
+				.sn3 {
+					float: left;
+				}
+			
+				.sn4 {
+					float: right;
+					color: black;
+					font-weight: 700;
 				}
 			}
 		}
 
 		.again {
-			hidth: 60px;
-			margin: 5px 0;
+			height: 50px;
+			width: 100%;
 			border-top: 1px solid #919191;
-			background-color: white;
+			background-color: #fff;
+			position: fixed;
+			bottom: 0px;
 
 			.button {
 				float: right;
@@ -302,7 +362,10 @@
 				border-radius: 5px 5px;
 				line-height: 30px;
 				text-align: center;
-				background-color: #dddddd;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				margin-top: 6px;
+				margin-bottom: 5px;
 			}
 		}
 
