@@ -41,7 +41,12 @@
             "urlCheck" : false,
             "es6" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
+        }
     },
     "vueVersion" : "3"
 }

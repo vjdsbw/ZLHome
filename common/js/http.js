@@ -23,21 +23,7 @@ export function requestGet(url, params) {
 		})
 	})
 }
-export function requestGetDelcart(url, params) {
-	return new Promise((resolve, reject) => {
-		uni.request({
-			url: url,
-			method: "GET",
-			data: params,
-			success: function(res) {
-				resolve(res.data)
-			},
-			fail: function(err) {
-				reject(err)
-			}
-		})
-	})
-}
+
 export function requestPost(url, params) {
 	return new Promise((resolve, reject) => {
 		// #ifdef MP-WEIXIN || APP-PLUS

@@ -109,7 +109,17 @@
 			}
 
 		}
-	],
+        ,{
+            "path" : "pages/orderdetail/orderdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "客户订单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

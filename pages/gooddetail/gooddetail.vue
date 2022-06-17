@@ -83,7 +83,7 @@
 						</view>
 					</view>
 					<view class="queding">
-						<view class="sure" @click="addToCarts">确定</view>
+						<view class="sure" @click="otherdetails()">确定</view>
 					</view>
 				</view>
 				<!-- 模态框 -->
@@ -106,6 +106,7 @@
 				<text>售后服务</text><text>极速发货</text><text>贵就赔</text>
 			</view>
 		</view>
+
 		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
 		<view class="uni-container">
 			<view class="goods-carts">
@@ -117,6 +118,7 @@
 					@buttonClick="buttonClick" />
 			</view>
 		</view>
+
 	</view>
 </template>
 
@@ -205,7 +207,6 @@
 				if (user) {
 					var flaghhh = true
 					var a = `${this.goodsId}:1`
-					var b = this.goodsId
 					let result = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
 					let addcart = await requestPost("/api/api/add_cart", {
 						"goods": a,
@@ -309,6 +310,7 @@
 				}
 			},
 			async getGoodDetail() {
+				console.log(this.goods_id)
 				let result = await requestGet(
 					`/api/api_goods?goods_id=${this.goods_id}`)
 				console.log(result);
@@ -324,6 +326,7 @@
 				this.img = result.data.goods_info.goods_img_url
 				this.price = result.data.goods_info.shop_price
 				this.goodsNum = result.data.goods_info.goods_sn
+
 			},
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
@@ -354,16 +357,22 @@
 				this.showmotai = false
 			},
 			changeClass(i) {
-				this.isActive = i;
-			},
-
-			// 加入购物车
-			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
-			//2.如果用户已登录 用户选择对应商品后加入购物车
-			//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
-			//2）每个用户购物车详情不同，通过用户id判断购物车数据
-			//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
-			addToCarts() {
+			    this.isActive = i;
+				this.img = this.goodsAttr[i].goods_img_url
+				this.price = this.goodsAttr[i].shop_price
+				this.goodsNum = this.goodsAttr[i].goods_sn
+				this.goodsId=this.goodsAttr[i].id
+			  },
+			
+		
+			otherdetails(){
+				console.log(this.goodsId);
+				uni.navigateTo({
+					url: `/pages/gooddetail/gooddetail?id=${this.goodsId}`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 
 			}
 		},
@@ -581,6 +590,68 @@
 							height: auto;
 							margin: 0px auto;
 							border-bottom: 1px #eee solid;
+							background: rgba(0, 0, 0, 0.4);
+							z-index: 1000;
+							}
+							.bottomPopup{
+								width: 100%;
+								height: 70%;
+								position: fixed;
+								bottom: 0px;
+								left: 0px;
+								right: 0px;
+								z-index: 1001;
+								background: #fff;
+								border-radius: 5px 5px 0px 0px;
+								.close {
+									position: absolute;
+									top: 0rpx;
+									right: 20rpx;
+									font-size: 50rpx;
+									color: #999;
+									z-index: 1002;
+									}
+								.popupHead {
+									width: 94%;
+									height: auto;
+									margin: 0px auto;
+									border-bottom: 1px #eee solid;
+									display: flex;
+									flex-direction: row;
+									padding: 20rpx 0px;
+									.headImg {
+										image{
+											width: 280rpx;
+											margin-top: -100rpx;
+										}
+									}
+									.text {
+										.headPrice {
+											color: red;
+											font-size: 44rpx;
+										}
+										.headNum {
+											color: #999;
+											font-size: 24rpx;
+											}
+										}	
+									}		
+									
+									.guige{
+										color: #999;
+									}
+									.motaikuangsize {
+										.sizevalue {
+											width: 30%;
+											border: 1px solid lightgrey;
+											margin: 10rpx;
+											padding: 20rpx;
+											float: left;
+										}
+									}	
+							}
+						.queding {
+							width: 100%;
 							display: flex;
 							flex-direction: row;
 							padding: 20rpx 0px;

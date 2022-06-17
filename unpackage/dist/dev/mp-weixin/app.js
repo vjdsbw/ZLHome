@@ -19,6 +19,7 @@ if (!Math) {
   "./pages/address/address.js";
   "./pages/cart/cart.js";
   "./pages/mycollection/mycollection.js";
+  "./pages/orderdetail/orderdetail.js";
 }
 const _sfc_main = {
   onLaunch: function() {

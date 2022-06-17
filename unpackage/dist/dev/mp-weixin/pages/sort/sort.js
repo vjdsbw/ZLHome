@@ -47,6 +47,11 @@ const _sfc_main = {
       let result = await common_js_http.requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194");
       this.lists = result.data;
     },
+    goCart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart"
+      });
+    },
     goGood(pinyin, chinese) {
       pinyin = pinyin.split("-")[1].split("/")[0];
       common_vendor.index.navigateTo({

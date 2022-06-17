@@ -87,6 +87,11 @@
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
 				this.lists = result.data
 			},
+			goCart(){
+				uni.navigateTo({
+					url:'/pages/cart/cart'
+				})
+			},
 			//跳转商品
 			goGood(pinyin, chinese) {
 				pinyin = pinyin.split("-")[1].split("/")[0];

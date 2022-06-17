@@ -76,7 +76,6 @@ const _sfc_main = {
       if (user) {
         var flaghhh = true;
         var a = `${this.goodsId}:1`;
-        this.goodsId;
         let result = await common_js_http.requestPost(`/api/api/cart?company_id=${user.company_id}`);
         await common_js_http.requestPost("/api/api/add_cart", {
           "goods": a,
@@ -179,6 +178,7 @@ const _sfc_main = {
       }
     },
     async getGoodDetail() {
+      console.log(this.goods_id);
       let result = await common_js_http.requestGet(`/api/api_goods?goods_id=${this.goods_id}`);
       console.log(result);
       this.swiperImg = result.data.goods_main_image;
@@ -220,8 +220,22 @@ const _sfc_main = {
     },
     changeClass(i) {
       this.isActive = i;
+      this.img = this.goodsAttr[i].goods_img_url;
+      this.price = this.goodsAttr[i].shop_price;
+      this.goodsNum = this.goodsAttr[i].goods_sn;
+      this.goodsId = this.goodsAttr[i].id;
     },
-    addToCarts() {
+    otherdetails() {
+      console.log(this.goodsId);
+      common_vendor.index.navigateTo({
+        url: `/pages/gooddetail/gooddetail?id=${this.goodsId}`,
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
     }
   }
 };
@@ -277,7 +291,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
-    A: common_vendor.o((...args) => $options.addToCarts && $options.addToCarts(...args))
+    A: common_vendor.o(($event) => $options.otherdetails())
   } : {}, {
     B: common_vendor.p({
       result: $data.result
