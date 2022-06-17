@@ -5,7 +5,7 @@
 			<uni-search-bar placeholder="输入商品分类、名称" :radius="100" @confirm="search" cancelButton="none"></uni-search-bar>
 		</view>
 		<view class="cart">
-			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
+			<uni-icons class="cart" type="cart" size="30" @click="goCart"></uni-icons>
 		</view>
 	</view>
 	<view class="container d-flex h-100">
@@ -68,6 +68,11 @@
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
 				this.lists = result.data
 				console.log(this.lists,"xxxxxxxxx");
+			},
+			goCart(){
+				uni.navigateTo({
+					url:'/pages/cart/cart'
+				})
 			},
 			//跳转商品
 			goGood(pinyin,chinese){
