@@ -12,7 +12,80 @@
 			</view>
 			<view v-show="!flag" class="cartshow">				
 				<view class="cart-text">
-					XXXXXXXXXXXXXXX
+					<view class="shop" v-for="item in goodsList" :key="item.name">
+						<view class="shopName">
+							
+							
+							<!-- 店铺-->
+							<view class="xuanze1" @click="selectedShop">
+								<checkbox-group>
+									<label>
+										<checkbox value="" :checked="shopchecked" @click="selectedShop"/>
+									</label>
+								</checkbox-group>
+							</view>
+							
+							
+							<view class="name">{{item.name}}</view>
+						</view>
+						<view class="goodsInfo" v-for="i in item.list" :key="i.id">
+							
+							
+							<!-- 店铺里的商品 -->
+							<view class="xuanze2" >
+								<checkbox-group>
+									<label>
+										<checkbox value="" :checked="goodschecked" @click="selectedGoods()"/>
+									</label>
+								</checkbox-group>
+							</view>
+							
+							
+							
+							
+							<view class="goodsImg">
+								<image :src="i.goods_img_xcx" mode="widthFix"></image>
+							</view>
+							<view class="goodsDetail">
+								<view class="jieshao">
+									{{i.goods_name}}
+								</view>
+								<view class="size">
+									<text>请选则规格</text>
+								</view>
+								<view class="jisuan">
+									<text class="price">{{i.shop_price}}</text>
+									<view class="num">
+									
+											<uni-number-box @change="changeValue" />
+										
+									</view>	
+								</view>		
+							</view>	
+						</view>
+					</view>
+					<!-- 结算金额 -->
+					<view class="end">
+						<view class="end-left">
+							
+							<view class="xuanze3" >
+								<checkbox-group>
+									<label>
+										<checkbox value="" :checked="quanxuanchecked" @click="selectedAll"/>
+									</label>
+									全选
+								</checkbox-group>
+							</view>
+							
+							
+							<view class="totalmoney">
+								合计<text>￥{{totalPrice}}</text>
+							</view>
+						</view>
+						<view class="end-right">
+							结算({{totaNum}})
+						</view>
+					</view>
 				</view>				
 			</view>
 		</view>
@@ -49,7 +122,17 @@
 		data() {
 			return {
 				likelist: [],
-				flag:true
+				flag:true,
+				goodsList:[],
+				//店铺里面的商品
+				goodsInshop:[],
+				//全选是否选中
+				goodschecked:false,
+				shopchecked:false,
+				quanxuanchecked:false,
+				//num选中个数
+				num:0,
+			
 			}
 		},
 		onShow() {
@@ -57,6 +140,8 @@
 		},
 		onLoad() {
 		
+		},
+		cerated(){
 		},
 		methods: {
 			async guesslike() {
@@ -66,7 +151,12 @@
 				if (user) {
 					this.flag= !this.flag;
 					let result = await requestPost("/api/api/cart?XcxSessKey=%20&company_id=7194");
-					console.log(result);
+					this.goodsList=result.data.goods_list
+					// console.log(this.goodsList)
+					this.goodsList.map((item)=>{
+						this.goodsInshop=item.list
+						console.log(this.goodsInshop,"xxxxxxxxxxxxxx")
+					})
 				}
 			},
 			tologin(){
@@ -76,8 +166,22 @@
 					fail: () => {},
 					complete: () => {}
 				});
-			}
-		}
+			},
+			
+			selectedGoods(){
+			
+			},
+			selectedShop(){
+				
+			},
+		
+			selectedAll(){
+				
+				
+			},
+			
+			
+		},
 	}
 </script>
 
@@ -107,6 +211,121 @@
 					line-height: 30px;
 					background-color: red;
 					border-radius: 50px 50px;
+				}
+			}
+			.cartshow {
+				background: #eee;
+				.cart-text{
+					.shop {
+						width: 100%;
+						min-height: 200rpx;
+						height: auto;
+						display: flex;
+						flex-direction: column;
+						padding: 20rpx;
+						margin-bottom:20rpx;
+						background: #fff;
+					/deep/.shopName {
+							flex:1;
+							display: flex;
+							justify-content: center;
+							margin-left:20rpx;
+							.xuanze1 {
+								flex: 1;
+							}
+							.name {
+								flex: 9;
+								font-size: 32rpx;
+							}
+						}
+						.goodsInfo {
+							flex: 3;
+							display: flex;
+							margin: 20rpx;
+							.xuanze2 {
+								flex: 1;
+							}
+							.goodsImg {
+								flex: 2;
+								image {
+									width: 150rpx;
+								}
+							}
+							.goodsDetail {
+								flex: 7;
+								display: flex;
+								flex-direction: column;
+								padding: 20rpx;
+								.jieshao {
+									font-size: 24rpx;
+									overflow:hidden; 
+									text-overflow:ellipsis;
+									display:-webkit-box; 
+									-webkit-box-orient:vertical;
+									-webkit-line-clamp:2; 
+								}
+								.size {
+									height: 40rpx;
+									width: 50%;
+									font-size: 24rpx;
+									border: 1px solid lightgray;
+									line-height: 40rpx;
+									text-align: center;
+									margin: 10rpx 0rpx;
+								}
+								.jisuan {
+									display: flex;
+									.price {
+										flex: 2;
+										color: red;
+										font-size: 28rpx;
+										padding-top: 20rpx;
+									}
+									/deep/.num {
+										padding-top: 20rpx;
+										flex: 1;
+										.uni-numbox {
+											justify-content: end;
+											width: 200rpx;	
+										}
+									}
+								}
+							}
+						}
+					}
+					.end {
+						width: 100%;
+						height: 90rpx;
+						background-color: #fff;
+						position: fixed;
+						bottom: 0rpx;
+						left: 0rpx;
+						display: flex;
+						padding-left: 30rpx;
+						font-size: 28rpx;
+						.end-left {
+							flex: 2;
+							display: flex;
+							line-height: 90rpx;
+							.xuanze3 {
+								flex: 2;
+							}
+							
+							.totalmoney {
+								flex: 3;
+								color: red;
+								text-align: center;
+							}
+						}
+						.end-right {
+							flex: 1;
+							background-color: red;
+							text-align: center;
+							line-height: 90rpx;
+							color: #fff;
+							
+						}
+					}
 				}
 			}
 		}
@@ -160,6 +379,8 @@
 					}
 				}
 			}
+		
 		}
+	
 	}
 </style>
