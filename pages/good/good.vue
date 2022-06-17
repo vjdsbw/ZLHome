@@ -1,6 +1,5 @@
 <template>
 	<view>
-
 		<view class="search">
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
@@ -40,8 +39,9 @@
 											<view class="choice" @click="showTag">{{flag?"可多选":"查看全部"}}</view>
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
-											<button v-for="item in brand" :key="item.brand_id" @click="addB(item.brand_id)">
-												<image :src="item.brand_logo_url" ></image>
+											<button v-for="item in brand" :key="item.brand_id"
+												@click="addB(item.brand_id)">
+												<image :src="item.brand_logo_url"></image>
 											</button>
 										</view>
 									</view>
@@ -81,7 +81,8 @@
 					<view class="last">
 						<van-dropdown-menu>
 							<van-dropdown-item id="item" title="品牌">
-								<view class="title" v-for="(item,index) in brand" :key="item.brand_id" @click="iconClick(index)">
+								<view class="title" v-for="(item,index) in brand" :key="item.brand_id"
+									@click="iconClick(index)">
 									<view class="name">
 										{{item.brand_name}}
 									</view>
@@ -95,7 +96,8 @@
 									</van-button>
 								</view>
 							</van-dropdown-item>
-							<van-dropdown-item id="item" v-for="item in attr" :key="item.attr_id" :title="item.attr_name">
+							<van-dropdown-item id="item" v-for="item in attr" :key="item.attr_id"
+								:title="item.attr_name">
 								<view class="title" v-for="(att,idx) in item.attr_list" @click="thenClick(idx)">
 									<view class="name">
 										{{att.attr_value}}
@@ -110,7 +112,7 @@
 									</van-button>
 								</view>
 							</van-dropdown-item>
-							
+
 
 						</van-dropdown-menu>
 					</view>
@@ -134,17 +136,12 @@
 	export default {
 		data() {
 			return {
-
-				num:null,
+				num: null,
 				temp: 0,
 				myScroll: 0,
 				type: '',
-
-				icons:false,
-
-
-				value: "xxx",
-
+				icons: false,
+				value: "",
 				flag: false,
 				flag1: true,
 				flage: false,
@@ -153,10 +150,10 @@
 				attr: [],
 				goods_ids: '',
 				price: [],
-				brr:[],
-				arr:[],
-				a:'',
-				b:'',
+				brr: [],
+				arr: [],
+				a: '',
+				b: '',
 				p: 1,
 				flag: true,
 				option1: [{
@@ -171,7 +168,6 @@
 				value1: 0,
 				//综合
 				psort: 0,
-
 			}
 		},
 		//品牌导航条固定在顶部
@@ -208,16 +204,15 @@
 				});
 			},
 			async getgoodList() {
-
 				//拿到商品列表
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
 					p: this.p,
-					a:this.a,
-					b:this.b
+					a: this.a,
+					b: this.b
 				})
-				if(result.data){
+				if (result.data) {
 					//商品第一行分类
-					this.brand =  result.data.brand_list
+					this.brand = result.data.brand_list
 					//商品第二行分类
 					this.attr = result.data.attr
 					//通过第一页的数据比较
@@ -226,15 +221,14 @@
 					}
 					//商品信息
 					this.Goods = [...this.Goods, ...result.data.goods_list]
-					
-					//把Goods里的goods_id拼接起来，传给goods_ids		
+					//把Goods里的goods_id拼接起来，传给goods_ids	
 					for (var i = 0; i < this.Goods.length; i++) {
 						if (i == 0) {
 							this.goods_ids = this.goods_ids + this.Goods[i].goods_id
 						}
 						this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
 					}
-					
+
 					//通过goods-ids拿到价格
 					let result2 = await requestGet("/api/api/goods/get_price", {
 						goods_ids: this.goods_ids
@@ -242,8 +236,6 @@
 					this.price = result2.data
 
 				}
-
-
 				//通过goods-ids拿到价格
 				let result2 = await requestGet("/api/api/goods/get_price", {
 					goods_ids: this.goods_ids
@@ -264,33 +256,33 @@
 			show1Tag() {
 				this.flag1 = !this.flag1;
 			},
-			addA(m){				
-				if(this.arr.includes(m)){
+			addA(m) {
+				if (this.arr.includes(m)) {
 					//过滤数组，返回不等于m的
-					this.arr =this.arr.filter(item => item !== m)
-				}else{
+					this.arr = this.arr.filter(item => item !== m)
+				} else {
 					this.arr.push(m)
 				}
 			},
-			addB(m){
-				if(this.brr.includes(m)){
-					this.brr =this.brr.filter(item => item !== m)
-				}else{
+			addB(m) {
+				if (this.brr.includes(m)) {
+					this.brr = this.brr.filter(item => item !== m)
+				} else {
 					this.brr.push(m)
 				}
 			},
-			reset(){
-				this.arr=[];
-				this.brr=[];
-				this.a='';
-				this.b='';
-				this.Goods=[];
+			reset() {
+				this.arr = [];
+				this.brr = [];
+				this.a = '';
+				this.b = '';
+				this.Goods = [];
 				this.getgoodList();
 			},
-			sure(){				
-				this.arr.forEach(item=>this.a=item+'^'+this.a)
-				this.brr.forEach(item=>this.b=item+'^'+this.b)
-				this.Goods=[];
+			sure() {
+				this.arr.forEach(item => this.a = item + '^' + this.a)
+				this.brr.forEach(item => this.b = item + '^' + this.b)
+				this.Goods = [];
 				this.getgoodList();
 			},
 			currentClick(k) {
@@ -320,11 +312,11 @@
 				this.price = [];
 				this.getgoodList();
 			},
-			iconClick(index){
-				this.num=index	
+			iconClick(index) {
+				this.num = index
 			},
-			thenClick(idx){
-				this.num=idx;
+			thenClick(idx) {
+				this.num = idx;
 			}
 		},
 		//上拉刷新
@@ -337,8 +329,8 @@
 		},
 
 		async onLoad(options) {
-		( options.name&&(!options.pinyin))?this.value = options.name:this.value
-		if (options.name&&options.v) {
+			(options.name && (!options.pinyin)) ? this.value = options.name: this.value
+			if (options.name && options.v) {
 				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
@@ -354,10 +346,26 @@
 					goods_ids: this.goods_ids
 				})
 				this.price = result2.data
-			} else if(options.pinyin) {
+			} else if (options.pinyin) {
 				this.type = options.pinyin;
-				 this.value = options.chinese;
-				 this.getgoodList();
+				this.value = options.chinese;
+				this.getgoodList();
+			}
+			else if(options.keywords){
+				let result = await requestGet("/api/api/search/?v=1&keywords="+options.keywords+"&XcxSessKey=%20&company_id=7194")
+				this.Goods=result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}				
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
 			}
 		},
 	}
@@ -577,13 +585,14 @@
 										}
 									}
 								}
-								.button-hover{
+
+								.button-hover {
 									border-color: 1px solid #af2e14;
 									color: #af2e14;
 								}
 
 								.active {
-									background-color:  #af2e14;
+									background-color: #af2e14;
 									color: #af2e14;
 									height: auto;
 									overflow: visible;
@@ -672,27 +681,31 @@
 						color: #666;
 						border-radius: 5%;
 						margin-left: 5px;
-						margin-top: 10px;	
-						}
-						.title {
-							display: flex;
-							float: left;
-							width: 50%;
-							height: 40px;
-							.name{
-								width: 78%;
-								margin-left: 10px;
-								font-size: 14px;
-							}
-							.icons{
-								width: 20%;
-								text-align: center;
-								display: none;
-							}
-							.actives{
-								display: block;
+						margin-top: 10px;
+					}
 
-							}
+					.title {
+						display: flex;
+						float: left;
+						width: 50%;
+						height: 40px;
+
+						.name {
+							width: 78%;
+							margin-left: 10px;
+							font-size: 14px;
+						}
+
+						.icons {
+							width: 20%;
+							text-align: center;
+							display: none;
+						}
+
+						.actives {
+							display: block;
+
+						}
 
 					}
 				}
