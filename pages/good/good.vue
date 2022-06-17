@@ -1,6 +1,5 @@
 <template>
 	<view>
-
 		<view class="search">
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
@@ -42,7 +41,9 @@
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
 											<button v-for="item in brand" :key="item.brand_id"
+
 												@click="addB(item.brand_id)" :style="{'backgroundColor':(brr.indexOf(item.brand_id)!=-1?'red':'#eee')}">
+
 												<image :src="item.brand_logo_url"></image>
 											</button>
 										</view>
@@ -86,11 +87,13 @@
 				<view class="last_list" :class="temp==1?'boxStyle':''">
 					<view class="last">
 						<van-dropdown-menu>
+
 							<van-dropdown-item  id="item1" title="品牌">
 								<view class="title" v-for="(item,index) in brand" :key="item.brand_id">
 									<view class="name" @click="addB(item.brand_id)"
 									
 										:style="{'color':(brr.indexOf(item.brand_id)!=-1?'red':'#333')}">
+
 										{{item.brand_name}}
 									</view>
 									<view class="icons" v-show="brr.indexOf(item.brand_id)!=-1? isChoose: noChoose">
@@ -113,9 +116,11 @@
 							</van-dropdown-item>
 							<van-dropdown-item id="item" v-for="item in attr" :key="item.attr_id"
 								:title="item.attr_name">
+
 								<view class="title" v-for="(att,idx) in item.attr_list" :key="att.attr_value_id">
 									<view class="name" @click="addA(att.attr_value_id)"
 										:style="{'color':(arr.indexOf(att.attr_value_id)!=-1?'red':'#333')}">
+
 										{{att.attr_value}}
 									</view>
 									<view class="icons" v-show="arr.indexOf(att.attr_value_id)!=-1? isChoose: noChoose">
@@ -167,13 +172,16 @@
 				maxvalue:"",
 				isChoose: true,
 				noChoose: false,
+
 				num: null,
 				temp: 0,
 				myScroll: 0,
 				type: '',
 				icons: false,
 				value: "",
+
 				flag: true,
+
 				flag1: true,
 				flage: false,
 				flag2:true,
@@ -186,6 +194,7 @@
 				brr: [],
 				arr: [],
 				krr:[[]],
+
 				a: '',
 				b: '',
 				p: 1,
@@ -203,7 +212,6 @@
 				value1: 0,
 				//综合
 				psort: 0,
-
 			}
 		},
 		//品牌导航条固定在顶部
@@ -240,7 +248,6 @@
 				});
 			},
 			async getgoodList() {
-
 				//拿到商品列表
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
 					p: this.p,
@@ -251,6 +258,7 @@
 					px:this.px,
 				})
 				if (result.data.goods_list.length > 0) {
+
 					//商品第一行分类
 					this.brand = result.data.brand_list
 					//商品第二行分类
@@ -265,7 +273,9 @@
 					//商品信息
 					this.Goods = [...this.Goods, ...result.data.goods_list]
 
+
 					//把Goods里的goods_id拼接起来，传给goods_ids		
+
 					for (var i = 0; i < this.Goods.length; i++) {
 						if (i == 0) {
 							this.goods_ids = this.goods_ids + this.Goods[i].goods_id
@@ -317,6 +327,7 @@
 					this.arr = this.arr.filter(item => item !== m)				
 				} else {
 					this.arr.push(m)					
+
 				}
 				console.log(this.arr);
 				this.currents=n;
@@ -328,11 +339,11 @@
 					this.brr = this.brr.filter(item => item !== m)
 				} else {
 					this.brr.push(m)			
+
 				}
 				this.num=this.brr.length	
 				this.flag3 = false;
 			},
-			//重置按钮
 			reset() {
 				this.arr = [];
 				this.brr = [];
@@ -342,6 +353,7 @@
 				this.num1=0;
 				this.minvalue='';
 				this.maxvalue='';
+
 				this.Goods = [];
 				this.getgoodList();
 				this.flag2 = true;
@@ -398,6 +410,7 @@
 				this.goods_ids = '';
 				this.getgoodList();
 			},
+
 			//最小
 			onminPrice(e){
 				this.minvalue=e.detail.value
@@ -407,6 +420,7 @@
 				this.maxvalue=e.detail.value
 				console.log(e,e.detail.value);
 			},
+
 		},
 		//上拉刷新
 		onReachBottom() {
@@ -439,6 +453,23 @@
 				this.type = options.pinyin;
 				this.value = options.chinese;
 				this.getgoodList();
+
+			}
+			else if(options.keywords){
+				let result = await requestGet("/api/api/search/?v=1&keywords="+options.keywords+"&XcxSessKey=%20&company_id=7194")
+				this.Goods=result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}				
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
 			}
 		},
 	}
@@ -748,6 +779,7 @@
 					max-height: 50px;
 					line-height: 50px;
 
+
 					.van-dropdown-menu {
 						width: 100%;
 						max-height: 50px;
@@ -780,6 +812,7 @@
 					}
 
 
+
 					.title {
 						display: flex;
 						float: left;
@@ -795,6 +828,12 @@
 						.icons {
 							width: 20%;
 							text-align: center;
+					
+						}
+
+						.actives {
+							display: block;
+
 						}
 
 

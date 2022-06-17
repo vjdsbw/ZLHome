@@ -64,8 +64,6 @@
 				console.log(event.detail);
 			},
 			async getGoodImg() {
-
-
 				this.goodsImg = this.result.data.goods_gallery
 				this.goodsCanshu = this.result.data.group_attr_list
 				this.serviceInfo = this.result.data.config_detail_list
