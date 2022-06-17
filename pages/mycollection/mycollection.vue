@@ -97,7 +97,6 @@
 						if (user) {
 							var flaghhh = true
 							var a = `${_this.col[idx].data.goods_info.goods_id}:1`
-							var b = _this.col[idx].data.goods_info.goods_id
 							let result = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
 							let addcart = await requestPost("/api/api/add_cart", {
 								"goods": a,

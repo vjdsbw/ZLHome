@@ -12,7 +12,7 @@
 }
 .container .uni-container .goods-carts .jiaobiao.data-v-1c515af4 {
   position: absolute;
-  left: 400rpx;
+  left: 425rpx;
   top: -12rpx;
   z-index: 999999999999999999;
 }
