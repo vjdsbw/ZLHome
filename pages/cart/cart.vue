@@ -81,7 +81,7 @@
 								合计<text>￥{{totalPrice}}</text>
 							</view>
 						</view>
-						<view class="end-right">
+						<view class="end-right" @click="toaddress">
 							结算({{totaNum}})
 						</view>
 					</view>
@@ -141,6 +141,7 @@
 		
 		},
 		cerated(){
+			
 		},
 		methods: {
 			async guesslike() {
@@ -165,6 +166,15 @@
 					fail: () => {},
 					complete: () => {}
 				});
+			},
+			toaddress(){
+				uni.navigateTo({
+					url: '/pages/address/address',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+				
 			},
 			
 			selectedGoods(){

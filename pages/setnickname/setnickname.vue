@@ -25,7 +25,7 @@
 		},
 		methods: {
 			show() {
-				this.keywords = uni.getStorageSync('user').user_name;
+				this.keywords = uni.getStorageSync('user').alias;
 			},
 			onKeyInput: function(event) {
 				this.keywords = event.detail.value

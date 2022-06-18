@@ -75,7 +75,7 @@ const _sfc_main = {
     },
     show() {
       let result = common_vendor.index.getStorageSync("user");
-      result.alias ? this.username = result.alias : this.username = reult.user_name;
+      result ? result.alias ? this.username = result.alias : this.username = reult.user_name : this.username = "\u8BF7\u5148\u767B\u5F55";
     },
     goSet() {
       let result = common_vendor.index.getStorageSync("user");

@@ -112,7 +112,7 @@
 			},
 			show() {
 				let result = uni.getStorageSync('user')
-				result.alias?this.username=result.alias:this.username=reult.user_name
+				result?(result.alias?this.username=result.alias:this.username=reult.user_name):this.username='请先登录'				
 			},
 			goSet() {
 				let result = uni.getStorageSync('user')

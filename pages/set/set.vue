@@ -43,6 +43,7 @@
 				let result = await requestPost("/api/api/logout");
 				if ((result.error === 0)) {
 					uni.removeStorageSync('user');
+					uni.removeStorageSync('cookie');
 					uni.showToast({
 						title: `退出登录`
 					})

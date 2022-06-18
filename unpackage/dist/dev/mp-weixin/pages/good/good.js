@@ -7,7 +7,7 @@ const _sfc_main = {
       currents: null,
       current: null,
       num: 0,
-      num1: [0, 0, 0, 0],
+      num1: [],
       minvalue: "",
       maxvalue: "",
       isChoose: true,
@@ -91,6 +91,18 @@ const _sfc_main = {
         }
       });
     },
+    async merger() {
+      for (var i = 0; i < this.Goods.length; i++) {
+        if (i == 0) {
+          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
+        }
+        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
+      }
+      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
+        goods_ids: this.goods_ids
+      });
+      this.price = result2.data;
+    },
     async getgoodList() {
       let result = await common_js_http.requestGet(`/api/api/category-` + this.type + `/`, {
         p: this.p,
@@ -110,17 +122,9 @@ const _sfc_main = {
           this.flag = false;
         }
         this.Goods = [...this.Goods, ...result.data.goods_list];
-        for (var i = 0; i < this.Goods.length; i++) {
-          if (i == 0) {
-            this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
-          }
-          this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
-        }
-        let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
-          goods_ids: this.goods_ids
-        });
-        this.price = result2.data;
+        this.merger();
       } else {
+        this.Goods = [];
         common_vendor.index.showToast({
           title: "\u6CA1\u6709\u66F4\u591A\u6570\u636E\u4E86",
           image: "/static/icon/err.png",
@@ -143,28 +147,15 @@ const _sfc_main = {
       console.log(this.attr);
     },
     addA(m, n) {
-      if (this.krr[n].includes(m)) {
-        this.krr[n] = this.krr[n].filter((item) => item !== m);
-      } else {
-        this.krr[n].push(m);
-      }
+      this.krr[n].includes(m) ? this.krr[n] = this.krr[n].filter((item) => item !== m) : this.krr[n].push(m);
       this.num1[n] = this.krr[n].length;
-      console.log(this.num1, "ccccccccccccccccccccc");
-      if (this.arr.includes(m)) {
-        this.arr = this.arr.filter((item) => item !== m);
-      } else {
-        this.arr.push(m);
-      }
-      console.log(this.arr);
+      this.arr.includes(m) ? this.arr = this.arr.filter((item) => item !== m) : this.arr.push(m);
+      console.log(this.krr);
       this.currents = n;
       this.flag2 = false;
     },
     addB(m) {
-      if (this.brr.includes(m)) {
-        this.brr = this.brr.filter((item) => item !== m);
-      } else {
-        this.brr.push(m);
-      }
+      this.brr.includes(m) ? this.brr = this.brr.filter((item) => item !== m) : this.brr.push(m);
       this.num = this.brr.length;
       this.flag3 = false;
     },
@@ -201,7 +192,6 @@ const _sfc_main = {
       this.getgoodList();
     },
     open() {
-      console.log("xxx");
     },
     menu(value1) {
       if (this.value1 == 0) {
@@ -215,14 +205,7 @@ const _sfc_main = {
       this.getgoodList();
     },
     bottomClick(k) {
-      console.log(k);
-      if (k == 1) {
-        this.psort = 1;
-        console.log("\u4EF7\u683C\u5347\u5E8F");
-      } else {
-        this.psort = 2;
-        console.log("\u4EF7\u683C\u964D\u5E8F");
-      }
+      this.psort = 1;
       this.Goods = [];
       this.price = [];
       this.goods_ids = "";
@@ -235,6 +218,11 @@ const _sfc_main = {
     onmaxPrice(e) {
       this.maxvalue = e.detail.value;
       console.log(e, e.detail.value);
+    },
+    setTitle(name) {
+      common_vendor.index.setNavigationBarTitle({
+        title: "\u3010" + name + "\u3011" + name + "\u54C1\u724C_" + name + "\u4EF7\u683C_" + name + "\u56FE\u7247-\u4F50\u7F57\u4F18\u9009\u8D85\u503C\u70ED\u5356"
+      });
     }
   },
   onReachBottom() {
@@ -247,35 +235,21 @@ const _sfc_main = {
   async onLoad(options) {
     options.name && !options.pinyin ? this.value = options.name : this.value;
     if (options.name && options.v) {
+      this.setTitle(options.name);
       let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
       this.Goods = result.data.goods_list;
-      for (var i = 0; i < this.Goods.length; i++) {
-        if (i == 0) {
-          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
-        }
-        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
-      }
-      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
-        goods_ids: this.goods_ids
-      });
-      this.price = result2.data;
+      this.merger();
     } else if (options.pinyin) {
       this.type = options.pinyin;
       this.value = options.chinese;
+      this.setTitle(options.chinese);
       this.getgoodList();
     } else if (options.keywords) {
+      this.value = options.keywords;
+      this.setTitle(options.keywords);
       let result = await common_js_http.requestGet("/api/api/search/?v=1&keywords=" + options.keywords + "&XcxSessKey=%20&company_id=7194");
       this.Goods = result.data.goods_list;
-      for (var i = 0; i < this.Goods.length; i++) {
-        if (i == 0) {
-          this.goods_ids = this.goods_ids + this.Goods[i].goods_id;
-        }
-        this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id;
-      }
-      let result2 = await common_js_http.requestGet("/api/api/goods/get_price", {
-        goods_ids: this.goods_ids
-      });
-      this.price = result2.data;
+      this.merger();
     }
   }
 };
@@ -401,12 +375,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     K: common_vendor.p({
       title: "\u54C1\u724C"
     }),
-    L: common_vendor.f($data.attr, (item, k0, i0) => {
+    L: common_vendor.f($data.attr, (item, index, i0) => {
       return {
         a: common_vendor.f(item.attr_list, (att, idx, i1) => {
           return {
             a: common_vendor.t(att.attr_value),
-            b: common_vendor.o(($event) => $options.addA(att.attr_value_id, idx)),
+            b: common_vendor.o(($event) => $options.addA(att.attr_value_id, index)),
             c: $data.arr.indexOf(att.attr_value_id) != -1 ? "red" : "#333",
             d: "cdccd9b4-14-" + i0 + "-" + i1 + "," + ("cdccd9b4-13-" + i0),
             e: $data.arr.indexOf(att.attr_value_id) != -1 ? $data.isChoose : $data.noChoose,

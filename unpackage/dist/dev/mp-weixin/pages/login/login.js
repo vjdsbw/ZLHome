@@ -27,7 +27,6 @@ const _sfc_main = {
   methods: {
     submit(ref) {
       this.$refs[ref].validate().then((res) => {
-        console.log("success", res);
         this.login();
       }).catch((err) => {
         console.log("err", err);
@@ -38,9 +37,9 @@ const _sfc_main = {
         "username": this.customFormData.username,
         "password": this.customFormData.password
       });
-      console.log(result);
+      let result2 = await common_js_http.requestPost("/api/getUserRole");
       if (result.error === 0) {
-        common_vendor.index.setStorageSync("user", result.data);
+        common_vendor.index.setStorageSync("user", result2.data);
         common_vendor.index.showToast({
           title: `\u767B\u5F55\u6210\u529F`
         });

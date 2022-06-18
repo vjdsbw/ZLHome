@@ -12,7 +12,7 @@ const _sfc_main = {
   },
   methods: {
     show() {
-      this.keywords = common_vendor.index.getStorageSync("user").user_name;
+      this.keywords = common_vendor.index.getStorageSync("user").alias;
     },
     onKeyInput: function(event) {
       this.keywords = event.detail.value;

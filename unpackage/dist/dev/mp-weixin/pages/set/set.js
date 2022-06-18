@@ -21,6 +21,7 @@ const _sfc_main = {
       let result = await common_js_http.requestPost("/api/api/logout");
       if (result.error === 0) {
         common_vendor.index.removeStorageSync("user");
+        common_vendor.index.removeStorageSync("cookie");
         common_vendor.index.showToast({
           title: `\u9000\u51FA\u767B\u5F55`
         });

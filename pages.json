@@ -11,45 +11,37 @@
 				"navigationBarTitleText": "商品分类",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/brand/brand",
 			"style": {
 				"navigationBarTitleText": "品牌馆",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false
 			}
-
-	}, {
+		}, {
 			"path": "pages/login/login",
 			"style": {
-			"navigationBarTitleText": "登录",
+				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/set/set",
 			"style": {
 				"navigationBarTitleText": "设置",
 				"enablePullDownRefresh": false
 			}
-
-
-		}  ,{
-            "path" : "pages/gooddetail/gooddetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "佐罗优选",
-                "enablePullDownRefresh": false
-            }  
-			
-        },	{
+		}, {
+			"path": "pages/gooddetail/gooddetail",
+			"style": {
+				"navigationBarTitleText": "佐罗优选",
+				"enablePullDownRefresh": false
+			}
+		}, {
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -74,11 +66,8 @@
 			"style": {
 				"navigationBarTitleText": "修改昵称",
 				"enablePullDownRefresh": false
-
 			}
-
-		}
-	    , {
+		}, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
@@ -86,42 +75,32 @@
 				"enablePullDownRefresh": false
 
 			}
-
 		}, {
 			"path": "pages/address/address",
 			"style": {
 				"navigationBarTitleText": "订单地址",
 				"enablePullDownRefresh": false
-
 			}
-
 		}, {
 			"path": "pages/cart/cart",
 			"style": {
 				"navigationBarTitleText": "购物车",
 				"enablePullDownRefresh": false
 			}
-
+		}, {
+			"path": "pages/mycollection/mycollection",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/orderdetail/orderdetail",
+			"style": {
+				"navigationBarTitleText": "客户订单详情",
+				"enablePullDownRefresh": false
+			}
 		}
-	    ,{
-            "path" : "pages/mycollection/mycollection",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/orderdetail/orderdetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "客户订单详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -141,7 +120,6 @@
 			"van-area": "/wxcomponents/vant/dist/area/index",
 			"van-picker": "/wxcomponents/vant/dist/picker/index",
 			"van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
-
 		}
 	},
 	"tabBar": {
