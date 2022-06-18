@@ -4,8 +4,13 @@
 			<view class="fixtransform" @click="tosearch()">
 				<uni-icons class="iconfont" custom-prefix="iconfont" type="icon-sousuo" size="20"></uni-icons>
 				<input class="search-input" inputBorder="false" @input="onKeyInput" :value="value" />
+				<view class="jiaobiao">
+					<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+						<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+					</uni-badge>
+				</view>
 			</view>
-			<uni-icons class="cart" type="cart" size="30" @click="tocart"></uni-icons>
+
 		</view>
 		<view class="goods">
 			<view class="head_list">
@@ -50,6 +55,7 @@
 									</view>
                                     
 									<view class="attr_list" v-for="(item,idx) in attr" :key="item.attr_id">
+
 										<view >
 											<view class="brand">
 											<!-- {{flag2?(currents==idx"可多选":`已选${num1[idx]}项`):false}} -->
@@ -61,6 +67,7 @@
 												<button v-for="list in item.attr_list" @click="addA(list.attr_value_id,idx)"
 													:key="list.attr_value_id" :style="{'color':(arr.indexOf(list.attr_value_id)!=-1?'red':'#333')}"><text>{{list.attr_value}}</text></button>
 											</view>
+
 										</view>
 										
 									</view>
@@ -159,7 +166,8 @@
 
 <script>
 	import {
-		requestGet
+		requestGet,
+		requestPost
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -208,6 +216,7 @@
 				value1: 0,
 				//综合
 				psort: 0,
+				gws: 0
 			}
 		},
 		//品牌导航条固定在顶部
@@ -229,6 +238,11 @@
 		created() {
 			this.getgoodList();
 		},
+		async onShow() {
+			let user = uni.getStorageSync('user');
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+			this.gws = carnum.data.total
+		},
 		methods: {
 			tosearch() {
 				uni.navigateTo({
@@ -246,7 +260,7 @@
 					complete: () => {}
 				});
 			},
-		    async merger(){
+		    async getgoodsids(){
 				for (var i = 0; i < this.Goods.length; i++) {
 					if (i == 0) {
 						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
@@ -275,6 +289,7 @@
 					this.brand = result.data.brand_list
 					//商品第二行分类
 					this.attr = result.data.attr
+
 					for(let k=0;k<result.data.attr.length;k++){
 						this.krr[k]=[];
 					}
@@ -286,9 +301,10 @@
 					this.Goods = [...this.Goods, ...result.data.goods_list]
 
 					//把Goods里的goods_id拼接起来，传给goods_ids	
-					this.merger()
+					this.getgoodsids()
+
 				} else {
-					this.Goods=[];
+					this.Goods.length=0;
 					uni.showToast({						
 						title: '没有更多数据了',
 						image: '/static/icon/err.png',
@@ -313,11 +329,9 @@
 					console.log(this.attr);				
 			},
 			addA(m,n) {
-				//列如风格，材质，每一个插入的数据
 				this.krr[n].includes(m)?(this.krr[n] = this.krr[n].filter(item => item !== m)):(this.krr[n].push(m))
 				this.num1[n] = this.krr[n].length;
 				this.arr.includes(m)?(this.arr = this.arr.filter(item => item !== m)):(this.arr.push(m))
-				console.log(this.krr);
 				this.currents=n;
 				this.flag2 = false;				
 			},
@@ -327,15 +341,15 @@
 				this.flag3 = false;
 			},
 			reset() {
-				this.arr = [];
-				this.brr = [];
+				this.arr.length=0;
+				this.brrlength=0;
 				this.a = '';
 				this.b = '';
 				this.num=0;
 				this.num1=0;
 				this.minvalue='';
 				this.maxvalue='';
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 				this.flag2 = true;
 				this.flag3 = true;
@@ -346,7 +360,7 @@
 				this.brr.forEach(item => this.b = item + '^' + this.b)
 				this.pn=this.minvalue;
 				this.px=this.maxvalue;
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 				this.$refs.showRight.close();
 				this.selectAllComponents(".item").map((item)=>{
@@ -358,7 +372,7 @@
 			currentClick(k) {
 				this.flage = !this.flage;
 				this.psort = 6
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 			},
 			open() {
@@ -380,9 +394,9 @@
 			},
 			//价格升降序
 			bottomClick(k) {
-				k=1?this.psort=1:this.psort=2;
-				this.Goods = [];
-				this.price = [];
+				k==1 ? this.psort=1:this.psort=2;
+				this.Goods.length=0;
+				this.price.length=0;
 				this.goods_ids = '';
 				this.getgoodList();
 			},
@@ -411,13 +425,21 @@
 			}
 		},
 		async onLoad(options) {
+			console.log(options);
 			(options.name && (!options.pinyin)) ? this.value = options.name: this.value
+			if (options.name && !options.v && !options.pinyin) {
+				this.setTitle(options.name)
+				let result = await requestGet(`/api/api/search/?v=1&keywords=${options.name }`)
+				this.Goods = result.data.goods_list
+				//把Goods里的goods_id拼接起来，传给goods_ids
+				this.getgoodsids()
+			}
 			if (options.name && options.v) {
 				this.setTitle(options.name)
 				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
-				this.merger()
+				this.getgoodsids()
 			} else if (options.pinyin) {
 				this.type = options.pinyin;
 				this.value = options.chinese;
@@ -429,7 +451,8 @@
 				this.setTitle(options.keywords)
 				let result = await requestGet("/api/api/search/?v=1&keywords="+options.keywords+"&XcxSessKey=%20&company_id=7194")
 				this.Goods=result.data.goods_list
-				this.merger()
+				this.getgoodsids()
+
 			}
 		},		
 	}
@@ -450,6 +473,12 @@
 			top: 10px;
 			border-radius: 30px;
 			background-color: #f0f0f0;
+
+			.jiaobiao {
+				position: absolute;
+				top: 0;
+				right: -60rpx;
+			}
 
 			.iconfont {
 				float: left;

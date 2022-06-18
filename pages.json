@@ -3,7 +3,8 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "优选Home",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"onReachBottomDistance": 50
 			}
 		}, {
 			"path": "pages/sort/sort",
@@ -90,17 +91,22 @@
 		}, {
 			"path": "pages/mycollection/mycollection",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "我的收藏",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/orderdetail/orderdetail",
-			"style": {
-				"navigationBarTitleText": "客户订单详情",
-				"enablePullDownRefresh": false
-			}
+
 		}
-	],
+        ,{
+            "path" : "pages/orderdetail/orderdetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "客户订单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -119,7 +125,13 @@
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
 			"van-area": "/wxcomponents/vant/dist/area/index",
 			"van-picker": "/wxcomponents/vant/dist/picker/index",
-			"van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index"
+			"van-goods-action": "/wxcomponents/vant/dist/goods-action/index",
+			"van-goods-action-icon": "/wxcomponents/vant/dist/goods-action-icon/index",
+			"van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index",
+			"van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
+			"van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index",
+			"van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index",
+			"van-stepper": "/wxcomponents/vant/dist/stepper/index"
 		}
 	},
 	"tabBar": {

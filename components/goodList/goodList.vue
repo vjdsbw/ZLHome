@@ -29,8 +29,8 @@
 			};
 		},
 		updated() {
-			//把价格拼接到Goods上
-			this.getgoodlist()
+			this.array.length=0
+			this.getgoodlist()	
 		},
 		methods: {
 			togoodsdetail(id) {
@@ -42,22 +42,21 @@
 				});
 			},
 			getgoodlist() {
-				let array2 = [];
+				console.log(this.price);
 				for (var m = 0, n = 0; m < this.price.length; m++, n++) {
-					array2.push(Object.assign(this.Goods[n], {
-						shop_price: this.price[m].shop_price
-					}))
+						this.Goods[n].shop_price = this.price[m].shop_price
 				}
-				this.array = array2
 				if (this.psort == 1) {
-					this.array.sort((a, b) => {
+					this.Goods.sort((a, b) => {
 						return a.shop_price - b.shop_price;
 					}) //升序)
 				} else if (this.psort == 2) {
-					this.array.sort((a, b) => {
+					this.Goods.sort((a, b) => {
 						return b.shop_price - a.shop_price;
 					}) //升序)
 				}
+				this.array = this.Goods	
+				console.log(this.array);
 			}
 		}
 	}

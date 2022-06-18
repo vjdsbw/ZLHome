@@ -39,9 +39,14 @@
         "appid" : "wx73d3630f41d47a4b",
         "setting" : {
             "urlCheck" : false,
-            "es6" : false
+            "es6" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
+        }
     },
     "vueVersion" : "3"
 }
