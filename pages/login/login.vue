@@ -30,7 +30,8 @@
 <script>
 	import {
 		requestGet,
-		requestPost
+		requestPost,
+		requestPostLogin
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -58,20 +59,19 @@
 		methods: {
 			submit(ref) {
 				this.$refs[ref].validate().then(res => {
-					console.log('success', res);
 					this.login();
 				}).catch(err => {
 					console.log('err', err);
 				})
 			},
 			async login() {
-				let result = await requestPost("/api/api/ajax_login", {
+				let result = await requestPostLogin("/api/api/ajax_login", {
 					"username": this.customFormData.username,
 					"password": this.customFormData.password
 				});
-				console.log(result);
+				let result2= await requestPost("/api/getUserRole");
 				if (result.error === 0) {
-					uni.setStorageSync('user', result.data)
+					uni.setStorageSync('user', result2.data)
 					uni.showToast({
 						title: `登录成功`
 					})
@@ -93,7 +93,6 @@
 <style scoped lang="less">
 	.login {
 		position: relative;
-
 		/deep/.example {
 			.button {
 				width: 347px;

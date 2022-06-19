@@ -1,7 +1,7 @@
 <template>
-	<view class="list" >
-		<view class="box" v-for="item in Goods" :key="item.goods_name" @click="togoodsdetail(item.goods_id)">
-			<view >
+	<view class="list">
+		<view class="box" v-for="item in array" :key="item.goods_name" @click="togoodsdetail(item.goods_id)">
+			<view>
 				<view class="towBox">
 					<image :src="item.goods_img_url"></image>
 					<view class="text">
@@ -15,31 +15,24 @@
 					</view>
 				</view>
 			</view>
-			
+
 		</view>
 	</view>
 </template>
-<!--   -->
-<script>	
+<script>
 	export default {
-		props:["Goods","price"],
-		name:"goodList",
+		props: ["Goods", "price", "psort"],
+		name: "goodList",
 		data() {
 			return {
-				// array:[]
+				array: []
 			};
 		},
 		updated() {
-			//把价格拼接到Goods上
-			let array=[];
-				for(var m=0,n=0;m<this.price.length;m++,n++){
-						array.push(
-						Object.assign(this.Goods[n],{shop_price:this.price[m].shop_price})
-						)
-				}
-				
+			this.array.length=0
+			this.getgoodlist()	
 		},
-		methods:{
+		methods: {
 			togoodsdetail(id) {
 				uni.navigateTo({
 					url: `/pages/gooddetail/gooddetail?id=${id}`,
@@ -48,55 +41,72 @@
 					complete: () => {}
 				});
 			},
+			getgoodlist() {
+				console.log(this.price);
+				for (var m = 0, n = 0; m < this.price.length; m++, n++) {
+						this.Goods[n].shop_price = this.price[m].shop_price
+				}
+				if (this.psort == 1) {
+					this.Goods.sort((a, b) => {
+						return a.shop_price - b.shop_price;
+					}) //升序)
+				} else if (this.psort == 2) {
+					this.Goods.sort((a, b) => {
+						return b.shop_price - a.shop_price;
+					}) //升序)
+				}
+				this.array = this.Goods	
+				console.log(this.array);
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-.list {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			background-color: #eee;
+	.list {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		background-color: #eee;
 
-			.box {
-				width: 48%;
-				margin-left: 5px;
-				margin-bottom: 5px;
-				background-color: #fff;
+		.box {
+			width: 48%;
+			margin-left: 5px;
+			margin-bottom: 5px;
+			background-color: #fff;
 
-				.towBox {
+			.towBox {
+				width: 100%;
+
+				image {
 					width: 100%;
+					height: 150px;
+				}
 
-					image {
-						width: 100%;
-						height: 150px;
+				.text {
+					.name {
+						margin-left: 7px;
+						font-family: "Times New Roman";
+						font-size: 14px;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
 					}
+				}
 
-					.text {
-						.name {
-							margin-left: 7px;
-							font-family: "Times New Roman";
-							font-size: 14px;
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
-						}
-					}
+				.price {
+					font-size: 12px;
+					color: red;
+					margin: 15px 10px;
 
-					.price {
-						font-size: 12px;
-						color: red;
-						margin: 15px 10px;
-
-						text:nth-child(2) {
-							font-size: 10px;
-							color: #999;
-							margin-left: 50px;
-						}
+					text:nth-child(2) {
+						font-size: 10px;
+						color: #999;
+						margin-left: 50px;
 					}
 				}
 			}
 		}
+	}
 </style>

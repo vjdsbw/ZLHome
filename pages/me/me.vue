@@ -16,7 +16,7 @@
 				客户订单
 				<uni-icons class="right" type="right" size="20"></uni-icons>
 			</view>
-			<view class="shoucang">
+			<view class="shoucang" @click="goCollection">
 				<uni-icons class="icon" custom-prefix="iconfont" type="icon-shoucang" size="20"></uni-icons>
 				我的收藏
 				<uni-icons class="right" type="right" size="20"></uni-icons>
@@ -56,12 +56,10 @@
 		updated() {
 			let result = uni.getStorageSync('user');
 			if(result){
-
 				let result1 = uni.getStorageSync(`img${result.user_id}`);
 				if (result1) {
 					this.imgpath = result1
 					this.neverchange = false
-					console.log(this.imgpath, "xxxx");
 				}
 			} else {
 				this.imgpath = ""
@@ -114,11 +112,7 @@
 			},
 			show() {
 				let result = uni.getStorageSync('user')
-				if (result) {
-					this.username = result.user_name;
-				} else {
-					this.username = '点击登录'
-				}
+				result?(result.alias?this.username=result.alias:this.username=reult.user_name):this.username='请先登录'				
 			},
 			goSet() {
 				let result = uni.getStorageSync('user')
@@ -151,6 +145,25 @@
 					}, 2000)
 				}
 
+			},
+			goCollection(){
+				let result = uni.getStorageSync('user')
+				if (result) {
+					uni.navigateTo({
+						url: '/pages/mycollection/mycollection',
+					});
+				} else {
+					uni.showToast({
+						title: '请先登录',
+						image:'/static/icon/err.png',
+						duration: 2000
+					});
+					setTimeout(()=>{
+						uni.navigateTo({
+							url: '/pages/login/login',
+						})
+					},2000)					
+				}
 			}
 		}
 	}
