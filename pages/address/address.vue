@@ -4,7 +4,7 @@
 			<view class="info">
 				<uni-forms border>
 					<uni-forms-item label="收货人">
-						<uni-easyinput :inputBorder="false" placeholder="必填"></uni-easyinput>
+						<uni-easyinput :inputBorder="false" v placeholder="必填"></uni-easyinput>
 					</uni-forms-item>
 					<uni-forms-item label="手机号码">
 						<uni-easyinput :inputBorder="false" placeholder="必填"></uni-easyinput>
@@ -79,6 +79,10 @@
 
 
 <script>
+	import {
+		requestGet,
+		requestPost,
+	} from '@/common/js/http.js'
 	export default {
 		data() {
 			return {
@@ -89,13 +93,22 @@
 				inverted: false,
 				flag: false,
 				show: false,
-				show2: '请选择'
+				show2: '请选择',
+				
 			}
 		},
-		onLoad() {
-			this.bindRegionChange()
+		onLoad(options) {
+			this.checkout(options.cart_id)
 		},
 		methods: {
+			async checkout(id){	
+				console.log(id,"ggggggggggggggggggg");
+				let result = await requestPost("/api/api/flow/check_out",{
+					"cart_id":id,
+					"company_id":7194,
+				})
+				console.log(result,"111111111111111111111");
+			},
 			bindRegionChange(event) {
 				// console.log(event.detail.value)
 				this.region = event.detail.value
@@ -126,7 +139,7 @@
 			},
 			goAddress() {
 				this.close()
-			}
+			},
 		}
 	}
 </script>
@@ -217,9 +230,6 @@
 				}
 			}
 		}
-
-
-
 		.deli {
 			color: #666;
 			font-size: 12px;

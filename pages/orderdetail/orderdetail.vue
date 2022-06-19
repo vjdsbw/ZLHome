@@ -122,7 +122,7 @@
 			</view>
 		</view>
 		<view class="again">
-			<view class="button" @click="goCart">
+			<view class="button" @click="goCart(order_info.order_id)">
 				再次购买
 			</view>
 		</view>
@@ -154,9 +154,9 @@
 				this.order_info = result.data.order_info;
 				this.order_goods_info = result.data.order_goods_info
 			},
-			goCart(){
+			goCart(order_id){
 				uni.navigateTo({
-					url:'/pages/cart/cart'
+					url:`/pages/cart/cart?order_id=${order_id}`
 				})
 			}
 		}

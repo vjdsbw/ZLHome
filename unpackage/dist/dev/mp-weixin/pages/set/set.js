@@ -33,6 +33,15 @@ const _sfc_main = {
       }
     },
     goAddress() {
+      common_vendor.index.navigateTo({
+        url: "/pages/address/address",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
     }
   }
 };

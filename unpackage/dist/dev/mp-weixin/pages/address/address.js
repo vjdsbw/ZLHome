@@ -1,4 +1,5 @@
 "use strict";
+var common_js_http = require("../../common/js/http.js");
 var common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   data() {
@@ -13,10 +14,18 @@ const _sfc_main = {
       show2: "\u8BF7\u9009\u62E9"
     };
   },
-  onLoad() {
-    this.bindRegionChange();
+  onLoad(options) {
+    this.checkout(options.cart_id);
   },
   methods: {
+    async checkout(id) {
+      console.log(id, "ggggggggggggggggggg");
+      let result = await common_js_http.requestPost("/api/api/flow/check_out", {
+        "cart_id": id,
+        "company_id": 7194
+      });
+      console.log(result, "111111111111111111111");
+    },
     bindRegionChange(event) {
       this.region = event.detail.value;
       this.show2 = "";
@@ -72,6 +81,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
       inputBorder: false,
+      v: true,
       placeholder: "\u5FC5\u586B"
     }),
     b: common_vendor.p({

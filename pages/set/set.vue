@@ -55,7 +55,12 @@
 				}
 			},
 			goAddress() {
-
+				uni.navigateTo({
+					url: '/pages/address/address',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		}
 	}

@@ -9,8 +9,11 @@ const _sfc_main = {
     };
   },
   updated() {
-    this.array.length = 0;
-    this.getgoodlist();
+    if (this.price == 0) {
+      console.log("xxxxxxxxxxxxxxxxxx");
+    } else {
+      this.getgoodlist();
+    }
   },
   methods: {
     togoodsdetail(id) {
@@ -25,21 +28,22 @@ const _sfc_main = {
       });
     },
     getgoodlist() {
-      console.log(this.price);
-      for (var m = 0, n = 0; m < this.price.length; m++, n++) {
-        this.Goods[n].shop_price = this.price[m].shop_price;
+      let array2 = [];
+      for (var m = 0, n = 0; m < this.Goods.length; m++, n++) {
+        array2.push(Object.assign(this.Goods[n], {
+          shop_price: this.price[m].shop_price
+        }));
       }
+      this.array = array2;
       if (this.psort == 1) {
-        this.Goods.sort((a, b) => {
+        this.array.sort((a, b) => {
           return a.shop_price - b.shop_price;
         });
       } else if (this.psort == 2) {
-        this.Goods.sort((a, b) => {
+        this.array.sort((a, b) => {
           return b.shop_price - a.shop_price;
         });
       }
-      this.array = this.Goods;
-      console.log(this.array);
     }
   }
 };
