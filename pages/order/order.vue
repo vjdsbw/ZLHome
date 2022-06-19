@@ -26,7 +26,7 @@
 
 					<view class="good-bottom">{{item.order_add_time}} 订单号：{{item.order_sn}}</view>
 					<view class="goods-totals">共{{length[index]}}件 合计：￥{{item.order_wholesale_total_price}}</view>
-					<button class="buyagain" @click="goCart">再次购买</button>
+					<button class="buyagain" @click="goCart(item.order_id)">再次购买</button>
 				</view>
 
 			</view>
@@ -60,9 +60,9 @@
 				this.list.forEach(item => this.length.push(item.all_goods.length))
 
 			},
-			goCart() {
+			goCart(order_id) {
 				uni.navigateTo({
-					url: '/pages/cart/cart'
+					url: `/pages/cart/cart?order_id=${order_id}`
 				})
 			},
 			goOrderdtail(order_sn) {

@@ -10,7 +10,6 @@
 					</uni-badge>
 				</view>
 			</view>
-
 		</view>
 		<view class="goods">
 			<view class="head_list">
@@ -42,7 +41,7 @@
 										<view class="brand">
 											<view class="brand_name">品牌</view>
 											
-											<view class="choice" @click="showTag">{{flag3?"可多选":`已选${num}项`}}</view>
+											<view class="choice" @click="showTag">{{flag3?"可多选":(num==0?"可多选":`已选${num}项`)}}</view>
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
 											<button v-for="item in brand" :key="item.brand_id"
@@ -59,8 +58,9 @@
 										<view >
 											<view class="brand">
 											<!-- {{flag2?(currents==idx"可多选":`已选${num1[idx]}项`):false}} -->
-												<view class="brand_name">{{item .attr_name}}</view>
-												<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?`已选${num1[idx]}项`:"可多选")}}</view>
+												<view class="brand_name">{{item.attr_name}}</view>
+											<!-- 	<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?`已选${num1[idx]}项`:"可多选")}}</view> -->
+												<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?(num1[idx]!=0?`已选${num1[idx]}项`:"可多选"):(!num1[idx]?"可多选":(num1[idx]==0?"可多选":`已选${num1[idx]}项`)))}}</view>
 											</view>
 											
 											<view class="attr_text" :class="flag1?(current==idx?'active':'attr_text'):false">
@@ -235,9 +235,6 @@
 				item.toggle(false)
 			})
 		},
-		created() {
-			this.getgoodList();
-		},
 		async onShow() {
 			let user = uni.getStorageSync('user');
 			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
@@ -283,7 +280,7 @@
 					pn:this.pn,
 					px:this.px,
 				})
-				if (result.data.goods_list.length > 0) {
+				if (result.data.goods_list.length!=0) {
 
 					//商品第一行分类
 					this.brand = result.data.brand_list
@@ -292,6 +289,7 @@
 
 					for(let k=0;k<result.data.attr.length;k++){
 						this.krr[k]=[];
+						this.num1[k] = 0;
 					}
 					//通过第一页的数据比较
 					if (result.data.goods_list.length < 32) {
@@ -302,9 +300,7 @@
 
 					//把Goods里的goods_id拼接起来，传给goods_ids	
 					this.getgoodsids()
-
 				} else {
-					this.Goods.length=0;
 					uni.showToast({						
 						title: '没有更多数据了',
 						image: '/static/icon/err.png',
@@ -325,8 +321,7 @@
 			},
 			show1Tag(idx) {
 				this.current = idx;
-				this.flag1 = !this.flag1;
-					console.log(this.attr);				
+				this.flag1 = !this.flag1;			
 			},
 			addA(m,n) {
 				this.krr[n].includes(m)?(this.krr[n] = this.krr[n].filter(item => item !== m)):(this.krr[n].push(m))
@@ -342,11 +337,11 @@
 			},
 			reset() {
 				this.arr.length=0;
-				this.brrlength=0;
+				this.brr.length=0;
 				this.a = '';
 				this.b = '';
 				this.num=0;
-				this.num1=0;
+				this.num1.forEach((item,idx)=>this.num1[idx]=0)
 				this.minvalue='';
 				this.maxvalue='';
 				this.Goods.length=0;
@@ -426,6 +421,7 @@
 		},
 		async onLoad(options) {
 			console.log(options);
+			this.num1.length=0;
 			(options.name && (!options.pinyin)) ? this.value = options.name: this.value
 			if (options.name && !options.v && !options.pinyin) {
 				this.setTitle(options.name)
@@ -440,11 +436,13 @@
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
 				this.getgoodsids()
-			} else if (options.pinyin) {
+			} else if (options.chinese&&options.pinyin) {
 				this.type = options.pinyin;
 				this.value = options.chinese;
 				this.setTitle(options.chinese)
 				this.getgoodList();
+			}else if(options.chinese&&!options.pinyin){
+				this.value = options.chinese;
 			}
 			else if(options.keywords){
 				this.value = options.keywords

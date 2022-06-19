@@ -66,9 +66,6 @@ const _sfc_main = {
       item.toggle(false);
     });
   },
-  created() {
-    this.getgoodList();
-  },
   async onShow() {
     let user = common_vendor.index.getStorageSync("user");
     let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
@@ -118,11 +115,12 @@ const _sfc_main = {
         pn: this.pn,
         px: this.px
       });
-      if (result.data.goods_list.length > 0) {
+      if (result.data.goods_list.length != 0) {
         this.brand = result.data.brand_list;
         this.attr = result.data.attr;
         for (let k = 0; k < result.data.attr.length; k++) {
           this.krr[k] = [];
+          this.num1[k] = 0;
         }
         if (result.data.goods_list.length < 32) {
           this.flag = false;
@@ -130,7 +128,6 @@ const _sfc_main = {
         this.Goods = [...this.Goods, ...result.data.goods_list];
         this.getgoodsids();
       } else {
-        this.Goods.length = 0;
         common_vendor.index.showToast({
           title: "\u6CA1\u6709\u66F4\u591A\u6570\u636E\u4E86",
           image: "/static/icon/err.png",
@@ -150,7 +147,6 @@ const _sfc_main = {
     show1Tag(idx) {
       this.current = idx;
       this.flag1 = !this.flag1;
-      console.log(this.attr);
     },
     addA(m, n) {
       this.krr[n].includes(m) ? this.krr[n] = this.krr[n].filter((item) => item !== m) : this.krr[n].push(m);
@@ -166,11 +162,11 @@ const _sfc_main = {
     },
     reset() {
       this.arr.length = 0;
-      this.brrlength = 0;
+      this.brr.length = 0;
       this.a = "";
       this.b = "";
       this.num = 0;
-      this.num1 = 0;
+      this.num1.forEach((item, idx) => this.num1[idx] = 0);
       this.minvalue = "";
       this.maxvalue = "";
       this.Goods.length = 0;
@@ -239,6 +235,7 @@ const _sfc_main = {
   },
   async onLoad(options) {
     console.log(options);
+    this.num1.length = 0;
     options.name && !options.pinyin ? this.value = options.name : this.value;
     if (options.name && !options.v && !options.pinyin) {
       this.setTitle(options.name);
@@ -251,11 +248,13 @@ const _sfc_main = {
       let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
       this.Goods = result.data.goods_list;
       this.getgoodsids();
-    } else if (options.pinyin) {
+    } else if (options.chinese && options.pinyin) {
       this.type = options.pinyin;
       this.value = options.chinese;
       this.setTitle(options.chinese);
       this.getgoodList();
+    } else if (options.chinese && !options.pinyin) {
+      this.value = options.chinese;
     } else if (options.keywords) {
       this.value = options.keywords;
       this.setTitle(options.keywords);
@@ -328,7 +327,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "14"
     }),
     q: common_vendor.o((...args) => $options.showDrawer && $options.showDrawer(...args)),
-    r: common_vendor.t($data.flag3 ? "\u53EF\u591A\u9009" : `\u5DF2\u9009${$data.num}\u9879`),
+    r: common_vendor.t($data.flag3 ? "\u53EF\u591A\u9009" : $data.num == 0 ? "\u53EF\u591A\u9009" : `\u5DF2\u9009${$data.num}\u9879`),
     s: common_vendor.o((...args) => $options.showTag && $options.showTag(...args)),
     t: common_vendor.f($data.brand, (item, k0, i0) => {
       return {
@@ -342,7 +341,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     w: common_vendor.f($data.attr, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.attr_name),
-        b: common_vendor.t($data.flag2 ? "\u53EF\u591A\u9009" : $data.currents == idx ? `\u5DF2\u9009${$data.num1[idx]}\u9879` : "\u53EF\u591A\u9009"),
+        b: common_vendor.t($data.flag2 ? "\u53EF\u591A\u9009" : $data.currents == idx ? $data.num1[idx] != 0 ? `\u5DF2\u9009${$data.num1[idx]}\u9879` : "\u53EF\u591A\u9009" : !$data.num1[idx] ? "\u53EF\u591A\u9009" : $data.num1[idx] == 0 ? "\u53EF\u591A\u9009" : `\u5DF2\u9009${$data.num1[idx]}\u9879`),
         c: common_vendor.o(($event) => $options.show1Tag(idx)),
         d: common_vendor.f(item.attr_list, (list, k1, i1) => {
           return {

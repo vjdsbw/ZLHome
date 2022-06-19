@@ -1,7 +1,6 @@
 {
-  "navigationBarTitleText": "商品列表",
+  "navigationBarTitleText": "搜索列表",
   "enablePullDownRefresh": false,
-  "onReachBottomDistance": 50,
   "usingComponents": {
     "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
     "uni-badge": "../../uni_modules/uni-badge/components/uni-badge/uni-badge",
