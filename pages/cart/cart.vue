@@ -81,7 +81,10 @@
 									<text class="price">￥{{i.shop_price}}</text>
 									<van-stepper :value="i.goods_num" min="1"
 										@minus="delcart(i.goods_num,i.goods_id,i.id)"
-										@plus="addcart(i.goods_num,i.goods_id)">
+										@plus="addcart(i.goods_num,i.goods_id)"
+										 @blur="stpchange(i.goods_id)"
+										 @change="changes"
+										 >
 									</van-stepper>
 								</view>
 							</view>
@@ -164,34 +167,51 @@
 				goodsNum: '',
 				goodsAttr: [],
 				goodsAttrId: '',
-				cartid: ''
+				cartid: '',
+				tempval:0
 			}
 		},
 		onShow() {
 			this.guesslike()
 		},
 		updated() {
-			var flag=true
-			this.shopchecked.map((item)=>{
-				if(item == false)
-				{
+			var flag = true
+			this.shopchecked.map((item) => {
+				if (item == false) {
 					flag = false
-					console.log(flag,"1");
+
 				}
 			})
-			this.chebrand.map((item)=>{
-				if(item == false)
-				{
+			this.chebrand.map((item) => {
+				if (item == false) {
 					flag = false
-					console.log(flag,"2");
+
 				}
 			})
 			this.quanxuanchecked = flag
-			console.log(this.shopchecked);
-			console.log(this.chebrand);
-			console.log(this.quanxuanchecked);
+   console.log(this.chebrand);
 		},
 		methods: {
+			changes(e){
+				this.tempval = e.detail
+				console.log(e,e.detail,this.tempval);
+			},
+			async stpchange(id) {
+				console.log(id,this.tempval);
+				let user = uni.getStorageSync('user')
+				if (user) {
+					var a = `${id}:${this.tempval}`
+					let addcart1 = await requestPost("/api/api/updateCart", {
+						"goods": a,
+						"company_id": user.company_id
+					})
+					let result = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
+					this.cart = result.data.goods_list
+				}
+				let newresult = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
+				this.goodsList = newresult.data.goods_list
+				this.compuTotalPrice()
+			},
 			change(e) {
 				console.log(e)
 			},
@@ -233,16 +253,6 @@
 				}
 				let newresult = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
 				this.goodsList = newresult.data.goods_list
-				var aa = 0
-				this.goodsList.map((item, idx) => {
-					this.shopchecked.push(false)
-					item.list.map((i, iiiiii) => {
-						this.chebrand.push(false)
-						this.goodsList[idx].list[iiiiii].status = aa
-						aa++;
-					})
-					this.goodsInshop = item.list
-				})
 				this.compuTotalPrice()
 			},
 			async delcart(num, id, iid) {
@@ -259,16 +269,6 @@
 				}
 				let newresult = await requestPost(`/api/api/cart?company_id=${user.company_id}`)
 				this.goodsList = newresult.data.goods_list
-				var aa = 0
-				this.goodsList.map((item, idx) => {
-					this.shopchecked.push(false)
-					item.list.map((i, iiiiii) => {
-						this.chebrand.push(false)
-						this.goodsList[idx].list[iiiiii].status = aa
-						aa++;
-					})
-					this.goodsInshop = item.list
-				})
 				this.compuTotalPrice()
 			},
 			async guesslike() {
@@ -293,7 +293,6 @@
 				} else {
 					this.flag = true;
 				}
-				console.log(this.goodsList, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			},
 			tologin() {
 				uni.navigateTo({
@@ -310,7 +309,6 @@
 					item.list.map((it) => {
 						if (it.status == i) {
 							brand = item.name
-
 						}
 					})
 				})
@@ -323,7 +321,6 @@
 							}
 						})
 					}
-
 				})
 				this.shopchecked[shopindex] = flag
 				this.compuTotalPrice()
@@ -346,12 +343,12 @@
 			},
 
 			selectedAll() {
-				this.quanxuanchecked = !this.quanxuanchecked 
-				this.shopchecked.map((item,idx)=>{
-					this.shopchecked[idx]=this.quanxuanchecked
-				}) 
+				this.quanxuanchecked = !this.quanxuanchecked
+				this.shopchecked.map((item, idx) => {
+					this.shopchecked[idx] = this.quanxuanchecked
+				})
 				this.chebrand.map((item, idx) => {
-					this.chebrand[idx]= this.quanxuanchecked
+					this.chebrand[idx] = this.quanxuanchecked
 				})
 				this.compuTotalPrice()
 			},
@@ -394,17 +391,6 @@
 				});
 				let result5 = await requestPost("/api/api/cart?XcxSessKey=%20&company_id=7194")
 				this.goodsList = result5.data.goods_list;
-				console.log(this.goodsList);
-				var aa = 0
-				this.goodsList.map((item, idx) => {
-					this.shopchecked.push(false)
-					item.list.map((i, iiiiii) => {
-						this.chebrand.push(false)
-						this.goodsList[idx].list[iiiiii].status = aa
-						aa++;
-					})
-					this.goodsInshop = item.list
-				})
 				this.compuTotalPrice()
 				this.exitMotaikuang()
 			},
@@ -420,24 +406,6 @@
 		},
 		async onLoad(order_id) {
 			console.log(order_id);
-			// let result = await requestPost("/api/api/order_again_buy", {
-			// 	"order_id": order_id,
-			// });
-			// let result2 = await requestPost("/api/api/cart?XcxSessKey=%20&company_id=7194");
-			// this.goodsList = result2.data.goods_list
-			// console.log(this.goodsList, "xxxxxxxxxxxx");
-			// var aa = 0
-			// this.goodsList.map((item, idx) => {
-			// 	this.shopchecked.push(false)
-			// 	item.list.map((i, iiiiii) => {
-			// 		this.chebrand.push(false)
-			// 		this.goodsList[idx].list[iiiiii].status = aa
-			// 		aa++;
-			// 	})
-			// 	this.goodsInshop = item.list
-			// })
-			// console.log(this.chebrand);
-
 		}
 	}
 </script>
@@ -553,10 +521,11 @@
 
 								.motaikuang {
 									width: 100%;
+									height: 100%;
 									position: fixed;
 									bottom: 0px;
 									left: 0px;
-									z-index: 99999;
+									z-index: 9999999999;
 
 									.mask {
 										width: 100%;
@@ -568,7 +537,7 @@
 										right: 0px;
 										margin: 0px auto;
 										background: rgba(115, 115, 115, 0.2);
-										
+										z-index: 9999999999;
 									}
 
 									.bottomPopup {
@@ -631,8 +600,6 @@
 												margin: 10rpx;
 												padding: 20rpx;
 												float: left;
-												font-size: 15px;
-
 											}
 
 											.active {
@@ -650,14 +617,13 @@
 										right: 0;
 										bottom: 0;
 										z-index: 1003;
-										// margin-bottom: 42px;
 
 										.sure {
 											width: 100%;
 											text-align: center;
 											color: #fff;
-											height: 80rpx;
-											line-height: 80rpx;
+											height: 100rpx;
+											line-height: 100rpx;
 											background: #E31D1A;
 											letter-spacing: 3px;
 										}
@@ -666,13 +632,14 @@
 
 								.jisuan {
 									display: flex;
-							
-                                   /deep/ van-stepper{
-					                       .van-stepper__input {
-											   position: relative;
-											   z-index: 111;
-										   }
-								   }
+
+									/deep/ van-stepper {
+										.van-stepper__input {
+											position: relative;
+											z-index: 111;
+										}
+									}
+
 									.price {
 										flex: 2;
 										color: red;
@@ -710,7 +677,8 @@
 						display: flex;
 						padding-left: 30rpx;
 						font-size: 28rpx;
-							z-index: 999;
+						z-index: 99999999;
+
 						.end-left {
 							flex: 2;
 							display: flex;
@@ -733,7 +701,7 @@
 							text-align: center;
 							line-height: 90rpx;
 							color: #fff;
-					
+
 						}
 					}
 				}
