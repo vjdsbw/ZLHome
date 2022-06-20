@@ -20,7 +20,7 @@ if (!Math) {
   "./pages/cart/cart.js";
   "./pages/mycollection/mycollection.js";
   "./pages/orderdetail/orderdetail.js";
-  "./pages/test/test.js";
+  "./pages/payment/payment.js";
 }
 const _sfc_main = {
   onLaunch: function() {

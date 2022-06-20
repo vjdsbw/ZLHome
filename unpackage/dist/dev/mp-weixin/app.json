@@ -1,81 +1,80 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/sort/sort",
-        "pages/brand/brand",
-        "pages/me/me",
-        "pages/login/login",
-        "pages/set/set",
-        "pages/gooddetail/gooddetail",
-        "pages/good/good",
-        "pages/search/search",
-        "pages/useredit/useredit",
-        "pages/setnickname/setnickname",
-        "pages/order/order",
-        "pages/address/address",
-        "pages/cart/cart",
-        "pages/mycollection/mycollection",
-        "pages/orderdetail/orderdetail",
-        "pages/test/test"
-    ],
-    "usingComponents": {
-        "van-button": "/wxcomponents/vant/dist/button/index",
-        "van-tab": "/wxcomponents/vant/dist/tab/index",
-        "van-tabs": "/wxcomponents/vant/dist/tabs/index",
-        "van-cell": "/wxcomponents/vant/dist/cell/index",
-        "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
-        "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
-        "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
-        "van-area": "/wxcomponents/vant/dist/area/index",
-        "van-picker": "/wxcomponents/vant/dist/picker/index",
-        "van-goods-action": "/wxcomponents/vant/dist/goods-action/index",
-        "van-goods-action-icon": "/wxcomponents/vant/dist/goods-action-icon/index",
-        "van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index",
-        "van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
-        "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index",
-        "van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index",
-        "van-stepper": "/wxcomponents/vant/dist/stepper/index"
-    },
-    "window": {
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "uni-app",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8"
-    },
-    "tabBar": {
-        "color": "#999999",
-        "selectedColor": "#FF0000",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "首页",
-                "iconPath": "static/icon/index.png",
-                "selectedIconPath": "static/icon/index-active.png"
-            },
-            {
-                "pagePath": "pages/sort/sort",
-                "text": "分类",
-                "iconPath": "static/icon/sort.png",
-                "selectedIconPath": "static/icon/sort-active.png"
-            },
-            {
-                "pagePath": "pages/brand/brand",
-                "text": "品牌馆",
-                "iconPath": "static/icon/brand.png",
-                "selectedIconPath": "static/icon/brand-active.png"
-            },
-            {
-                "pagePath": "pages/me/me",
-                "text": "我的",
-                "iconPath": "static/icon/me.png",
-                "selectedIconPath": "static/icon/me-active.png"
-            }
-        ]
-    },
-    "permission": {
-        "scope.userLocation": {
-            "desc": ""
-        }
-    },
-    "sitemapLocation": "sitemap.json"
+  "pages": [
+    "pages/index/index",
+    "pages/sort/sort",
+    "pages/brand/brand",
+    "pages/me/me",
+    "pages/login/login",
+    "pages/set/set",
+    "pages/gooddetail/gooddetail",
+    "pages/good/good",
+    "pages/search/search",
+    "pages/useredit/useredit",
+    "pages/setnickname/setnickname",
+    "pages/order/order",
+    "pages/address/address",
+    "pages/cart/cart",
+    "pages/mycollection/mycollection",
+    "pages/orderdetail/orderdetail",
+    "pages/payment/payment"
+  ],
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-tab": "/wxcomponents/vant/dist/tab/index",
+    "van-tabs": "/wxcomponents/vant/dist/tabs/index",
+    "van-cell": "/wxcomponents/vant/dist/cell/index",
+    "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
+    "van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
+    "van-area": "/wxcomponents/vant/dist/area/index",
+    "van-picker": "/wxcomponents/vant/dist/picker/index",
+    "van-goods-action": "/wxcomponents/vant/dist/goods-action/index",
+    "van-goods-action-icon": "/wxcomponents/vant/dist/goods-action-icon/index",
+    "van-goods-action-button": "/wxcomponents/vant/dist/goods-action-button/index",
+    "van-checkbox": "/wxcomponents/vant/dist/checkbox/index",
+    "van-checkbox-group": "/wxcomponents/vant/dist/checkbox-group/index",
+    "van-action-sheet": "/wxcomponents/vant/dist/action-sheet/index",
+    "van-stepper": "/wxcomponents/vant/dist/stepper/index"
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF0000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/icon/index.png",
+        "selectedIconPath": "static/icon/index-active.png"
+      },
+      {
+        "pagePath": "pages/sort/sort",
+        "text": "分类",
+        "iconPath": "static/icon/sort.png",
+        "selectedIconPath": "static/icon/sort-active.png"
+      },
+      {
+        "pagePath": "pages/brand/brand",
+        "text": "品牌馆",
+        "iconPath": "static/icon/brand.png",
+        "selectedIconPath": "static/icon/brand-active.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "static/icon/me.png",
+        "selectedIconPath": "static/icon/me-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": ""
+    }
+  }
 }

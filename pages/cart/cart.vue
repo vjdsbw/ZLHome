@@ -553,11 +553,10 @@
 
 								.motaikuang {
 									width: 100%;
-									height: 100%;
 									position: fixed;
 									bottom: 0px;
 									left: 0px;
-									z-index: 999;
+									z-index: 99999;
 
 									.mask {
 										width: 100%;
@@ -569,7 +568,7 @@
 										right: 0px;
 										margin: 0px auto;
 										background: rgba(115, 115, 115, 0.2);
-										z-index: 1000;
+										
 									}
 
 									.bottomPopup {
@@ -632,6 +631,8 @@
 												margin: 10rpx;
 												padding: 20rpx;
 												float: left;
+												font-size: 15px;
+
 											}
 
 											.active {
@@ -649,13 +650,14 @@
 										right: 0;
 										bottom: 0;
 										z-index: 1003;
+										// margin-bottom: 42px;
 
 										.sure {
 											width: 100%;
 											text-align: center;
 											color: #fff;
-											height: 100rpx;
-											line-height: 100rpx;
+											height: 80rpx;
+											line-height: 80rpx;
 											background: #E31D1A;
 											letter-spacing: 3px;
 										}
@@ -708,7 +710,7 @@
 						display: flex;
 						padding-left: 30rpx;
 						font-size: 28rpx;
-							z-index: 9999999999999;
+							z-index: 999;
 						.end-left {
 							flex: 2;
 							display: flex;

@@ -104,10 +104,10 @@
             
         }
         ,{
-            "path" : "pages/test/test",
+            "path" : "pages/payment/payment",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "收银台",
                 "enablePullDownRefresh": false
             }
             

@@ -95,6 +95,7 @@
 					<view class="last">
 						<van-dropdown-menu>
 
+
 							<van-dropdown-item  class="item" title="品牌">
 								<view class="title" v-for="(item,index) in brand" :key="item.brand_id">
 									<view class="name" @click="addB(item.brand_id)"
@@ -107,6 +108,7 @@
 										<uni-icons type="checkmarkempty" color="red" size="20"></uni-icons>
 									</view>
 								</view>
+
 								<view class="set">
 									<view class="reset" @click="reset">
 										<van-button block>
@@ -118,6 +120,7 @@
 											确认
 										</van-button>
 									</view>
+
 								</view>
 
 							</van-dropdown-item>
@@ -134,6 +137,7 @@
 										<uni-icons type="checkmarkempty" color="red" size="20"></uni-icons>
 									</view>
 								</view>
+
 								<view class="set">
 									<view class="reset" @click="reset">
 										<van-button block>
@@ -400,6 +404,7 @@
 				this.minvalue=e.detail.value
 				console.log(e,e.detail.value);
 			},
+
 			onmaxPrice(e){
 				this.maxvalue=e.detail.value
 				console.log(e,e.detail.value);
