@@ -27,7 +27,7 @@ const _sfc_main = {
         icon: "chat",
         text: "\u4F50\u7F57\u4F18\u9009"
       }, {
-        icon: "shop",
+        icon: "list",
         text: "\u5206\u7C7B",
         infoBackgroundColor: "#007aff",
         infoColor: "#f5f5f5"
@@ -240,16 +240,16 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _easycom_goodsdetail_tabs2 = common_vendor.resolveComponent("goodsdetail_tabs");
+  const _easycom_goodstabs2 = common_vendor.resolveComponent("goodstabs");
   const _easycom_uni_badge2 = common_vendor.resolveComponent("uni-badge");
   const _easycom_uni_goods_nav2 = common_vendor.resolveComponent("uni-goods-nav");
-  (_easycom_goodsdetail_tabs2 + _easycom_uni_badge2 + _easycom_uni_goods_nav2)();
+  (_easycom_goodstabs2 + _easycom_uni_badge2 + _easycom_uni_goods_nav2)();
 }
-const _easycom_goodsdetail_tabs = () => "../../components/goodsdetail_tabs/goodsdetail_tabs.js";
+const _easycom_goodstabs = () => "../../components/goodstabs/goodstabs.js";
 const _easycom_uni_badge = () => "../../uni_modules/uni-badge/components/uni-badge/uni-badge.js";
 const _easycom_uni_goods_nav = () => "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.js";
 if (!Math) {
-  (_easycom_goodsdetail_tabs + _easycom_uni_badge + _easycom_uni_goods_nav)();
+  (_easycom_goodstabs + _easycom_uni_badge + _easycom_uni_goods_nav)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({

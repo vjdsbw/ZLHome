@@ -18,6 +18,7 @@
 }
 .container .active.data-v-1c515af4 {
   color: red;
+  border-color: #E31D1A;
 }
 .container .bg .swiper.data-v-1c515af4 {
   height: 564rpx;
@@ -137,7 +138,7 @@
   position: fixed;
   bottom: 0px;
   left: 0px;
-  z-index: 10000000001;
+  z-index: 999;
 }
 .container .size .canshu .motaikuang .mask.data-v-1c515af4 {
   width: 100%;
@@ -175,74 +176,19 @@
   height: auto;
   margin: 0px auto;
   border-bottom: 1px #eee solid;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-}
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup.data-v-1c515af4 {
-  width: 100%;
-  height: 70%;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 1001;
-  background: #fff;
-  border-radius: 5px 5px 0px 0px;
-}
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .close.data-v-1c515af4 {
-  position: absolute;
-  top: 0rpx;
-  right: 20rpx;
-  font-size: 50rpx;
-  color: #999;
-  z-index: 1002;
-}
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .popupHead.data-v-1c515af4 {
-  width: 94%;
-  height: auto;
-  margin: 0px auto;
-  border-bottom: 1px #eee solid;
   display: flex;
   flex-direction: row;
   padding: 20rpx 0px;
 }
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .popupHead .headImg image.data-v-1c515af4 {
+.container .size .canshu .motaikuang .bottomPopup .popupHead .headImg image.data-v-1c515af4 {
   width: 280rpx;
   margin-top: -100rpx;
 }
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .popupHead .text .headPrice.data-v-1c515af4 {
+.container .size .canshu .motaikuang .bottomPopup .popupHead .text .headPrice.data-v-1c515af4 {
   color: red;
   font-size: 44rpx;
 }
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .popupHead .text .headNum.data-v-1c515af4 {
-  color: #999;
-  font-size: 24rpx;
-}
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .guige.data-v-1c515af4 {
-  color: #999;
-}
-.container .size .canshu .motaikuang .bottomPopup .bottomPopup .motaikuangsize .sizevalue.data-v-1c515af4 {
-  width: 30%;
-  border: 1px solid lightgrey;
-  margin: 10rpx;
-  padding: 20rpx;
-  float: left;
-}
-.container .size .canshu .motaikuang .bottomPopup .queding.data-v-1c515af4 {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 20rpx 0px;
-}
-.container .size .canshu .motaikuang .bottomPopup .queding .headImg image.data-v-1c515af4 {
-  width: 280rpx;
-  margin-top: -100rpx;
-}
-.container .size .canshu .motaikuang .bottomPopup .queding .text .headPrice.data-v-1c515af4 {
-  color: red;
-  font-size: 44rpx;
-}
-.container .size .canshu .motaikuang .bottomPopup .queding .text .headNum.data-v-1c515af4 {
+.container .size .canshu .motaikuang .bottomPopup .popupHead .text .headNum.data-v-1c515af4 {
   color: #999;
   font-size: 24rpx;
 }
@@ -250,10 +196,15 @@
   color: #999;
 }
 .container .size .canshu .motaikuang .bottomPopup .motaikuangsize .sizevalue.data-v-1c515af4 {
-  width: 20%;
+  width: 30%;
   border: 1px solid lightgrey;
   margin: 10rpx;
   padding: 20rpx;
+  float: left;
+}
+.container .size .canshu .motaikuang .bottomPopup .motaikuangsize .active.data-v-1c515af4 {
+  color: red;
+  border-color: #E31D1A;
 }
 .container .size .canshu .motaikuang .queding.data-v-1c515af4 {
   width: 100%;
@@ -262,7 +213,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 10000000002;
+  z-index: 1003;
 }
 .container .size .canshu .motaikuang .queding .sure.data-v-1c515af4 {
   width: 100%;
@@ -272,6 +223,7 @@
   line-height: 100rpx;
   background: #E31D1A;
   letter-spacing: 3px;
+  margin-bottom: 50px;
 }
 .container .size .caizhi.data-v-1c515af4 {
   display: flex;

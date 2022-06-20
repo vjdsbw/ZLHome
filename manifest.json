@@ -36,10 +36,15 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
+<<<<<<< HEAD
         "appid" : "wx683b247ef7b12582",
+=======
+        "appid" : "wx4115a7dd34081dbb",
+
+>>>>>>> 1d7bbefb02c3783b62b87659b3fa3282f8ea956c
         "setting" : {
             "urlCheck" : false,
-            "es6" : false
+            "es6" : true
         },
         "usingComponents" : true,
         "permission" : {

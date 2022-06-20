@@ -76,6 +76,5 @@
     "scope.userLocation": {
       "desc": ""
     }
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

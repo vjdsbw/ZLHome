@@ -25,7 +25,6 @@ const _sfc_main = {
       if (result1) {
         this.imgpath = result1;
         this.neverchange = false;
-        console.log(this.imgpath, "xxxx");
       }
     } else {
       this.imgpath = "";
@@ -76,11 +75,7 @@ const _sfc_main = {
     },
     show() {
       let result = common_vendor.index.getStorageSync("user");
-      if (result) {
-        this.username = result.user_name;
-      } else {
-        this.username = "\u70B9\u51FB\u767B\u5F55";
-      }
+      result ? result.alias ? this.username = result.alias : this.username = reult.user_name : this.username = "\u8BF7\u5148\u767B\u5F55";
     },
     goSet() {
       let result = common_vendor.index.getStorageSync("user");

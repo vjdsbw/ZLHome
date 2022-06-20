@@ -10,7 +10,6 @@
 					</uni-badge>
 				</view>
 			</view>
-
 		</view>
 		<view class="goods">
 			<view class="head_list">
@@ -42,7 +41,7 @@
 										<view class="brand">
 											<view class="brand_name">品牌</view>
 											
-											<view class="choice" @click="showTag">{{flag3?"可多选":`已选${num}项`}}</view>
+											<view class="choice" @click="showTag">{{flag3?"可多选":(num==0?"可多选":`已选${num}项`)}}</view>
 										</view>
 										<view class="brand_img" :class="{active:!flag}">
 											<button v-for="item in brand" :key="item.brand_id"
@@ -59,8 +58,9 @@
 										<view >
 											<view class="brand">
 											<!-- {{flag2?(currents==idx"可多选":`已选${num1[idx]}项`):false}} -->
-												<view class="brand_name">{{item .attr_name}}</view>
-												<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?`已选${num1[idx]}项`:"可多选")}}</view>
+												<view class="brand_name">{{item.attr_name}}</view>
+											<!-- 	<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?`已选${num1[idx]}项`:"可多选")}}</view> -->
+												<view class="choice" @click="show1Tag(idx)">{{flag2?'可多选':(currents==idx?(num1[idx]!=0?`已选${num1[idx]}项`:"可多选"):(!num1[idx]?"可多选":(num1[idx]==0?"可多选":`已选${num1[idx]}项`)))}}</view>
 											</view>
 											
 											<view class="attr_text" :class="flag1?(current==idx?'active':'attr_text'):false">
@@ -124,11 +124,11 @@
 								</view>
 
 							</van-dropdown-item>
-							<van-dropdown-item class="item" v-for="item in attr" :key="item.attr_id"
+							<van-dropdown-item class="item" v-for="(item,index) in attr" :key="item.attr_id"
 								:title="item.attr_name">
 
 								<view class="title" v-for="(att,idx) in item.attr_list" :key="att.attr_value_id">
-									<view class="name" @click="addA(att.attr_value_id,idx)"
+									<view class="name" @click="addA(att.attr_value_id,index)"
 										:style="{'color':(arr.indexOf(att.attr_value_id)!=-1?'red':'#333')}">
 
 										{{att.attr_value}}
@@ -161,7 +161,7 @@
 
 		<goodList :Goods="Goods" :price="price" :psort="psort"></goodList>
 		<view class="more">
-			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
+			<uni-load-more v-if="!flagg" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
 		</view>
 
@@ -179,11 +179,12 @@
 				currents:null,
 				current:null,
 				num:0,
-				num1:[0,0,0,0],
+				num1:[],
 				minvalue:"",
 				maxvalue:"",
 				isChoose: true,
 				noChoose: false,
+                flagg:true,
 
 				num: null,
 				temp: 0,
@@ -191,9 +192,7 @@
 				type: '',
 				icons: false,
 				value: "",
-
 				flag: true,
-
 				flag1: true,
 				flage: false,
 				flag2:true,
@@ -206,7 +205,6 @@
 				brr: [],
 				arr: [],
 				krr:[[]],
-
 				a: '',
 				b: '',
 				p: 1,
@@ -243,9 +241,6 @@
 				item.toggle(false)
 			})
 		},
-		created() {
-			this.getgoodList();
-		},
 		async onShow() {
 			let user = uni.getStorageSync('user');
 			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
@@ -268,6 +263,19 @@
 					complete: () => {}
 				});
 			},
+		    async getgoodsids(){
+				for (var i = 0; i < this.Goods.length; i++) {
+					if (i == 0) {
+						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
+					}
+					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
+				}				
+				//通过goods-ids拿到价格
+				let result2 = await requestGet("/api/api/goods/get_price", {
+					goods_ids: this.goods_ids
+				})
+				this.price = result2.data
+			},
 			async getgoodList() {
 				//拿到商品列表
 				let result = await requestGet(`/api/api/category-` + this.type + `/`, {
@@ -278,7 +286,7 @@
 					pn:this.pn,
 					px:this.px,
 				})
-				if (result.data.goods_list.length > 0) {
+				if (result.data.goods_list.length!=0) {
 
 					//商品第一行分类
 					this.brand = result.data.brand_list
@@ -287,6 +295,7 @@
 
 					for(let k=0;k<result.data.attr.length;k++){
 						this.krr[k]=[];
+						this.num1[k] = 0;
 					}
 					//通过第一页的数据比较
 					if (result.data.goods_list.length < 32) {
@@ -294,19 +303,11 @@
 					}
 					//商品信息
 					this.Goods = [...this.Goods, ...result.data.goods_list]
-					for (var i = 0; i < this.Goods.length; i++) {
-						if (i == 0) {
-							this.goods_ids = this.goods_ids + this.Goods[i].goods_id
-						}
-						this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-					}
-					//通过goods-ids拿到价格
-					let result2 = await requestGet("/api/api/goods/get_price", {
-						goods_ids: this.goods_ids
-					})
-					this.price = result2.data
+
+					//把Goods里的goods_id拼接起来，传给goods_ids	
+					this.getgoodsids()
 				} else {
-					uni.showToast({
+					uni.showToast({						
 						title: '没有更多数据了',
 						image: '/static/icon/err.png',
 						duration: 2000
@@ -326,51 +327,30 @@
 			},
 			show1Tag(idx) {
 				this.current = idx;
-				this.flag1 = !this.flag1;
-					console.log(this.attr);				
+				this.flag1 = !this.flag1;			
 			},
 			addA(m,n) {
-				//列如风格，材质，每一个插入的数据
-				if(this.krr[n].includes(m)){
-					this.krr[n] = this.krr[n].filter(item => item !== m)	
-				}
-				else{
-					this.krr[n].push(m)
-				}
+				this.krr[n].includes(m)?(this.krr[n] = this.krr[n].filter(item => item !== m)):(this.krr[n].push(m))
 				this.num1[n] = this.krr[n].length;
-				console.log(this.num1,"ccccccccccccccccccccc");
-				if (this.arr.includes(m)) {
-					//过滤数组，返回不等于m的
-					this.arr = this.arr.filter(item => item !== m)				
-				} else {
-					this.arr.push(m)					
-				}
-				console.log(this.arr);
+				this.arr.includes(m)?(this.arr = this.arr.filter(item => item !== m)):(this.arr.push(m))
 				this.currents=n;
-				this.flag2 = false;
-				
+				this.flag2 = false;				
 			},
 			addB(m) {
-				if (this.brr.includes(m)) {
-					this.brr = this.brr.filter(item => item !== m)
-				} else {
-					this.brr.push(m)			
-
-				}
+				this.brr.includes(m)?(this.brr = this.brr.filter(item => item !== m)):(this.brr.push(m))
 				this.num=this.brr.length	
 				this.flag3 = false;
 			},
 			reset() {
-				this.arr = [];
-				this.brr = [];
+				this.arr.length=0;
+				this.brr.length=0;
 				this.a = '';
 				this.b = '';
 				this.num=0;
-				this.num1=0;
+				this.num1.forEach((item,idx)=>this.num1[idx]=0)
 				this.minvalue='';
 				this.maxvalue='';
-
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 				this.flag2 = true;
 				this.flag3 = true;
@@ -381,7 +361,7 @@
 				this.brr.forEach(item => this.b = item + '^' + this.b)
 				this.pn=this.minvalue;
 				this.px=this.maxvalue;
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 				this.$refs.showRight.close();
 				this.selectAllComponents(".item").map((item)=>{
@@ -393,11 +373,11 @@
 			currentClick(k) {
 				this.flage = !this.flage;
 				this.psort = 6
-				this.Goods = [];
+				this.Goods.length=0;
 				this.getgoodList();
 			},
 			open() {
-				console.log("xxx")
+
 			},
 			//全部和最新
 			menu(value1) {
@@ -415,20 +395,12 @@
 			},
 			//价格升降序
 			bottomClick(k) {
-				console.log(k);
-				if (k == 1) {
-					this.psort = 1
-					console.log("价格升序")
-				} else {
-					this.psort = 2
-					console.log("价格降序")
-				}
-				this.Goods = [];
-				this.price = [];
+				k==1 ? this.psort=1:this.psort=2;
+				this.Goods.length=0;
+				this.price.length=0;
 				this.goods_ids = '';
 				this.getgoodList();
 			},
-
 			//最小
 			onminPrice(e){
 				this.minvalue=e.detail.value
@@ -439,7 +411,12 @@
 				this.maxvalue=e.detail.value
 				console.log(e,e.detail.value);
 			},
-
+			//设置标题栏
+			setTitle(name){
+				uni.setNavigationBarTitle({
+				    title: '【'+name+'】'+name+'品牌_'+name+'价格_'+name+'图片-佐罗优选超值热卖'
+				});
+			}
 		},
 		//上拉刷新
 		onReachBottom() {
@@ -451,61 +428,39 @@
 		},
 		async onLoad(options) {
 			console.log(options);
+			this.num1.length=0;
 			(options.name && (!options.pinyin)) ? this.value = options.name: this.value
 			if (options.name && !options.v && !options.pinyin) {
+				this.setTitle(options.name)
 				let result = await requestGet(`/api/api/search/?v=1&keywords=${options.name }`)
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
-				for (var i = 0; i < this.Goods.length; i++) {
-					if (i == 0) {
-						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
-					}
-					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-				}
-				//通过goods-ids拿到价格
-				let result2 = await requestGet("/api/api/goods/get_price", {
-					goods_ids: this.goods_ids
-				})
-				this.price = result2.data
+				this.getgoodsids()
 			}
 			if (options.name && options.v) {
+				this.setTitle(options.name)
 				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+				console.log(result,"xxxxxxxxxxx111111")
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
-				for (var i = 0; i < this.Goods.length; i++) {
-					if (i == 0) {
-						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
-					}
-					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-				}
-
-				//通过goods-ids拿到价格
-				let result2 = await requestGet("/api/api/goods/get_price", {
-					goods_ids: this.goods_ids
-				})
-				this.price = result2.data
-			} else if (options.pinyin) {
+				this.getgoodsids()
+			} else if (options.chinese&&options.pinyin) {
 				this.type = options.pinyin;
 				this.value = options.chinese;
+				this.setTitle(options.chinese)
 				this.getgoodList();
+			}else if(options.chinese&&!options.pinyin){
+				this.value = options.chinese;
 			}
 			else if(options.keywords){
+				this.value = options.keywords
+				this.setTitle(options.keywords)
 				let result = await requestGet("/api/api/search/?v=1&keywords="+options.keywords+"&XcxSessKey=%20&company_id=7194")
 				this.Goods=result.data.goods_list
-				//把Goods里的goods_id拼接起来，传给goods_ids
-				for (var i = 0; i < this.Goods.length; i++) {
-					if (i == 0) {
-						this.goods_ids = this.goods_ids + this.Goods[i].goods_id
-					}
-					this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
-				}
-				//通过goods-ids拿到价格
-				let result2 = await requestGet("/api/api/goods/get_price", {
-					goods_ids: this.goods_ids
-				})
-				this.price = result2.data
+				this.getgoodsids()
+
 			}
-		},
+		},		
 	}
 </script>
 

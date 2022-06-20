@@ -9,11 +9,11 @@ const _sfc_main = {
     };
   },
   updated() {
-    let array = [];
-    for (var m = 0, n = 0; m < this.price.length; m++, n++) {
-      array.push(Object.assign(this.Goods[n], { shop_price: this.price[m].shop_price }));
+    if (this.price == 0) {
+      console.log("xxxxxxxxxxxxxxxxxx");
+    } else {
+      this.getgoodlist();
     }
-    this.getgoodlist();
   },
   methods: {
     togoodsdetail(id) {
@@ -29,8 +29,10 @@ const _sfc_main = {
     },
     getgoodlist() {
       let array2 = [];
-      for (var m = 0, n = 0; m < this.price.length; m++, n++) {
-        array2.push(Object.assign(this.Goods[n], { shop_price: this.price[m].shop_price }));
+      for (var m = 0, n = 0; m < this.Goods.length; m++, n++) {
+        array2.push(Object.assign(this.Goods[n], {
+          shop_price: this.price[m].shop_price
+        }));
       }
       this.array = array2;
       if (this.psort == 1) {

@@ -1,5 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
@@ -11,15 +12,17 @@ const _sfc_main = {
   },
   methods: {
     show() {
-      this.keywords = common_vendor.index.getStorageSync("user").user_name;
+      this.keywords = common_vendor.index.getStorageSync("user").alias;
     },
     onKeyInput: function(event) {
       this.keywords = event.detail.value;
     },
-    edit() {
-      let result = common_vendor.index.getStorageSync("user");
-      result.user_name = this.keywords;
-      common_vendor.index.setStorageSync("user", result);
+    async edit() {
+      await common_js_http.requestPost("/api/api/user/edit", {
+        "alias": this.keywords
+      });
+      let result2 = await common_js_http.requestPost("/api/getUserRole");
+      common_vendor.index.setStorageSync("user", result2.data);
       common_vendor.index.navigateBack({
         delta: 1
       });

@@ -1,7 +1,6 @@
 <template>
 	<van-tabs active="{{ active }}" :change="onChange">
 		<van-tab title="全部">
-
 			<view class="order" v-for="(item,index) in list" :key="item">
 				<view class="order_status_string" v-if="item.order_status_string == '已取消'">
 					<view class="customer-info">
@@ -163,7 +162,7 @@
 			}
 		},
 		created() {
-			this.order();
+			this.order()
 		},
 		methods: {
 			async order() {
@@ -174,9 +173,9 @@
 				this.list.forEach(item => this.length.push(item.all_goods.length))
 
 			},
-			goCart() {
+			goCart(order_id) {
 				uni.navigateTo({
-					url: '/pages/cart/cart'
+					url: `/pages/cart/cart?order_id=${order_id}`
 				})
 			},
 			goOrderdtail(order_sn) {
@@ -295,9 +294,6 @@
 					}
 				}
 			}
-
-
-
 			.good-bottom {
 				height: 20px;
 				color: #666;

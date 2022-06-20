@@ -1,7 +1,7 @@
 <template>
 	<!-- 搜索 -->
 	<view class="header">
-		<view class="search" @click="tosearch">
+		<view class="search" @click="gosearch">
 			<uni-search-bar placeholder="输入商品分类、名称" :radius="100" @confirm="search" cancelButton="none">
 			</uni-search-bar>
 		</view>
@@ -68,7 +68,7 @@
 			this.gws = carnum.data.total
 		},
 		onReady() {
-
+        
 		},
 		methods: {
 			tocart(){
@@ -86,6 +86,11 @@
 			async getListContent() {
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
 				this.lists = result.data
+			},
+			gosearch(){
+				uni.navigateTo({
+					url:'/pages/search/search'
+				})
 			},
 			goCart(){
 				uni.navigateTo({

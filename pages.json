@@ -12,28 +12,24 @@
 				"navigationBarTitleText": "商品分类",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/brand/brand",
 			"style": {
 				"navigationBarTitleText": "品牌馆",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/set/set",
 			"style": {
@@ -52,9 +48,8 @@
 		}, {
 			"path": "pages/good/good",
 			"style": {
-				"navigationBarTitleText": "商品列表",
-				"enablePullDownRefresh": false,
-				"onReachBottomDistance": 50
+				"navigationBarTitleText": "搜索列表",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -74,33 +69,26 @@
 			"style": {
 				"navigationBarTitleText": "修改昵称",
 				"enablePullDownRefresh": false
-
 			}
-
 		}, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
-
 				"enablePullDownRefresh": false
 
 			}
-
 		}, {
 			"path": "pages/address/address",
 			"style": {
 				"navigationBarTitleText": "订单地址",
 				"enablePullDownRefresh": false
-
 			}
-
 		}, {
 			"path": "pages/cart/cart",
 			"style": {
 				"navigationBarTitleText": "购物车",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/mycollection/mycollection",
 			"style": {
@@ -108,26 +96,24 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/orderdetail/orderdetail",
+			"style": {
+				"navigationBarTitleText": "客户订单详情",
+				"enablePullDownRefresh": false
+			}
+
 		}
-        ,{
-            "path" : "pages/orderdetail/orderdetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "客户订单详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/payment/payment",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "收银台",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+
+		, {
+			"path": "pages/payment/payment",
+			"style": {
+				"navigationBarTitleText": "收银台",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
 
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -144,6 +130,7 @@
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
 			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
 			"van-area": "/wxcomponents/vant/dist/area/index",
 			"van-picker": "/wxcomponents/vant/dist/picker/index",

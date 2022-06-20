@@ -107,7 +107,7 @@
 			</view>
 		</view>
 
-		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
+		<goodstabs :result="result"></goodstabs>
 		<view class="uni-container">
 			<view class="goods-carts">
 				<view class="jiaobiao">
@@ -153,7 +153,7 @@
 					icon: 'chat',
 					text: '佐罗优选'
 				}, {
-					icon: 'shop',
+					icon: 'list',
 					text: '分类',
 					infoBackgroundColor: '#007aff',
 					infoColor: "#f5f5f5"
@@ -183,7 +183,6 @@
 			this.goods_id = options.id
 		},
 		async onShow() {
-
 			this.getGoodDetail()
 			let user = uni.getStorageSync('user');
 			let result = uni.getStorageSync(`col${user.user_id}`)
@@ -248,9 +247,9 @@
 			onClick(e) {
 				let user = uni.getStorageSync('user')
 				if (user) {
-					if(e.index==3){
+					if (e.index == 3) {
 						uni.navigateTo({
-							url:'/pages/cart/cart'
+							url: '/pages/cart/cart'
 						})
 					}
 					if (e.index == 2) {
@@ -357,15 +356,14 @@
 				this.showmotai = false
 			},
 			changeClass(i) {
-			    this.isActive = i;
+				this.isActive = i;
 				this.img = this.goodsAttr[i].goods_img_url
 				this.price = this.goodsAttr[i].shop_price
 				this.goodsNum = this.goodsAttr[i].goods_sn
-				this.goodsId=this.goodsAttr[i].id
-			  },
-			
-		
-			otherdetails(){
+				this.goodsId = this.goodsAttr[i].id
+			},
+
+			otherdetails() {
 				console.log(this.goodsId);
 				uni.navigateTo({
 					url: `/pages/gooddetail/gooddetail?id=${this.goodsId}`,
@@ -404,6 +402,7 @@
 
 		.active {
 			color: red;
+			border-color: #E31D1A;
 		}
 
 		.bg {
@@ -550,7 +549,7 @@
 					position: fixed;
 					bottom: 0px;
 					left: 0px;
-					z-index: 10000000001;
+					z-index: 999;
 
 					.mask {
 						width: 100%;
@@ -590,68 +589,6 @@
 							height: auto;
 							margin: 0px auto;
 							border-bottom: 1px #eee solid;
-							background: rgba(0, 0, 0, 0.4);
-							z-index: 1000;
-							}
-							.bottomPopup{
-								width: 100%;
-								height: 70%;
-								position: fixed;
-								bottom: 0px;
-								left: 0px;
-								right: 0px;
-								z-index: 1001;
-								background: #fff;
-								border-radius: 5px 5px 0px 0px;
-								.close {
-									position: absolute;
-									top: 0rpx;
-									right: 20rpx;
-									font-size: 50rpx;
-									color: #999;
-									z-index: 1002;
-									}
-								.popupHead {
-									width: 94%;
-									height: auto;
-									margin: 0px auto;
-									border-bottom: 1px #eee solid;
-									display: flex;
-									flex-direction: row;
-									padding: 20rpx 0px;
-									.headImg {
-										image{
-											width: 280rpx;
-											margin-top: -100rpx;
-										}
-									}
-									.text {
-										.headPrice {
-											color: red;
-											font-size: 44rpx;
-										}
-										.headNum {
-											color: #999;
-											font-size: 24rpx;
-											}
-										}	
-									}		
-									
-									.guige{
-										color: #999;
-									}
-									.motaikuangsize {
-										.sizevalue {
-											width: 30%;
-											border: 1px solid lightgrey;
-											margin: 10rpx;
-											padding: 20rpx;
-											float: left;
-										}
-									}	
-							}
-						.queding {
-							width: 100%;
 							display: flex;
 							flex-direction: row;
 							padding: 20rpx 0px;
@@ -682,10 +619,15 @@
 
 						.motaikuangsize {
 							.sizevalue {
-								width: 20%;
+								width: 30%;
 								border: 1px solid lightgrey;
 								margin: 10rpx;
 								padding: 20rpx;
+								float: left;
+							}
+							.active {
+								color: red;
+								border-color: #E31D1A;
 							}
 						}
 					}
@@ -697,7 +639,7 @@
 						left: 0;
 						right: 0;
 						bottom: 0;
-						z-index: 10000000002;
+						z-index: 1003;
 
 						.sure {
 							width: 100%;
@@ -707,6 +649,7 @@
 							line-height: 100rpx;
 							background: #E31D1A;
 							letter-spacing: 3px;
+							margin-bottom: 50px;
 						}
 					}
 				}

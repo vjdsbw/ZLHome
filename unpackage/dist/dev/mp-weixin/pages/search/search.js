@@ -61,20 +61,21 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "icon-sousuo",
       size: "20"
     }),
-    b: common_vendor.o((...args) => $options.onKeyInput && $options.onKeyInput(...args)),
-    c: $data.value,
-    d: common_vendor.o((...args) => $options.search && $options.search(...args)),
-    e: common_vendor.o(($event) => $options.GoGoodList("chuang", "\u5E8A")),
-    f: common_vendor.o(($event) => $options.GoGoodList("chuangdian", "\u5E8A\u57AB")),
-    g: common_vendor.o(($event) => $options.GoGoodList("canzhuo", "\u9910\u684C")),
-    h: common_vendor.o(($event) => $options.GoGoodList("shafa", "\u6C99\u53D1")),
-    i: common_vendor.o(($event) => $options.GoGoodList("yigui", "\u8863\u67DC")),
-    j: common_vendor.o($options.clean),
-    k: common_vendor.p({
+    b: common_vendor.o((...args) => $options.search && $options.search(...args)),
+    c: common_vendor.o((...args) => $options.onKeyInput && $options.onKeyInput(...args)),
+    d: $data.value,
+    e: common_vendor.o((...args) => $options.search && $options.search(...args)),
+    f: common_vendor.o(($event) => $options.GoGoodList("chuang", "\u5E8A")),
+    g: common_vendor.o(($event) => $options.GoGoodList("chuangdian", "\u5E8A\u57AB")),
+    h: common_vendor.o(($event) => $options.GoGoodList("canzhuo", "\u9910\u684C")),
+    i: common_vendor.o(($event) => $options.GoGoodList("shafa", "\u6C99\u53D1")),
+    j: common_vendor.o(($event) => $options.GoGoodList("yigui", "\u8863\u67DC")),
+    k: common_vendor.o($options.clean),
+    l: common_vendor.p({
       type: "trash",
       size: "20"
     }),
-    l: common_vendor.f($data.searchlist, (item, indx, i0) => {
+    m: common_vendor.f($data.searchlist, (item, indx, i0) => {
       return {
         a: common_vendor.t(item),
         b: item.idx

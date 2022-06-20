@@ -121,8 +121,9 @@
 				</view>
 			</view>
 		</view>
+
 		<view class="again" v-if="order_info.order_status_string == '已取消'">
-			<view class="button" @click="goCart">
+			<view class="button" @click="goCart(order_info.order_id)">
 				再次购买
 			</view>
 		</view>
@@ -160,9 +161,9 @@
 				this.order_info = result.data.order_info;
 				this.order_goods_info = result.data.order_goods_info
 			},
-			goCart(){
+			goCart(order_id){
 				uni.navigateTo({
-					url:'/pages/cart/cart'
+					url:`/pages/cart/cart?order_id=${order_id}`
 				})
 			},
 			goPayment(order_sn,order_total_price){
