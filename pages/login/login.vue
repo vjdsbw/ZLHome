@@ -69,6 +69,7 @@
 					"username": this.customFormData.username,
 					"password": this.customFormData.password
 				});
+				console.log(result);
 				let result2= await requestPost("/api/getUserRole");
 				if (result.error === 0) {
 					uni.setStorageSync('user', result2.data)

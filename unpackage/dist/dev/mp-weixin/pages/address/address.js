@@ -1,12 +1,13 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var common_js_http = require("../../common/js/http.js");
 const _sfc_main = {
   data() {
     return {
       isflag: true,
       noflag: false,
-      isAddress: false,
-      isShow: true,
+      isAddress: true,
+      isShow: false,
       noShow: true,
       formdataList: [],
       addressList: [],
@@ -139,7 +140,10 @@ const _sfc_main = {
     },
     save() {
       this.$refs.exit.close();
-      console.log("1111111111111111111111");
+    },
+    async checkout(m) {
+      let result = await common_js_http.requestPost(`/api/api/flow/check_out?cart_id=` + m + `XcxSessKey=%20&company_id=7194`);
+      console.log(result, "xxxxxxxxxxxxx");
     }
   }
 };
@@ -380,5 +384,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     aB: common_vendor.t($data.num)
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-db675620"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/address/address.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-db675620"], ["__file", "D:/HBuilderXProject/ZLHome/pages/address/address.vue"]]);
 wx.createPage(MiniProgramPage);

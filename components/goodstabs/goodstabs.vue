@@ -87,7 +87,6 @@
 				this.$nextTick(()=> {
 					this.isActive = num;
 					this.intoView = "text" + num
-					console.log(this.intoView)
 				})
 			}
 		

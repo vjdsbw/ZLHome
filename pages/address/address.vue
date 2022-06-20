@@ -1,7 +1,6 @@
 <template>
 	<view class="container">
 		<scroll-view class="address" scroll-y="true">
-
 			<view class="info" v-if="addressList?isAddress:isShow">
 				<uni-forms border ref="form" :modelValue="formData">
 					<uni-forms-item label="收货人" required name="name">
@@ -24,7 +23,7 @@
 						</picker>
 					</uni-forms-item>
 
-					<uni-forms-item label="详细地址" name="address">
+					<uni-forms-item label="详细地址" name="address" >
 						<uni-easyinput :inputBorder="false" placeholder="必填" v-model="formData.address"></uni-easyinput>
 
 					</uni-forms-item>
@@ -38,11 +37,7 @@
 
 				</view>
 			</view>
-
-
-
 			<!-- 收获地址 -->
-
 			<uni-popup ref="popup" type="bottom" background-color="#fff">
 				<scroll-view scroll-y="true">
 					<view class="addbox">
@@ -192,8 +187,8 @@
 			return {
 				isflag: true,
 				noflag: false,
-				isAddress: false,
-				isShow: true,
+				isAddress: true,
+				isShow: false,
 				noShow: true,
 				// 加入的新地址列表
 				formdataList: [],
@@ -250,7 +245,6 @@
 			this.submit();
 
 		},
-
 		methods: {
 			bindRegionChange(event) {
 				console.log(event)
@@ -348,11 +342,11 @@
 			save() {
 				this.$refs.exit.close();
 				// this.submit()
-
-				console.log("1111111111111111111111");
-
-
 			},
+			async checkout(m){
+				let result = await requestPost(`/api/api/flow/check_out?cart_id=`+m+`XcxSessKey=%20&company_id=7194`);
+				console.log(result,"xxxxxxxxxxxxx");
+			}
 
 		}
 	}

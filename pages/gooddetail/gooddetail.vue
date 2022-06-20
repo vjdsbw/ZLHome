@@ -309,10 +309,7 @@
 				}
 			},
 			async getGoodDetail() {
-				console.log(this.goods_id)
-				let result = await requestGet(
-					`/api/api_goods?goods_id=${this.goods_id}`)
-				console.log(result);
+				let result = await requestGet(`/api/api_goods?goods_id=${this.goods_id}`)
 				this.swiperImg = result.data.goods_main_image
 				this.goodsInfo = result.data.goods_info
 				this.fromaddress = result.data.address_name

@@ -37,6 +37,7 @@ const _sfc_main = {
         "username": this.customFormData.username,
         "password": this.customFormData.password
       });
+      console.log(result);
       let result2 = await common_js_http.requestPost("/api/getUserRole");
       if (result.error === 0) {
         common_vendor.index.setStorageSync("user", result2.data);
@@ -99,5 +100,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     i: common_vendor.o(($event) => $options.submit("customForm"))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b237504c"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/login/login.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b237504c"], ["__file", "D:/HBuilderXProject/ZLHome/pages/login/login.vue"]]);
 wx.createPage(MiniProgramPage);

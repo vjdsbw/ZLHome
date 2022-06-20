@@ -81,10 +81,8 @@
 									<text class="price">￥{{i.shop_price}}</text>
 									<van-stepper :value="i.goods_num" min="1"
 										@minus="delcart(i.goods_num,i.goods_id,i.id)"
-										@plus="addcart(i.goods_num,i.goods_id)"
-										 @blur="stpchange(i.goods_id)"
-										 @change="changes"
-										 >
+										@plus="addcart(i.goods_num,i.goods_id)" @blur="stpchange(i.goods_id)"
+										@change="changes">
 									</van-stepper>
 								</view>
 							</view>
@@ -168,7 +166,7 @@
 				goodsAttr: [],
 				goodsAttrId: '',
 				cartid: '',
-				tempval:0
+				tempval: 0
 			}
 		},
 		onShow() {
@@ -189,15 +187,14 @@
 				}
 			})
 			this.quanxuanchecked = flag
-   console.log(this.chebrand);
 		},
 		methods: {
-			changes(e){
+			changes(e) {
 				this.tempval = e.detail
-				console.log(e,e.detail,this.tempval);
+				console.log(e, e.detail, this.tempval);
 			},
 			async stpchange(id) {
-				console.log(id,this.tempval);
+				console.log(id, this.tempval);
 				let user = uni.getStorageSync('user')
 				if (user) {
 					var a = `${id}:${this.tempval}`
@@ -289,7 +286,6 @@
 						})
 						this.goodsInshop = item.list
 					})
-					console.log(this.chebrand);
 				} else {
 					this.flag = true;
 				}
@@ -353,7 +349,6 @@
 				this.compuTotalPrice()
 			},
 			async showMotaikuang(goods_id, id, url) {
-				console.log(goods_id, id, url);
 				let url2 = url.split("-")[1].split("/")[0]
 				this.showmotai = true
 				this.cartid = id
@@ -521,11 +516,11 @@
 
 								.motaikuang {
 									width: 100%;
-									height: 100%;
 									position: fixed;
+									position: relative;
 									bottom: 0px;
 									left: 0px;
-									z-index: 9999999999;
+									z-index: 99999;
 
 									.mask {
 										width: 100%;
@@ -537,7 +532,7 @@
 										right: 0px;
 										margin: 0px auto;
 										background: rgba(115, 115, 115, 0.2);
-										z-index: 9999999999;
+
 									}
 
 									.bottomPopup {
@@ -600,6 +595,8 @@
 												margin: 10rpx;
 												padding: 20rpx;
 												float: left;
+												font-size: 15px;
+
 											}
 
 											.active {
@@ -617,19 +614,19 @@
 										right: 0;
 										bottom: 0;
 										z-index: 1003;
+										// margin-bottom: 42px;
 
 										.sure {
 											width: 100%;
 											text-align: center;
 											color: #fff;
-											height: 100rpx;
-											line-height: 100rpx;
+											height: 80rpx;
+											line-height: 80rpx;
 											background: #E31D1A;
 											letter-spacing: 3px;
 										}
 									}
 								}
-
 								.jisuan {
 									display: flex;
 
@@ -677,7 +674,7 @@
 						display: flex;
 						padding-left: 30rpx;
 						font-size: 28rpx;
-						z-index: 99999999;
+						z-index: 9999;
 
 						.end-left {
 							flex: 2;

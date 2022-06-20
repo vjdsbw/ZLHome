@@ -57,5 +57,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     h: $props.padding ? "10px" : ""
   });
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Study/geek/15.uni-app/ZLHome/components/uni-section/uni-section.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/components/uni-section/uni-section.vue"]]);
 wx.createComponent(Component);

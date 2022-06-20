@@ -178,9 +178,7 @@ const _sfc_main = {
       }
     },
     async getGoodDetail() {
-      console.log(this.goods_id);
       let result = await common_js_http.requestGet(`/api/api_goods?goods_id=${this.goods_id}`);
-      console.log(result);
       this.swiperImg = result.data.goods_main_image;
       this.goodsInfo = result.data.goods_info;
       this.fromaddress = result.data.address_name;
@@ -311,5 +309,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/gooddetail/gooddetail.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1c515af4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/gooddetail/gooddetail.vue"]]);
 wx.createPage(MiniProgramPage);

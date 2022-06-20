@@ -66,8 +66,10 @@ export function requestPostLogin(url, params) {
 			method: "POST",
 			data: params,
 			success: function(res) {
+				console.log(res);
 				uni.setStorageSync('cookie', res.header['Set-Cookie']);
 				resolve(res.data)
+				
 			},
 			fail: function(err) {
 				reject(err)
