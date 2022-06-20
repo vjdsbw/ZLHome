@@ -12,6 +12,7 @@ const _sfc_main = {
       maxvalue: "",
       isChoose: true,
       noChoose: false,
+      flagg: true,
       num: null,
       temp: 0,
       myScroll: 0,
@@ -246,6 +247,7 @@ const _sfc_main = {
     if (options.name && options.v) {
       this.setTitle(options.name);
       let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+      console.log(result, "xxxxxxxxxxx111111");
       this.Goods = result.data.goods_list;
       this.getgoodsids();
     } else if (options.chinese && options.pinyin) {
@@ -435,8 +437,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       price: $data.price,
       psort: $data.psort
     }),
-    U: !$data.flag
-  }, !$data.flag ? {
+    U: !$data.flagg
+  }, !$data.flagg ? {
     V: common_vendor.p({
       status: "loading"
     })
