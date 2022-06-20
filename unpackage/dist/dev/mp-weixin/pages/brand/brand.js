@@ -36,8 +36,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: item.brand_logo_url,
         c: common_vendor.t(item.brand_name),
         d: common_vendor.t(item.desc_t),
-        e: common_vendor.o(($event) => $options.goGoodsForKeywords(item.brand_name)),
-        f: item.brand_id
+        e: item.brand_id,
+        f: common_vendor.o(($event) => $options.goGoodsForKeywords(item.brand_name), item.brand_id)
       };
     })
   };

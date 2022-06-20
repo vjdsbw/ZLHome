@@ -11,13 +11,13 @@
 			</view>
 		</view>
 		<view>
-			<view class="brandlist" v-for="item in brandList" :key="item.brand_id">
+			<view class="brandlist" v-for="item in brandList" :key="item.brand_id" @click="goGoodsForKeywords(item.brand_name)">
 				<image class="img" :src="item.image_tv_url" mode="widthFix"></image>
 				<view class="brandname">
 					<image class="logo"  :src="item.brand_logo_url" mode="widthFix"></image>
 					<view class="name"> {{item.brand_name}} </view>
 					<view class="desc"> {{item.desc_t}} </view>
-					<button @click="goGoodsForKeywords(item.brand_name)">进入品牌</button>
+					<view class="into">进入品牌</view>
 				</view>
 			</view>
 		</view>
@@ -108,11 +108,16 @@
 				font-size: 24rpx;
 				margin: 10rpx 0rpx;
 			}
-			button {
+			.into {
 				font-size: 24rpx;
-				width: 200rpx;
+				color: gray;
+				width: 160rpx;
+				height: 50rpx;
+				line-height: 50rpx;
 				border-radius: 40rpx;
-				border: #ccc;
+				border:1px solid #ccc;
+				margin-left: 30rpx;
+				margin-top: 20rpx;
 			}
 		}
 	}

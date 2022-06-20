@@ -74,7 +74,7 @@
 							</view>
 						</view>
 						<view class="guige">规格</view>
-						<view class="motaikuangsize" @click="chooseSize">
+						<view class="motaikuangsize" >
 							<view class="sizevalue" v-for="(item,index) in goodsAttr" :key="item.id" :class="{active: isActive === index}" @click="changeClass(index)">
 								{{item.size}}
 							</view>
@@ -105,7 +105,7 @@
 			</view>
 		</view>
 
-		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
+		<goodstabs :result="result"></goodstabs>
 		<view class="uni-container">
 			<view class="goods-carts">
 				<uni-goods-nav :options="options" :fill="true" :button-group="buttonGroup" @click="onClick"
@@ -143,10 +143,11 @@
 					icon: 'shop',
 					text: '佐罗优选'
 				}, {
-					icon: 'shop',
+					icon: 'list',
 					text: '分类',
 					infoBackgroundColor: '#007aff',
 					infoColor: "#f5f5f5"
+					
 				}, {
 					icon: 'cart',
 					text: '购物车',
@@ -220,7 +221,7 @@
 				// 点击购物车按钮，判断用户是否登录 如果登录直接跳转到购物车页面，如果没有登录购物车页面显示未登录
 				if(e.index==2){
 					uni.navigateTo({
-						 url: '/pages/carts/carts'
+						 url: '/pages/cart/cart'
 					})
 				}
 				
@@ -244,12 +245,7 @@
 				this.goodsId=this.goodsAttr[i].id
 			  },
 			
-			// 加入购物车
-			//1.用户选择商品规格，点击确定判断用户是否登录 没有登录提示用户登录
-			//2.如果用户已登录 用户选择对应商品后加入购物车
-			//1）把数据缓存到本地 如果购物车再次添加相同的东西，购物车只发生数量变化
-			//2）每个用户购物车详情不同，通过用户id判断购物车数据
-			//3）购物车页面通过uni.getStorageInfoSync()获取缓存中的数据时，需要通过物品id（唯一标识）来判断物品规格是否相同，如果相同就让该物品的数量增加
+			
 			otherdetails(){
 				console.log(this.goodsId);
 				uni.navigateTo({

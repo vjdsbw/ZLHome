@@ -25,14 +25,12 @@
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false
 			}
-
-	}, {
+		}, {
 			"path": "pages/login/login",
 			"style": {
-			"navigationBarTitleText": "登录",
+				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": false
 			}
-
 		}, {
 			"path": "pages/set/set",
 			"style": {
@@ -40,16 +38,22 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/brand_goods/brand_goods",
+			"style": {
+				"navigationBarTitleText": "【喜临门】喜临门品牌_喜临门价格_喜临门图片-佐罗优选超值热卖",
+				"enablePullDownRefresh": false
+			}
 
-		}  ,{
-            "path" : "pages/gooddetail/gooddetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "佐罗优选",
-                "enablePullDownRefresh": false
-            }  
-			
-        },	{
+		}, {
+			"path": "pages/gooddetail/gooddetail",
+			"style": {
+				"navigationBarTitleText": "佐罗优选",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+
 			"path": "pages/good/good",
 			"style": {
 				"navigationBarTitleText": "商品列表",
@@ -77,8 +81,18 @@
 
 			}
 
+
 		}
-	    , {
+	    ,{
+            "path" : "pages/carts/carts",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "购物车",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		, {
 			"path": "pages/order/order",
 			"style": {
 				"navigationBarTitleText": "客户订单",
@@ -112,15 +126,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/orderdetail/orderdetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "客户订单详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -137,6 +143,7 @@
 			"van-cell": "/wxcomponents/vant/dist/cell/index",
 			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
 			"van-dropdown-menu": "/wxcomponents/vant/dist/dropdown-menu/index",
+
 			"van-dropdown-item": "/wxcomponents/vant/dist/dropdown-item/index",
 			"van-area": "/wxcomponents/vant/dist/area/index",
 			"van-picker": "/wxcomponents/vant/dist/picker/index",

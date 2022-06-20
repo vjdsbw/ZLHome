@@ -24,7 +24,7 @@ const _sfc_main = {
         icon: "shop",
         text: "\u4F50\u7F57\u4F18\u9009"
       }, {
-        icon: "shop",
+        icon: "list",
         text: "\u5206\u7C7B",
         infoBackgroundColor: "#007aff",
         infoColor: "#f5f5f5"
@@ -93,7 +93,7 @@ const _sfc_main = {
       }
       if (e.index == 2) {
         common_vendor.index.navigateTo({
-          url: "/pages/carts/carts"
+          url: "/pages/cart/cart"
         });
       }
     },
@@ -129,14 +129,14 @@ const _sfc_main = {
   }
 };
 if (!Array) {
-  const _easycom_goodsdetail_tabs2 = common_vendor.resolveComponent("goodsdetail_tabs");
+  const _easycom_goodstabs2 = common_vendor.resolveComponent("goodstabs");
   const _easycom_uni_goods_nav2 = common_vendor.resolveComponent("uni-goods-nav");
-  (_easycom_goodsdetail_tabs2 + _easycom_uni_goods_nav2)();
+  (_easycom_goodstabs2 + _easycom_uni_goods_nav2)();
 }
-const _easycom_goodsdetail_tabs = () => "../../components/goodsdetail_tabs/goodsdetail_tabs.js";
+const _easycom_goodstabs = () => "../../components/goodstabs/goodstabs.js";
 const _easycom_uni_goods_nav = () => "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.js";
 if (!Math) {
-  (_easycom_goodsdetail_tabs + _easycom_uni_goods_nav)();
+  (_easycom_goodstabs + _easycom_uni_goods_nav)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -177,15 +177,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.changeClass(index), item.id)
       };
     }),
-    z: common_vendor.o((...args) => _ctx.chooseSize && _ctx.chooseSize(...args)),
-    A: common_vendor.o(($event) => $options.otherdetails())
+    z: common_vendor.o(($event) => $options.otherdetails())
   } : {}, {
-    B: common_vendor.p({
+    A: common_vendor.p({
       result: $data.result
     }),
-    C: common_vendor.o($options.onClick),
-    D: common_vendor.o($options.buttonClick),
-    E: common_vendor.p({
+    B: common_vendor.o($options.onClick),
+    C: common_vendor.o($options.buttonClick),
+    D: common_vendor.p({
       options: $data.options,
       fill: true,
       ["button-group"]: $data.buttonGroup
