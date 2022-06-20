@@ -20,7 +20,6 @@
 							<text class="value1">{{i.value}}</text>
 						</view>
 					</view>
-
 				</view>
 			</van-tab>
 			<van-tab title="服务保障" class="">
@@ -56,7 +55,6 @@
 
 		},
 		updated() {
-
 			this.getGoodImg()
 		},
 		methods: {

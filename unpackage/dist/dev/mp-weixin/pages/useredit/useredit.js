@@ -12,7 +12,7 @@ const _sfc_main = {
   methods: {
     showname() {
       let result = common_vendor.index.getStorageSync("user");
-      this.username = result.user_name;
+      this.username = result.alias;
     },
     gosetnickname() {
       common_vendor.index.navigateTo({

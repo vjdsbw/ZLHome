@@ -38,11 +38,20 @@ const _sfc_main = {
       inverted: false,
       flag: false,
       show: false,
-      show2: "\u8BF7\u9009\u62E9"
+      show2: "\u8BF7\u9009\u62E9",
+      formData: {
+        consignee: "",
+        tel: "",
+        mobile: "",
+        province: "",
+        city: "",
+        district: ""
+      }
     };
   },
-  onLoad() {
+  onLoad(options) {
     this.formData.id = "testId";
+    this.checkout(options.cart_id);
   },
   created() {
     common_vendor.index.getStorageSync("address") ? this.addressList = common_vendor.index.getStorageSync("address") : this.addressList = [];

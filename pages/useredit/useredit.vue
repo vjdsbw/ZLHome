@@ -28,7 +28,7 @@
 		methods: {
 			showname(){
 				let result = uni.getStorageSync('user')
-				this.username = result.user_name;
+				this.username = result.alias;
 			},
 			gosetnickname(){
 				uni.navigateTo({

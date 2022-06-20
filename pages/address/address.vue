@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<scroll-view class="address" scroll-y="true">
+
 			<view class="info" v-if="addressList?isAddress:isShow">
 				<uni-forms border ref="form" :modelValue="formData">
 					<uni-forms-item label="收货人" required name="name">
@@ -15,14 +16,17 @@
 					<!-- value="{{region}}"  -->
 					<uni-forms-item label="所在地区" name="region">
 						<picker mode="region" @change="bindRegionChange" value="{{region}}"
+
 							custom-item="{{customItem}}">
 							<view class="picker">{{show2}}{{region}}
 								<uni-icons type="right" size="20"></uni-icons>
 							</view>
 						</picker>
 					</uni-forms-item>
+
 					<uni-forms-item label="详细地址" name="address">
 						<uni-easyinput :inputBorder="false" placeholder="必填" v-model="formData.address"></uni-easyinput>
+
 					</uni-forms-item>
 				</uni-forms>
 				<!-- 选择收货地址 -->
@@ -179,6 +183,10 @@
 
 
 <script>
+	import {
+		requestGet,
+		requestPost,
+	} from '@/common/js/http.js'
 	export default {
 		data() {
 			return {
@@ -219,13 +227,22 @@
 				inverted: false,
 				flag: false,
 				show: false,
-				show2: '请选择'
+				show2: '请选择',
+				// 表单数据
+				formData: {
+					consignee: '',
+					tel: '',
+					mobile: '',
+					province: '',
+					city:'',
+					district:'',
+				},
+
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
 			this.formData.id = 'testId';
-
+			this.checkout(options.cart_id)
 		},
 		created() {
 			uni.getStorageSync('address') ? (this.addressList = uni.getStorageSync('address')) : (this.addressList = []);
@@ -245,6 +262,7 @@
 			change(e) {
 				this.single = e;
 				console.log("-change事件:", e);
+
 			},
 			setInverted() {
 				this.inverted = !this.inverted;
@@ -335,6 +353,7 @@
 
 
 			},
+
 		}
 	}
 </script>

@@ -17,7 +17,12 @@
 						<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
 						</uni-easyinput>
 					</view>
-					<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+					<view class="jiaobiao">
+						<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+							<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+						</uni-badge>
+					</view>
+					
 				</view>
 			</view>
 			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
@@ -163,10 +168,7 @@
 		<view class="more">
 			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
-
 		</view>
-
-
 	</view>
 </template>
 
@@ -205,15 +207,28 @@
 					"jiafang", "jiashi"
 				],
 				price: [],
-				brand_url: []
+				brand_url: [],
+				gws:0
 
 			}
 		},
 		created() {
 			this.getSwipers();
-			this.getgoodList()
+			this.getgoodList();
+		
 		},
-
+		 async onShow(){
+			let user = uni.getStorageSync('user');
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+			this.gws = carnum.data.total
+		},
+		onReachBottom() {
+			if (this.flag) {
+				this.p++;
+				this.getgoodList();
+			}
+			console.log(this.p);
+		},
 		methods: {
 			tocart(){
 				uni.navigateTo({
@@ -266,7 +281,6 @@
 							}
 							this.goods_ids = this.goods_ids + `,` + this.Goods[i].goods_id
 						}
-
 						//通过goods-ids拿到价格
 						let result2 = await requestGet("/api/api/goods/get_price", {
 							goods_ids: this.goods_ids
@@ -276,12 +290,6 @@
 
 				} else {
 					this.Goods = []
-				}
-			},
-			onReachBottom() {
-				if (this.flag) {
-					this.p++;
-					this.getgoodList();
 				}
 			},
 			choosecate(id) {
