@@ -56,7 +56,6 @@
 
 		},
 		updated() {
-
 			this.getGoodImg()
 		},
 		methods: {

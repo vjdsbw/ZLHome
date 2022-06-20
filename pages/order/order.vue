@@ -1,6 +1,7 @@
 <template>
 	<van-tabs active="{{ active }}" :change="onChange">
 		<van-tab title="全部">
+
 			<view class="order" v-for="(item,index) in list" :key="item">
 				<view class="order_status_string" v-if="item.order_status_string == '已取消'">
 					<view class="customer-info">
@@ -27,8 +28,10 @@
 											</view>
 										</scroll-view>
 									</view>
+
 								</view>
 							</view>
+
 						</scroll-view>
 						<view class="good-bottom">{{item.order_add_time}} 订单号：{{item.order_sn}}</view>
 						<view class="goods-totals">共{{length[index]}}件 合计：￥{{item.order_wholesale_total_price}}</view>
@@ -62,15 +65,23 @@
 										</scroll-view>
 									</view>
 								</view>
+
 							</view>
 						</scroll-view>
 						<view class="good-bottom">{{item.order_add_time}} 订单号：{{item.order_sn}}</view>
 						<view class="goods-totals">共{{length[index]}}件 合计：￥{{item.order_wholesale_total_price}}</view>
 						<view class="buttons">
-							<button class="cancels" @click="cancel">取消订单</button>
-							<!-- <button @click="open">打开弹窗</button> -->
-							<!-- <uni-popup ref="popup" type="center" :animation="false">中间弹出 Popup</uni-popup> -->
-
+							<button class="cancels" @click="open">取消订单</button>
+							<uni-popup ref="popups" type="center">
+								<view class="tip">
+									<view class="title">提示操作</view>
+									<view class="content">确定要取消这个订单吗?</view>
+									<view class="buts">
+										<button class="cancel" @click="close">取消</button>
+										<button class="sure" @click="del(item.order_sn)">确定</button>
+									</view>
+								</view>
+							</uni-popup>
 							<button class="buyagains" @click="goCart">再次购买</button>
 							<button class="pays" @click="pay">付款</button>
 						</view>
@@ -78,7 +89,7 @@
 				</view>
 			</view>
 		</van-tab>
-		
+
 		<van-tab title="待付款">
 			<view class="order" v-for="(item,index) in list" :key="item">
 				<view class="order_status_string" v-if="item.order_status_string == '未付款'">
@@ -112,13 +123,22 @@
 						<view class="good-bottom">{{item.order_add_time}} 订单号：{{item.order_sn}}</view>
 						<view class="goods-totals">共{{length[index]}}件 合计：￥{{item.order_wholesale_total_price}}</view>
 						<view class="buttons">
-							<button class="cancels" @click="cancel">取消订单</button>
-							<!-- <button @click="open">打开弹窗</button> -->
-							<!-- <uni-popup ref="popup" type="center" :animation="false">中间弹出 Popup</uni-popup> -->
-			
+							<button class="cancels" @click="open">取消订单</button>
+							<uni-popup ref="popups" type="center">
+								<view class="tip">
+									<view class="title">提示操作</view>
+									<view class="content">确定要取消这个订单吗?</view>
+									<view class="buts">
+										<button class="cancel" @click="close">取消</button>
+										<button class="sure" @click="del(item.order_sn)">确定</button>
+									</view>
+								</view>
+							</uni-popup>
 							<button class="buyagains" @click="goCart">再次购买</button>
-							<button class="pays" @click="pay">付款</button>
+							<button class="pays"
+								@click="pay(item.order_sn,item.order_wholesale_total_price)">付款</button>
 						</view>
+
 					</view>
 				</view>
 			</view>
@@ -139,6 +159,7 @@
 			return {
 				list: [],
 				length: [],
+				newlist:[],
 			}
 		},
 		created() {
@@ -146,9 +167,10 @@
 		},
 		methods: {
 			async order() {
+				
 				let result = await requestPost("/api/api/order_list?XcxSessKey=%20&company_id=7194");
 				this.list = result.data.list
-				console.log(result.data.list);
+				console.log(result.data.list)
 				this.list.forEach(item => this.length.push(item.all_goods.length))
 
 			},
@@ -162,9 +184,26 @@
 					url: `/pages/orderdetail/orderdetail?order_sn=${order_sn}`
 				})
 			},
-			cancel() {
-				uni.showToast({
-					title: '确定要取消这个订单吗？'
+			open() {
+				this.$refs.popups[0].open()
+			},
+			close() {
+				this.$refs.popups[0].close()
+			},
+			async del(id){
+				console.log(id);
+				let result = await requestPost("/api/api/order/order_cancel",{
+					'order_sn':id,
+					'company_id':7194
+				});
+				let result2 = await requestPost("/api/api/order_list?XcxSessKey=%20&company_id=7194");
+				this.list.length =0;
+				this.list = result2.data.list
+				this.close()	
+			},
+			pay(order_sn, order_wholesale_total_price) {
+				uni.navigateTo({
+					url: `/pages/payment/payment?order_sn=${order_sn}&order_wholesale_total_price=${order_wholesale_total_price}`
 				})
 			}
 		}
@@ -199,9 +238,11 @@
 			width: 375px;
 
 			.tools {
+
 				height: 60px;
 				display: flex;
 				margin-left: 5px;
+
 
 				.goods {
 
@@ -327,5 +368,52 @@
 		flex: 1;
 		text-align: right;
 		margin-right: 10px;
+	}
+
+	.tip {
+		height: 120px;
+		width: 250px;
+		background-color: #333;
+		border-radius: 5px;
+
+		.title {
+			text-align: center;
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			padding-top: 20px;
+			letter-spacing: 2px;
+		}
+
+		.content {
+			color: #999;
+			text-align: center;
+			font-size: 12px;
+			padding-top: 10px;
+			border-bottom: 1px solid #666;
+			padding-bottom: 20px;
+		}
+
+		.buts {
+			display: flex;
+
+			.cancel {
+				color: #eee;
+				font-size: 14px;
+				height: 40px;
+				width: 50%;
+				background-color: #333;
+				border-right: 1px solid #666;
+			}
+
+			.sure {
+				color: lightblue;
+				font-size: 14px;
+				height: 40px;
+				width: 50%;
+				background-color: #333;
+			}
+		}
+
 	}
 </style>

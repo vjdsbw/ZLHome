@@ -1,6 +1,6 @@
 <template>
 	<view class="list" >
-		<view class="box" v-for="item in Goods" :key="item.goods_name" @click="togoodsdetail(item.goods_id)">
+		<view class="box" v-for="item in array" :key="item.goods_name" @click="togoodsdetail(item.goods_id)">
 			<view >
 				<view class="towBox">
 					<image :src="item.goods_img_url"></image>
@@ -22,22 +22,21 @@
 <!--   -->
 <script>	
 	export default {
-		props:["Goods","price"],
+		props:["Goods","price","psort"],
 		name:"goodList",
 		data() {
 			return {
-				// array:[]
+				array:[]
 			};
 		},
 		updated() {
-			//把价格拼接到Goods上
 			let array=[];
 				for(var m=0,n=0;m<this.price.length;m++,n++){
 						array.push(
 						Object.assign(this.Goods[n],{shop_price:this.price[m].shop_price})
 						)
 				}
-				
+			this.getgoodlist()	
 		},
 		methods:{
 			togoodsdetail(id) {
@@ -48,6 +47,23 @@
 					complete: () => {}
 				});
 			},
+			getgoodlist(){
+				let array2=[];
+					for(var m=0,n=0;m<this.price.length;m++,n++){
+							array2.push(
+							Object.assign(this.Goods[n],{shop_price:this.price[m].shop_price})
+							)
+					}
+					this.array=array2
+				if(this.psort==1){
+					this.array.sort((a,b)=>{
+						return a.shop_price-b.shop_price;})//升序)
+				}
+				else if(this.psort==2){
+					this.array.sort((a,b)=>{
+						return b.shop_price-a.shop_price;})//升序)
+				}
+			}
 		}
 	}
 </script>

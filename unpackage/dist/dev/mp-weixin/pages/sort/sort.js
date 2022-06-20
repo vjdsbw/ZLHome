@@ -8,7 +8,8 @@ const _sfc_main = {
       lists: [],
       currentIndex: 0,
       doms: "",
-      topList: []
+      topList: [],
+      gws: 0
     };
   },
   created() {
@@ -19,9 +20,25 @@ const _sfc_main = {
   },
   onLoad() {
   },
+  async onShow() {
+    let user = common_vendor.index.getStorageSync("user");
+    let carnum = await common_js_http.requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`);
+    this.gws = carnum.data.total;
+  },
   onReady() {
   },
   methods: {
+    tocart() {
+      common_vendor.index.navigateTo({
+        url: "/pages/cart/cart",
+        success: (res) => {
+        },
+        fail: () => {
+        },
+        complete: () => {
+        }
+      });
+    },
     async getList() {
       let result = await common_js_http.requestGet("/api/m/index/cate_list");
       this.title = result.data;
@@ -29,7 +46,6 @@ const _sfc_main = {
     async getListContent() {
       let result = await common_js_http.requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194");
       this.lists = result.data;
-      console.log(this.lists, "xxxxxxxxx");
     },
     goCart() {
       common_vendor.index.navigateTo({
@@ -77,12 +93,14 @@ const _sfc_main = {
 if (!Array) {
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  (_easycom_uni_search_bar2 + _easycom_uni_icons2)();
+  const _easycom_uni_badge2 = common_vendor.resolveComponent("uni-badge");
+  (_easycom_uni_search_bar2 + _easycom_uni_icons2 + _easycom_uni_badge2)();
 }
 const _easycom_uni_search_bar = () => "../../uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.js";
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+const _easycom_uni_badge = () => "../../uni_modules/uni-badge/components/uni-badge/uni-badge.js";
 if (!Math) {
-  (_easycom_uni_search_bar + _easycom_uni_icons)();
+  (_easycom_uni_search_bar + _easycom_uni_icons + _easycom_uni_badge)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -93,12 +111,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       cancelButton: "none"
     }),
     c: common_vendor.o((...args) => _ctx.tosearch && _ctx.tosearch(...args)),
-    d: common_vendor.o($options.goCart),
+    d: common_vendor.o($options.tocart),
     e: common_vendor.p({
       type: "cart",
       size: "30"
     }),
-    f: common_vendor.f($data.title, (item, idx, i0) => {
+    f: common_vendor.p({
+      size: "small",
+      text: $data.gws,
+      absolute: "rightTop",
+      type: "error"
+    }),
+    g: common_vendor.f($data.title, (item, idx, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.n({
@@ -108,7 +132,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.leftClick(idx, item), item.id)
       };
     }),
-    g: common_vendor.f($data.lists, (item, index, i0) => {
+    h: common_vendor.f($data.lists, (item, index, i0) => {
       return {
         a: common_vendor.t(item.desc),
         b: common_vendor.f(item.cat_list, (item1, index1, i1) => {
@@ -123,9 +147,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: "po" + index
       };
     }),
-    h: $data.doms,
-    i: common_vendor.o((...args) => $options.scrolls && $options.scrolls(...args)),
-    j: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
+    i: $data.doms,
+    j: common_vendor.o((...args) => $options.scrolls && $options.scrolls(...args)),
+    k: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/pages/sort/sort.vue"]]);

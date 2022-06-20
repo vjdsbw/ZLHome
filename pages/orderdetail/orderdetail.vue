@@ -121,10 +121,25 @@
 				</view>
 			</view>
 		</view>
-		<view class="again">
+		<view class="again" v-if="order_info.order_status_string == '已取消'">
 			<view class="button" @click="goCart">
 				再次购买
 			</view>
+		</view>
+		<view class="again1" v-else="order_info.order_status_string == '未付款'">
+				<button class="open">取消订单</button>
+				<uni-popup ref="popups" type="center">
+					<view class="tip">
+						<view class="title">提示操作</view>
+						<view class="content">确定要取消这个订单吗?</view>
+						<view class="buts">
+							<button class="cancels" @click="close">取消</button>
+							<button class="sure" @click="del">确定</button>
+						</view>
+					</view>
+				</uni-popup>
+				<button class="buyagain" @click="goCart">再次购买</button>
+				<button class="payment" @click="goPayment(order_info.order_sn,order_info.order_total_price)">付款</button>
 		</view>
 	</view>
 </template>
@@ -139,7 +154,7 @@
 			return {
 				order_sn: "",
 				order_info: {},
-				order_goods_info: []
+				order_goods_info: [],
 			}
 		},
 		onLoad(options) {
@@ -158,7 +173,15 @@
 				uni.navigateTo({
 					url:'/pages/cart/cart'
 				})
-			}
+			},
+			goPayment(order_sn,order_total_price){
+				uni.navigateTo({
+					url:`/pages/payment/payment?order_sn=${order_sn}&order_total_price=${order_total_price}`
+				})
+			},
+			open() {
+				this.$refs.popups[0].open()
+			},
 		}
 	}
 </script>
@@ -368,7 +391,39 @@
 				margin-bottom: 5px;
 			}
 		}
-
-
+		.again1{
+			height: 50px;
+			width: 100%;
+			border-top: 1px solid #919191;
+			background-color: #fff;
+			position: fixed;
+			bottom: 0px;
+			display: flex;
+			.open{
+				background-color: #fff;
+				height: 35px;
+				line-height: 35px;
+				width: 90px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+			.buyagain{
+				background-color: #fff;
+				height: 35px;
+				line-height: 35px;
+				width: 90px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+			.payment{
+				background-color: red;
+				color: #fff;
+				height: 35px;
+				width: 90px;
+				line-height: 35px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+		}
 	}
 </style>
