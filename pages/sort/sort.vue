@@ -2,11 +2,15 @@
 	<!-- 搜索 -->
 	<view class="header">
 		<view class="search" @click="tosearch">
-			<uni-search-bar placeholder="输入商品分类、名称" :radius="100" @confirm="search" cancelButton="none"></uni-search-bar>
+			<uni-search-bar placeholder="输入商品分类、名称" :radius="100" @confirm="search" cancelButton="none">
+			</uni-search-bar>
 		</view>
-		<view class="cart">
-			<uni-icons class="cart" type="cart" size="30" @click="goCart"></uni-icons>
+		<view class="jiaobiao">
+			<uni-badge size="small" :text="gws" absolute="rightTop" type="error">
+				<uni-icons type="cart" size="30" @click="tocart"></uni-icons>
+			</uni-badge>
 		</view>
+
 	</view>
 	<view class="container d-flex h-100">
 		<!-- 左边列表 -->
@@ -22,7 +26,8 @@
 			<view class="right-scroll-item" v-for="(item,index) in lists" :key="index" :id="'po'+index">
 				<view class="title-lists">——{{item.desc}}——</view>
 				<view class="lists">
-					<view class="content" v-for="(item1,index1) in item.cat_list" :key="item1.id" @click="goGood(item1.url_type,item1.name)" >
+					<view class="content" v-for="(item1,index1) in item.cat_list" :key="item1.id"
+						@click="goGood(item1.url_type,item1.name)">
 						<image class="img" :src="item1.image_url"></image>
 						<view class="list-title">{{item1.desc_three}}</view>
 					</view>
@@ -34,7 +39,8 @@
 
 <script>
 	import {
-		requestGet
+		requestGet,
+		requestPost
 	} from '@/common/js/http.js'
 	export default {
 		data() {
@@ -43,7 +49,8 @@
 				lists: [],
 				currentIndex: 0,
 				doms: '',
-				topList: []
+				topList: [],
+				gws: 0
 			}
 		},
 		created() {
@@ -55,19 +62,30 @@
 		onLoad() {
 
 		},
+		async onShow() {
+			let user = uni.getStorageSync('user');
+			let carnum = await requestPost(`/api/api/get_cart_num?company_id=${user.company_id}`)
+			this.gws = carnum.data.total
+		},
 		onReady() {
 
 		},
 		methods: {
+			tocart(){
+				uni.navigateTo({
+					url: '/pages/cart/cart',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			async getList() {
 				let result = await requestGet("/api/m/index/cate_list")
 				this.title = result.data
-				// console.log(this.title,"xxxxxxxxxxxxxxx");
 			},
 			async getListContent() {
 				let result = await requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194")
 				this.lists = result.data
-				console.log(this.lists,"xxxxxxxxx");
 			},
 			goCart(){
 				uni.navigateTo({
@@ -75,7 +93,7 @@
 				})
 			},
 			//跳转商品
-			goGood(pinyin,chinese){
+			goGood(pinyin, chinese) {
 				pinyin = pinyin.split("-")[1].split("/")[0];
 
 				uni.navigateTo({
@@ -123,6 +141,13 @@
 	.header {
 		display: flex;
 		background-color: #fff;
+
+		.jiaobiao {
+			position: absolute;
+			right: 50rpx;
+			top: 30rpx;
+		}
+
 		.search {
 			/deep/.uni-searchbar {
 				width: 290px;
@@ -141,7 +166,8 @@
 				}
 			}
 		}
-		.cart{
+
+		.cart {
 			position: relative;
 			top: 5px;
 			right: -10px;

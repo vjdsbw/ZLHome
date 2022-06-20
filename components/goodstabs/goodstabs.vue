@@ -24,6 +24,8 @@
 							<text class="value1">{{i.value}}</text>
 						</view>
 					</view>
+
+
 				</view>
 			</view>
 			

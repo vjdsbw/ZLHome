@@ -36,12 +36,18 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx683b247ef7b12582",
+        "appid" : "wx4115a7dd34081dbb",
+
         "setting" : {
             "urlCheck" : false,
-            "es6" : false
+            "es6" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
+        }
     },
     "vueVersion" : "3"
 }

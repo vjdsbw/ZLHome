@@ -121,10 +121,16 @@
 				</view>
 			</view>
 		</view>
-		<view class="again">
-			<view class="button" @click="goCart">
+
+		<view class="again" v-if="order_info.order_status_string == '已取消'">
+			<view class="button" @click="goCart(order_info.order_id)">
 				再次购买
 			</view>
+		</view>
+		<view class="again1" v-else="order_info.order_status_string == '未付款'">
+				<button class="cancel" @click="cancel(order_info.order_sn)">取消订单</button>
+				<button class="buyagain" @click="goCart">再次购买</button>
+				<button class="payment"  @click="goPayment(order_info.order_sn,order_info.order_total_price)">付款</button>
 		</view>
 	</view>
 </template>
@@ -139,7 +145,8 @@
 			return {
 				order_sn: "",
 				order_info: {},
-				order_goods_info: []
+				order_goods_info: [],
+				flag: true,
 			}
 		},
 		onLoad(options) {
@@ -154,11 +161,23 @@
 				this.order_info = result.data.order_info;
 				this.order_goods_info = result.data.order_goods_info
 			},
-			goCart(){
+			goCart(order_id){
 				uni.navigateTo({
-					url:'/pages/cart/cart'
+					url:`/pages/cart/cart?order_id=${order_id}`
 				})
-			}
+			},
+			goPayment(order_sn,order_total_price){
+				uni.navigateTo({
+					url:`/pages/payment/payment?order_sn=${order_sn}&order_total_price=${order_total_price}`
+				})
+			},
+			async cancel(id) {
+				let result2 = await requestPost("/api/api/order/order_cancel",{
+					'order_sn':id,
+					'company_id':7194
+				});
+				this.orderdetails()
+			},
 		}
 	}
 </script>
@@ -368,7 +387,39 @@
 				margin-bottom: 5px;
 			}
 		}
-
-
+		.again1{
+			height: 50px;
+			width: 100%;
+			border-top: 1px solid #919191;
+			background-color: #fff;
+			position: fixed;
+			bottom: 0px;
+			display: flex;
+			.cancel{
+				background-color: #fff;
+				height: 35px;
+				line-height: 35px;
+				width: 90px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+			.buyagain{
+				background-color: #fff;
+				height: 35px;
+				line-height: 35px;
+				width: 90px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+			.payment{
+				background-color: red;
+				color: #fff;
+				height: 35px;
+				width: 90px;
+				line-height: 35px;
+				font-size: 14px;
+				margin-top: 10px;
+			}
+		}
 	}
 </style>

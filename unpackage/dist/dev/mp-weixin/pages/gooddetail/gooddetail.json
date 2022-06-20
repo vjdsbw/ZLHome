@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "佐罗优选",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "goodstabs": "../../components/goodstabs/goodstabs",
+    "uni-goods-nav": "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav"
+  }
+}
