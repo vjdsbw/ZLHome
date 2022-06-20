@@ -12,6 +12,7 @@ const _sfc_main = {
       maxvalue: "",
       isChoose: true,
       noChoose: false,
+      flagg: true,
       num: null,
       temp: 0,
       myScroll: 0,
@@ -248,6 +249,7 @@ const _sfc_main = {
     options.name && !options.pinyin ? this.value = options.name : this.value;
     if (options.name && options.v) {
       let result = await common_js_http.requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+      console.log(result, "xxxxxxxxxxx111111");
       this.Goods = result.data.goods_list;
       for (var i = 0; i < this.Goods.length; i++) {
         if (i == 0) {
@@ -442,8 +444,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       price: $data.price,
       psort: $data.psort
     }),
-    T: !$data.flag
-  }, !$data.flag ? {
+    T: !$data.flagg
+  }, !$data.flagg ? {
     U: common_vendor.p({
       status: "loading"
     })
