@@ -127,19 +127,9 @@
 			</view>
 		</view>
 		<view class="again1" v-else="order_info.order_status_string == '未付款'">
-				<button class="open">取消订单</button>
-				<uni-popup ref="popups" type="center">
-					<view class="tip">
-						<view class="title">提示操作</view>
-						<view class="content">确定要取消这个订单吗?</view>
-						<view class="buts">
-							<button class="cancels" @click="close">取消</button>
-							<button class="sure" @click="del">确定</button>
-						</view>
-					</view>
-				</uni-popup>
+				<button class="cancel" @click="cancel(order_info.order_sn)">取消订单</button>
 				<button class="buyagain" @click="goCart">再次购买</button>
-				<button class="payment" @click="goPayment(order_info.order_sn,order_info.order_total_price)">付款</button>
+				<button class="payment"  @click="goPayment(order_info.order_sn,order_info.order_total_price)">付款</button>
 		</view>
 	</view>
 </template>
@@ -155,6 +145,7 @@
 				order_sn: "",
 				order_info: {},
 				order_goods_info: [],
+				flag: true,
 			}
 		},
 		onLoad(options) {
@@ -179,8 +170,12 @@
 					url:`/pages/payment/payment?order_sn=${order_sn}&order_total_price=${order_total_price}`
 				})
 			},
-			open() {
-				this.$refs.popups[0].open()
+			async cancel(id) {
+				let result2 = await requestPost("/api/api/order/order_cancel",{
+					'order_sn':id,
+					'company_id':7194
+				});
+				this.orderdetails()
 			},
 		}
 	}
@@ -399,7 +394,7 @@
 			position: fixed;
 			bottom: 0px;
 			display: flex;
-			.open{
+			.cancel{
 				background-color: #fff;
 				height: 35px;
 				line-height: 35px;

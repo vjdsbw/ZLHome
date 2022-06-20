@@ -190,6 +190,7 @@
 			close() {
 				this.$refs.popups[0].close()
 			},
+			// 删除订单
 			async del(id){
 				console.log(id);
 				let result = await requestPost("/api/api/order/order_cancel",{
