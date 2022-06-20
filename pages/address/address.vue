@@ -282,7 +282,7 @@
 					}
 				})
 				this.noShow = true;
-				this.formdataList.push({
+				this.formdataList[this.formdataList.length+1].push({
 					name: this.formData.name,
 					phone: this.formData.phone,
 					bphone: this.formData.bphone,
@@ -290,7 +290,7 @@
 					region: this.region,
 					id: Date.now()
 				})
-				console.log(this.formdataList)
+				console.log(this.formdataList,"xxxxxxxxxxxxxxxxxxxxx")
 				uni.setStorageSync('address', this.formdataList);
 			},
 			address() {

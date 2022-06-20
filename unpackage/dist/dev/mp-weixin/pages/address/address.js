@@ -89,7 +89,7 @@ const _sfc_main = {
         }
       });
       this.noShow = true;
-      this.formdataList.push({
+      this.formdataList[this.formdataList.length + 1].push({
         name: this.formData.name,
         phone: this.formData.phone,
         bphone: this.formData.bphone,
@@ -97,7 +97,7 @@ const _sfc_main = {
         region: this.region,
         id: Date.now()
       });
-      console.log(this.formdataList);
+      console.log(this.formdataList, "xxxxxxxxxxxxxxxxxxxxx");
       common_vendor.index.setStorageSync("address", this.formdataList);
     },
     address() {
