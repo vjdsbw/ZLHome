@@ -170,6 +170,7 @@
 					url:`/pages/payment/payment?order_sn=${order_sn}&order_total_price=${order_total_price}`
 				})
 			},
+			// 删除订单
 			async cancel(id) {
 				let result2 = await requestPost("/api/api/order/order_cancel",{
 					'order_sn':id,
