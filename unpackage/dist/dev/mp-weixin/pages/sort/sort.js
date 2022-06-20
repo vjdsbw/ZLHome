@@ -47,6 +47,11 @@ const _sfc_main = {
       let result = await common_js_http.requestGet("/api/m/index/cate_list?XcxSessKey=%20&company_id=7194");
       this.lists = result.data;
     },
+    gosearch() {
+      common_vendor.index.navigateTo({
+        url: "/pages/search/search"
+      });
+    },
     goCart() {
       common_vendor.index.navigateTo({
         url: "/pages/cart/cart"
@@ -110,7 +115,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       radius: 100,
       cancelButton: "none"
     }),
-    c: common_vendor.o((...args) => _ctx.tosearch && _ctx.tosearch(...args)),
+    c: common_vendor.o((...args) => $options.gosearch && $options.gosearch(...args)),
     d: common_vendor.o($options.tocart),
     e: common_vendor.p({
       type: "cart",
