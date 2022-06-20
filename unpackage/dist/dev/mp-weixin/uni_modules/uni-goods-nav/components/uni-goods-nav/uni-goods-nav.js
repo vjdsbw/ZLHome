@@ -74,7 +74,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.f($props.options, (item, index, i0) => {
       return common_vendor.e({
-        a: "704e2a4b-0-" + i0,
+        a: "5425f722-0-" + i0,
         b: common_vendor.p({
           type: item.icon,
           size: "20",
@@ -105,5 +105,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: $props.fill ? 1 : ""
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/HBuilderXProject/ZLHome/uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav.vue"]]);
 wx.createComponent(Component);

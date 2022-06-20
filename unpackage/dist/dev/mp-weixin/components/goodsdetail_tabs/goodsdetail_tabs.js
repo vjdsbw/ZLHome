@@ -75,5 +75,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-3f5a4fc4"], ["__file", "D:/HBuilderXProject/ZLHome/components/goodsdetail_tabs/goodsdetail_tabs.vue"]]);
+var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-3f5a4fc4"], ["__file", "F:/\u65E0\u9521\u524D\u7AEF\u57F9\u8BAD/\u9A6C\u54E5\u6559\u5B66/uni-app/ZLHome/components/goodsdetail_tabs/goodsdetail_tabs.vue"]]);
 wx.createComponent(Component);
