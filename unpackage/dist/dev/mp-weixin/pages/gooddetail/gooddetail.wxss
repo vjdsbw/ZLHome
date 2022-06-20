@@ -1,8 +1,24 @@
 .container.data-v-1c515af4 {
   width: 100%;
 }
+.container .uni-container.data-v-1c515af4 {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10000000000;
+}
+.container .uni-container .goods-carts.data-v-1c515af4 {
+  position: relative;
+}
+.container .uni-container .goods-carts .jiaobiao.data-v-1c515af4 {
+  position: absolute;
+  left: 425rpx;
+  top: -12rpx;
+  z-index: 999999999999999999;
+}
 .container .active.data-v-1c515af4 {
   color: red;
+  border-color: #E31D1A;
 }
 .container .bg .swiper.data-v-1c515af4 {
   height: 564rpx;
@@ -186,6 +202,10 @@
   padding: 20rpx;
   float: left;
 }
+.container .size .canshu .motaikuang .bottomPopup .motaikuangsize .active.data-v-1c515af4 {
+  color: red;
+  border-color: #E31D1A;
+}
 .container .size .canshu .motaikuang .queding.data-v-1c515af4 {
   width: 100%;
   display: flex;
@@ -203,6 +223,7 @@
   line-height: 100rpx;
   background: #E31D1A;
   letter-spacing: 3px;
+  margin-bottom: 50px;
 }
 .container .size .caizhi.data-v-1c515af4 {
   display: flex;

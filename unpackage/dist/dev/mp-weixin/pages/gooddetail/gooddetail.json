@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "goodstabs": "../../components/goodstabs/goodstabs",
+    "uni-badge": "../../uni_modules/uni-badge/components/uni-badge/uni-badge",
     "uni-goods-nav": "../../uni_modules/uni-goods-nav/components/uni-goods-nav/uni-goods-nav"
   }
 }
