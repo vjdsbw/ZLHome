@@ -161,7 +161,7 @@
 
 		<goodList :Goods="Goods" :price="price" :psort="psort"></goodList>
 		<view class="more">
-			<uni-load-more v-if="!flag" :status="'loading'"></uni-load-more>
+			<uni-load-more v-if="!flagg" :status="'loading'"></uni-load-more>
 			<uni-load-more v-else :status="'noMore'"></uni-load-more>
 		</view>
 
@@ -184,6 +184,8 @@
 				maxvalue:"",
 				isChoose: true,
 				noChoose: false,
+                flagg:true,
+
 				num: null,
 				temp: 0,
 				myScroll: 0,
@@ -438,6 +440,7 @@
 			if (options.name && options.v) {
 				this.setTitle(options.name)
 				let result = await requestGet(`/api/api/search/?v=${options.v}&b=${options.b}`);
+				console.log(result,"xxxxxxxxxxx111111")
 				this.Goods = result.data.goods_list
 				//把Goods里的goods_id拼接起来，传给goods_ids
 				this.getgoodsids()

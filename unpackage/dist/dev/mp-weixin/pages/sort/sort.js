@@ -152,5 +152,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     k: common_vendor.o((...args) => $options.scrolltolower && $options.scrolltolower(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "D:/HBuilderXProject/ZLHome/pages/sort/sort.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a1ddb074"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/sort/sort.vue"]]);
 wx.createPage(MiniProgramPage);

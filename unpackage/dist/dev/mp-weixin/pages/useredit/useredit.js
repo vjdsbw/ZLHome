@@ -43,5 +43,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.o((...args) => $options.gosetnickname && $options.gosetnickname(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-164b1626"], ["__file", "D:/HBuilderXProject/ZLHome/pages/useredit/useredit.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-164b1626"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/useredit/useredit.vue"]]);
 wx.createPage(MiniProgramPage);

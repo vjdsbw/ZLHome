@@ -36,11 +36,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: item.brand_logo_url,
         c: common_vendor.t(item.brand_name),
         d: common_vendor.t(item.desc_t),
-        e: common_vendor.o(($event) => $options.goGoodsForKeywords(item.brand_name)),
-        f: item.brand_id
+        e: item.brand_id,
+        f: common_vendor.o(($event) => $options.goGoodsForKeywords(item.brand_name), item.brand_id)
       };
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-802078d4"], ["__file", "D:/HBuilderXProject/ZLHome/pages/brand/brand.vue"]]);
+var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-802078d4"], ["__file", "C:/Study/geek/15.uni-app/ZLHome/pages/brand/brand.vue"]]);
 wx.createPage(MiniProgramPage);

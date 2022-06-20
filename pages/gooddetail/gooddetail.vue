@@ -107,7 +107,7 @@
 			</view>
 		</view>
 
-		<goodsdetail_tabs :result="result"></goodsdetail_tabs>
+		<goodstabs :result="result"></goodstabs>
 		<view class="uni-container">
 			<view class="goods-carts">
 				<view class="jiaobiao">
@@ -153,7 +153,7 @@
 					icon: 'chat',
 					text: '佐罗优选'
 				}, {
-					icon: 'shop',
+					icon: 'list',
 					text: '分类',
 					infoBackgroundColor: '#007aff',
 					infoColor: "#f5f5f5"
@@ -183,7 +183,6 @@
 			this.goods_id = options.id
 		},
 		async onShow() {
-
 			this.getGoodDetail()
 			let user = uni.getStorageSync('user');
 			let result = uni.getStorageSync(`col${user.user_id}`)
