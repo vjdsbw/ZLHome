@@ -170,6 +170,27 @@
 		onShow() {
 			this.guesslike()
 		},
+		updated() {
+			var flag=true
+			this.shopchecked.map((item)=>{
+				if(item == false)
+				{
+					flag = false
+					console.log(flag,"1");
+				}
+			})
+			this.chebrand.map((item)=>{
+				if(item == false)
+				{
+					flag = false
+					console.log(flag,"2");
+				}
+			})
+			this.quanxuanchecked = flag
+			console.log(this.shopchecked);
+			console.log(this.chebrand);
+			console.log(this.quanxuanchecked);
+		},
 		methods: {
 			change(e) {
 				console.log(e)
@@ -325,9 +346,12 @@
 			},
 
 			selectedAll() {
-				this.shopchecked = !this.shopchecked
+				this.quanxuanchecked = !this.quanxuanchecked 
+				this.shopchecked.map((item,idx)=>{
+					this.shopchecked[idx]=this.quanxuanchecked
+				}) 
 				this.chebrand.map((item, idx) => {
-					this.chebrand[idx] = !this.chebrand[idx]
+					this.chebrand[idx]= this.quanxuanchecked
 				})
 				this.compuTotalPrice()
 			},
@@ -413,7 +437,7 @@
 			// 	this.goodsInshop = item.list
 			// })
 			// console.log(this.chebrand);
-			
+
 		}
 	}
 </script>
@@ -640,7 +664,13 @@
 
 								.jisuan {
 									display: flex;
-
+							
+                                   /deep/ van-stepper{
+					                       .van-stepper__input {
+											   position: relative;
+											   z-index: 111;
+										   }
+								   }
 									.price {
 										flex: 2;
 										color: red;
@@ -678,7 +708,7 @@
 						display: flex;
 						padding-left: 30rpx;
 						font-size: 28rpx;
-
+							z-index: 9999999999999;
 						.end-left {
 							flex: 2;
 							display: flex;
@@ -701,7 +731,7 @@
 							text-align: center;
 							line-height: 90rpx;
 							color: #fff;
-
+					
 						}
 					}
 				}

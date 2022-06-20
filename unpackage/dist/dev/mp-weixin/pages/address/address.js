@@ -11,7 +11,15 @@ const _sfc_main = {
       inverted: false,
       flag: false,
       show: false,
-      show2: "\u8BF7\u9009\u62E9"
+      show2: "\u8BF7\u9009\u62E9",
+      formData: {
+        consignee: "",
+        tel: "",
+        mobile: "",
+        province: "",
+        city: "",
+        district: ""
+      }
     };
   },
   onLoad(options) {
@@ -19,21 +27,20 @@ const _sfc_main = {
   },
   methods: {
     async checkout(id) {
-      console.log(id, "ggggggggggggggggggg");
-      let result = await common_js_http.requestPost("/api/api/flow/check_out", {
+      await common_js_http.requestPost("/api/api/flow/check_out", {
         "cart_id": id,
         "company_id": 7194
       });
-      console.log(result, "111111111111111111111");
     },
-    bindRegionChange(event) {
+    async bindRegionChange(event) {
       this.region = event.detail.value;
       this.show2 = "";
-      console.log(this.region);
-    },
-    change(e) {
-      this.single = e;
-      console.log("-change\u4E8B\u4EF6:", e);
+      let result = await common_js_http.requestPost("/api/region/get_province.html");
+      Object.keys(result.data).forEach((key) => this.region[0].includes(result.data[key]) ? this.formData.province = key : "");
+      let result2 = await common_js_http.requestPost("/api/region/get_city_" + this.formData.province + ".html");
+      Object.keys(result2.data).forEach((key) => this.region[1].includes(result2.data[key]) ? this.formData.city = key : "");
+      let result3 = await common_js_http.requestPost("/api/region/get_district_" + this.formData.city + ".html");
+      Object.keys(result3.data).forEach((key) => this.region[2].includes(result3.data[key]) ? this.formData.district = key : "");
     },
     setInverted() {
       this.inverted = !this.inverted;
@@ -54,6 +61,9 @@ const _sfc_main = {
     },
     goAddress() {
       this.close();
+    },
+    submit() {
+      console.log(this.formData);
     }
   }
 };
@@ -79,93 +89,103 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.p({
-      inputBorder: false,
-      v: true,
-      placeholder: "\u5FC5\u586B"
-    }),
+    a: common_vendor.o(($event) => $data.formData.consignee = $event),
     b: common_vendor.p({
-      label: "\u6536\u8D27\u4EBA"
+      inputBorder: false,
+      placeholder: "\u5FC5\u586B",
+      modelValue: $data.formData.consignee
     }),
     c: common_vendor.p({
-      inputBorder: false,
-      placeholder: "\u5FC5\u586B"
+      label: "\u6536\u8D27\u4EBA"
     }),
-    d: common_vendor.p({
-      label: "\u624B\u673A\u53F7\u7801"
-    }),
+    d: common_vendor.o(($event) => $data.formData.tel = $event),
     e: common_vendor.p({
       inputBorder: false,
-      placeholder: ""
+      placeholder: "\u5FC5\u586B",
+      modelValue: $data.formData.tel
     }),
     f: common_vendor.p({
+      label: "\u624B\u673A\u53F7\u7801"
+    }),
+    g: common_vendor.o(($event) => $data.formData.mobile = $event),
+    h: common_vendor.p({
+      inputBorder: false,
+      placeholder: "",
+      modelValue: $data.formData.mobile
+    }),
+    i: common_vendor.p({
       label: "\u5907\u7528\u53F7\u7801"
     }),
-    g: common_vendor.t($data.show2),
-    h: common_vendor.t($data.region[0]),
-    i: common_vendor.t($data.region[1]),
-    j: common_vendor.t($data.region[2]),
-    k: common_vendor.p({
+    j: common_vendor.t($data.show2),
+    k: common_vendor.t($data.region[0]),
+    l: common_vendor.t($data.region[1]),
+    m: common_vendor.t($data.region[2]),
+    n: common_vendor.p({
       type: "right",
       size: "20"
     }),
-    l: common_vendor.o((...args) => $options.bindRegionChange && $options.bindRegionChange(...args)),
-    m: common_vendor.p({
-      label: "\u6240\u5728\u5730\u533A"
+    o: common_vendor.o((...args) => $options.bindRegionChange && $options.bindRegionChange(...args)),
+    p: common_vendor.o(($event) => $data.formData.region = $event),
+    q: common_vendor.p({
+      label: "\u6240\u5728\u5730\u533A",
+      modelValue: $data.formData.region
     }),
-    n: common_vendor.p({
+    r: common_vendor.o(($event) => $data.formData.addressdetail = $event),
+    s: common_vendor.p({
       inputBorder: false,
-      placeholder: "\u5FC5\u586B"
+      placeholder: "\u5FC5\u586B",
+      modelValue: $data.formData.addressdetail
     }),
-    o: common_vendor.p({
+    t: common_vendor.p({
       label: "\u8BE6\u7EC6\u5730\u5740"
     }),
-    p: common_vendor.p({
-      border: true
+    v: common_vendor.p({
+      border: true,
+      modelValue: $data.formData
     }),
-    q: common_vendor.p({
+    w: common_vendor.p({
       type: "location-filled",
       size: "30"
     }),
-    r: common_vendor.o((...args) => $options.open && $options.open(...args)),
-    s: common_vendor.o($options.close),
-    t: common_vendor.p({
+    x: common_vendor.o((...args) => $options.open && $options.open(...args)),
+    y: common_vendor.o($options.close),
+    z: common_vendor.p({
       type: "closeempty",
       size: "30"
     }),
-    v: common_vendor.o((...args) => $options.goAddress && $options.goAddress(...args)),
-    w: common_vendor.sr("popup", "db675620-12"),
-    x: common_vendor.p({
+    A: common_vendor.o((...args) => $options.goAddress && $options.goAddress(...args)),
+    B: common_vendor.sr("popup", "db675620-12"),
+    C: common_vendor.p({
       type: "bottom",
       ["background-color"]: "#fff"
     }),
-    y: common_vendor.o($options.setInverted),
-    z: common_vendor.p({
+    D: common_vendor.o($options.setInverted),
+    E: common_vendor.p({
       text: "\u4F50\u7F57\u4F18\u9009\u6307\u5B9A\u7269\u6D41",
       inverted: $data.inverted,
       type: "error",
       circle: true
     }),
-    A: common_vendor.o($options.setInver),
-    B: common_vendor.p({
+    F: common_vendor.o($options.setInver),
+    G: common_vendor.p({
       text: "\u672C\u5E97\u5408\u4F5C\u7269\u6D41",
       inverted: !$data.inverted,
       type: "error",
       circle: true
     }),
-    C: common_vendor.o(_ctx.maskClick),
-    D: common_vendor.o(($event) => $data.single = $event),
-    E: common_vendor.p({
+    H: common_vendor.o(_ctx.maskClick),
+    I: common_vendor.o(($event) => $data.single = $event),
+    J: common_vendor.p({
       type: "date",
       ["clear-icon"]: false,
       border: false,
       modelValue: $data.single
     }),
-    F: common_vendor.p({
+    K: common_vendor.p({
       type: "right",
       size: "20"
     }),
-    G: $data.flag ? 1 : ""
+    L: $data.flag ? 1 : ""
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-db675620"], ["__file", "D:/HBuilderXProject/ZLHome/pages/address/address.vue"]]);

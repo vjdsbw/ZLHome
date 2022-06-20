@@ -2,18 +2,18 @@
 	<view class="container">
 		<scroll-view class="address" scroll-y="true">
 			<view class="info">
-				<uni-forms border>
+				<uni-forms border :modelValue="formData">
 					<uni-forms-item label="收货人">
-						<uni-easyinput :inputBorder="false" v placeholder="必填"></uni-easyinput>
+						<uni-easyinput :inputBorder="false" v-model="formData.consignee" placeholder="必填"></uni-easyinput>
 					</uni-forms-item>
 					<uni-forms-item label="手机号码">
-						<uni-easyinput :inputBorder="false" placeholder="必填"></uni-easyinput>
+						<uni-easyinput :inputBorder="false" v-model="formData.tel" placeholder="必填"></uni-easyinput>
 					</uni-forms-item>
 					<uni-forms-item label="备用号码">
-						<uni-easyinput :inputBorder="false" placeholder=""></uni-easyinput>
+						<uni-easyinput :inputBorder="false" v-model="formData.mobile" placeholder=""></uni-easyinput>
 					</uni-forms-item>
-					<uni-forms-item label="所在地区">
-						<picker mode="region" @change="bindRegionChange" value="{{region}}"
+					<uni-forms-item label="所在地区" v-model="formData.region">
+						<picker mode="region" @change="bindRegionChange" value="{{formData.region}}"
 							custom-item="{{customItem}}">
 							<!-- <uni-easyinput :inputBorder="false" placeholder="请选择"></uni-easyinput> -->
 							<view class="picker">{{show2}}{{region[0]}} {{region[1]}} {{region[2]}}
@@ -22,7 +22,8 @@
 						</picker>
 					</uni-forms-item>
 					<uni-forms-item label="详细地址">
-						<uni-easyinput :inputBorder="false" placeholder="必填"></uni-easyinput>
+						<uni-easyinput :inputBorder="false" v-model="formData.addressdetail" placeholder="必填">
+						</uni-easyinput>
 					</uni-forms-item>
 				</uni-forms>
 				<!-- 选择收货地址 -->
@@ -94,30 +95,40 @@
 				flag: false,
 				show: false,
 				show2: '请选择',
-				
+				// 表单数据
+				formData: {
+					consignee: '',
+					tel: '',
+					mobile: '',
+					province: '',
+					city:'',
+					district:'',
+				},
+
 			}
 		},
 		onLoad(options) {
 			this.checkout(options.cart_id)
 		},
 		methods: {
-			async checkout(id){	
-				console.log(id,"ggggggggggggggggggg");
-				let result = await requestPost("/api/api/flow/check_out",{
-					"cart_id":id,
-					"company_id":7194,
+			async checkout(id) {
+				let result = await requestPost("/api/api/flow/check_out", {
+					"cart_id": id,
+					"company_id": 7194,
 				})
-				console.log(result,"111111111111111111111");
 			},
-			bindRegionChange(event) {
-				// console.log(event.detail.value)
+			async bindRegionChange(event) {
 				this.region = event.detail.value
 				this.show2 = ''
-				console.log(this.region)
-			},
-			change(e) {
-				this.single = e;
-				console.log("-change事件:", e);
+				//获取省
+				let result = await requestPost("/api/region/get_province.html")
+				Object.keys(result.data).forEach(key=>this.region[0].includes(result.data[key])?this.formData.province = key:"")
+				//获取市
+				let result2 = await requestPost("/api/region/get_city_"+this.formData.province+".html")
+				Object.keys(result2.data).forEach(key=>this.region[1].includes(result2.data[key])?this.formData.city = key:"")
+				//获取区
+				let result3 = await requestPost("/api/region/get_district_"+this.formData.city+".html")
+				Object.keys(result3.data).forEach(key=>this.region[2].includes(result3.data[key])?this.formData.district = key:"")				
 			},
 			setInverted() {
 				this.inverted = !this.inverted;
@@ -140,6 +151,9 @@
 			goAddress() {
 				this.close()
 			},
+			submit() {
+				console.log(this.formData);
+			}
 		}
 	}
 </script>
@@ -230,6 +244,7 @@
 				}
 			}
 		}
+
 		.deli {
 			color: #666;
 			font-size: 12px;
