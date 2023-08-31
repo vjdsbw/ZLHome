@@ -34,7 +34,7 @@
 						<view @click="showDrawer">筛选
 							<uni-icons custom-prefix="iconfont" type="icon-shaixuan" size="14"></uni-icons>
 						</view>
-						<uni-drawer ref="showRight" mode="right" width="320" :mask-click="true">
+						<uni-drawer ref="showRight" mode="right" :width="320" :mask-click="true">
 							<view class="scroll-view">
 								<scroll-view class="scroll-view-box" scroll-y="true">
 									<view class="screen">
