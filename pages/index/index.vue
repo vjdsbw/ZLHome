@@ -5,7 +5,7 @@
 		<view id="boxFixed" v-if="is_fixed == true" class="topfixed">
 
 			<view class="fixtransform" @click="tosearch()">
-				<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
+				<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" :inputBorder="false">
 				</uni-easyinput>
 			</view>
 		</view>
@@ -14,7 +14,7 @@
 			<view class="uni-common-mt">
 				<view class="uni-form-item uni-column">
 					<view class="fixtransform" @click="tosearch()">
-						<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" inputBorder="false">
+						<uni-easyinput disabled prefixIcon="search" placeholder="输入品牌或产品型号" :inputBorder="false">
 						</uni-easyinput>
 					</view>
 					<view class="jiaobiao">
