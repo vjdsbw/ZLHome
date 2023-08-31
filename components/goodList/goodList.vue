@@ -55,13 +55,24 @@
 			},
 			getgoodlist() {
 				let array2 = [];
-				for (var m= 0, n = 0; m<this.Goods.length; m++, n++) {
-					array2.push(
-						Object.assign(this.Goods[n], {
-							shop_price: this.price[m].shop_price
-						})
-					)
-				}
+				// for (var m= 0, n = 0; m<this.Goods.length; m++, n++) {
+				// 	array2.push(
+				// 		Object.assign(this.Goods[n], {
+				// 			shop_price: this.price[m].shop_price
+				// 		})
+				// 	)
+				// }
+								this.Goods.forEach((item,index)=>{
+					this.price.forEach((itm)=>{
+						if(itm.goods_id == item.goods_id){
+							array2.push(
+								Object.assign(item, {
+									shop_price: itm.shop_price
+								})
+							)
+						}
+					})
+				})
 				this.array = array2
 				if (this.psort == 1) {
 					this.array.sort((a, b) => {
